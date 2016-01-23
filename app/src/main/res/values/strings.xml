@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">Space shooter 3D Project</string>
+    <string name="level_txtViewStr">Selected Level: </string>
+    <string name="difficulty_txtViewStr">Difficulty level: </string>
+    <string name="enemys_txtViewStr">Number of enemys: </string>
+    <string-array name="levels">
+        <item>level1</item>
+        <item>level2</item>
+        <item>level3</item>
+    </string-array>
+</resources>

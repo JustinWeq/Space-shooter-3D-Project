@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="18dp"
+    android:paddingTop="18dp"
+   >
+
+    <TextView
+        android:id="@+id/level_txtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/level_txtViewStr"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        />
+    <TextView
+        android:id="@+id/number_txtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/level_txtView"
+        android:layout_alignLeft= "@id/level_txtView"
+        android:layout_marginTop="18dp"
+        android:text="@string/enemys_txtViewStr"
+        />
+    <TextView
+        android:id="@+id/difficulty_txtView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/number_txtView"
+        android:layout_alignLeft = "@id/level_txtView"
+        android:layout_marginTop="18dp"
+        android:text="@string/difficulty_txtViewStr"
+        />
+    <Button
+        android:id="@+id/ok_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below ="@id/difficulty_txtView"
+        android:layout_alignLeft = "@id/difficulty_txtView"
+        android:layout_marginTop="18dp"
+        android:text="Start"
+        android:onClick="onClickOK"/>
+
+</LinearLayout>

@@ -17,19 +17,7 @@ public class ShipShader {
     private int m_vertexShader;
     private int m_program;
 
-    private final String vertexShaderCode =
-            "uniform mat4 uMVPMatrix;" +
-                    "attribute vec4 vPosition;" +
-                    "void main() {" +
-                    "  gl_Position = uMVPMatrix *  vPosition;" +
-                    "}";
 
-    private final String fragmentShaderCode =
-            "precision mediump float;" +
-                    "uniform vec4 vColor;" +
-                    "void main() {" +
-                    "  gl_FragColor = vColor;" +
-                    "}";
 
     public ShipShader(String vertexShaderAddress,String fragmentShaderAddress,AssetManager manager)
     {
@@ -42,7 +30,7 @@ public class ShipShader {
             String news;
             while((news = reader.readLine()) != null) strBuild.append(news);
             //compile vertex shader
-            m_vertexShader = loadShader(GLES20.GL_VERTEX_SHADER,vertexShaderCode);
+            m_vertexShader = loadShader(GLES20.GL_VERTEX_SHADER,strBuild.toString());
 
             is.close();
             //load the fragment shader
@@ -51,7 +39,7 @@ public class ShipShader {
             strBuild = new StringBuilder();
             while((news = reader.readLine()) != null) strBuild.append(news);
             //compile fragment shader code
-            m_fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER,fragmentShaderCode);
+            m_fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER,strBuild.toString());
 
             //shaders have been compiled
             m_program = GLES20.glCreateProgram();

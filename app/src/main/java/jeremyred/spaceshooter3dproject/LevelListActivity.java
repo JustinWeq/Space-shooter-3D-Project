@@ -22,6 +22,7 @@ public class LevelListActivity extends Activity {
         setContentView(R.layout.main_content);
         Manager = getAssets();
 
+
     }
 
     public void onClickOk(View view)
@@ -29,7 +30,7 @@ public class LevelListActivity extends Activity {
         //set up new intent to go to new activity
         Intent intent = new Intent(this,LevelDetailsActivity.class);
         Spinner spinner = (Spinner) findViewById(R.id.levels);
-        intent.putExtra(SELECTED_LEVEL,"levels/"+spinner.getSelectedItem().toString());
+        intent.putExtra(SELECTED_LEVEL,spinner.getSelectedItemId());
         startActivity(intent);
     }
 }

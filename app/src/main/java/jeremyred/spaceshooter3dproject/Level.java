@@ -188,6 +188,40 @@ public class Level {
         return null;
     }
 
+    @Override
+    public String toString()
+    {
+        return m_levelName;
+    }
+
+    @Override
+    public boolean equals(Object other){
+        if(this == other) return true;
+
+        if(other == null || (this.getClass() != other.getClass())) return false;
+
+        Level otherLevel = (Level) other;
+        return (this.m_enemys.size() == otherLevel.m_enemys.size() &&
+         this.m_levelName == otherLevel.m_levelName &&
+         this.m_difficulty == otherLevel.m_difficulty);
+    }
+
+    @Override
+    public int hashCode(){
+        int result = 0;
+        result = 31*result + m_enemys.size();
+        result = 31*result+ m_levelName.hashCode();
+        result = 31*result + m_difficulty.hashCode();
+        return result;
+    }
+
+
+    public int compareTo(Level other)
+    {
+        return (this.m_difficulty.compareTo(other.m_difficulty));
+    }
+
+
 
 
 

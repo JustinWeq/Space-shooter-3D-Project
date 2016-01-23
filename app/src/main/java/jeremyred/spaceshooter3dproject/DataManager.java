@@ -1,5 +1,8 @@
 package jeremyred.spaceshooter3dproject;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 /**
@@ -7,14 +10,26 @@ import java.util.ArrayList;
  */
 public class DataManager {
     private static DataManager dataManager;
-    private ArrayList<Enemy> enemyList;
-    private int nextListEnemy;
+    private ArrayList<Level> levelList;
+    private int nextListLevel;
 
     private DataManager()
     {
-        enemyList = new ArrayList<>();
-        enemyList.add(new Enemy());
-        nextListEnemy++;
+        levelList = new ArrayList<>();
+        try {
+            InputStream is = LevelListActivity.Manager.open("levels/LevelList");
+            BufferedReader br = new BufferedReader(new InputStreamReader(is));
+            String line = "";
+            while((line = br.readLine()) != null && line != "")
+            {
+                levelList.add(new Level("levels/" +line,LevelListActivity.Manager));
+            }
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
+
     }
 
     public static DataManager getDataManager()
@@ -26,8 +41,8 @@ public class DataManager {
         return dataManager;
     }
 
-    public ArrayList<Enemy> getEnemyList()
+    public ArrayList<Level> getLevelList()
     {
-        return  enemyList;
+        return  levelList;
     }
 }

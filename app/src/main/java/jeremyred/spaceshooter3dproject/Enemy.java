@@ -189,5 +189,62 @@ public class Enemy {
     }
     //misc private and protected methods
 
+    @Override
+    public String toString()
+    {
+        return m_name;
+    }
 
+    @Override
+    public boolean equals(Object other)
+    {
+        if(this == other) return true;
+
+        if(other == null || (this.getClass() != other.getClass())) return false;
+
+        Enemy otherEnemy = (Enemy)other;
+
+        return(
+                this.m_name == otherEnemy.m_name &&
+                        this.m_rateOfFire == otherEnemy.m_rateOfFire
+                &&
+                        this.m_damage == otherEnemy.m_damage
+                &&
+                        this.m_HP == otherEnemy.m_HP
+                &&
+                        this.m_modelID == otherEnemy.m_modelID
+                &&
+                        this.m_x == otherEnemy.m_x
+                &&
+                        this.m_y == otherEnemy.m_y
+                &&
+                        this.m_z == otherEnemy.m_z
+                );
+    }
+
+    @Override
+    public int hashCode()
+    {
+        float result = 0;
+        result = 31*result + m_x;
+        result = 31*result + m_y;
+        result = 31*result+ m_z;
+        result = 31*result + m_name.hashCode();
+        result = 31*result + m_modelID;
+        result = 32*result + m_HP;
+        result = 31*result + m_damage;
+        result = 31*result + m_rateOfFire;
+        return (int)result;
+    }
+
+    public int compareTo(Object other)
+    {
+        //return 0 if its a diffrent typ
+        if(this.getClass() != other.getClass())
+        {
+            return 0;
+        }
+        Enemy otherEnemy = (Enemy)other;
+        return (int)(this.m_damage - otherEnemy.getDamage());
+    }
 }

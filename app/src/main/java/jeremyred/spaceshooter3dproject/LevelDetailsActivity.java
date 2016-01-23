@@ -20,7 +20,15 @@ public class LevelDetailsActivity extends Activity {
         setContentView(R.layout.level_details_layout);
         //create the level data and load it
         AssetManager manager = getAssets();
-        m_level = new Level(getIntent().getStringExtra(LevelListActivity.SELECTED_LEVEL),manager);
+        try{
+            DataManager dataManager = DataManager.getDataManager();
+            m_level  = dataManager.getLevelList().get((int)(getIntent().getLongExtra(
+                    LevelListActivity.SELECTED_LEVEL,0)));
+        }
+        catch(Exception ex)
+        {
+            ex.printStackTrace();
+        }
         //set the text values
         TextView view = (TextView) findViewById(R.id.level_txtView);
         view.setText(view.getText()+m_level.getName());

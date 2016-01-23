@@ -78,6 +78,7 @@ public class ShipShader {
         //get handle to vertex shaders vPosition member
         int positionHandle = GLES20.glGetAttribLocation(m_program,"vPosition");
 
+
         //enable a handle to the models vertices
         GLES20.glEnableVertexAttribArray(positionHandle);
 

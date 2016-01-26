@@ -58,14 +58,14 @@ public class Model {
         m_normalsBuffer.position(0);
 
         //create buffer for the texture coordinates
-        bb = ByteBuffer.allocateDirect(m_uvs.length*4);
-        bb.order(ByteOrder.nativeOrder());
+        //bb = ByteBuffer.allocateDirect(m_uvs.length*4);
+      //  bb.order(ByteOrder.nativeOrder());
 
-        m_uvsBuffer = bb.asFloatBuffer();
+      //  m_uvsBuffer = bb.asFloatBuffer();
         //put the uv data in the uv buffer
-        m_uvsBuffer.put(m_uvs);
+        //m_uvsBuffer.put(m_uvs);
         //set the buffer position to 0
-        m_uvsBuffer.position(0);
+       // m_uvsBuffer.position(0);
     }
 
     public FloatBuffer getVertexBuffer()
@@ -106,12 +106,12 @@ public class Model {
                 else if(args[0].equals("vt"))
                 {
                     //read new texture
-                    float texture[] = new float[2];
-
-                    texture[0] = Float.parseFloat(args[1]);
-                    texture[1] = Float.parseFloat(args[2]);
-
-                    textureData.add(texture);
+//                    float texture[] = new float[2];
+//
+//                    texture[0] = Float.parseFloat(args[1]);
+//                    texture[1] = Float.parseFloat(args[2]);
+//
+//                    textureData.add(texture);
 
                 }
                 else if(args[0].equals("vn"))
@@ -133,8 +133,8 @@ public class Model {
                     int index = Integer.parseInt(face[0])-1;
                     indexData.add(index);
                     //read texture index data
-                    index = Integer.parseInt(face[1]) -1;
-                    textureIndexData.add(index);
+//                    index = Integer.parseInt(face[1]) -1;
+//                    textureIndexData.add(index);
                     //read normal index data
                     index = Integer.parseInt(face[2])-1;
                     normalsIndexData.add(index);
@@ -145,8 +145,8 @@ public class Model {
                     index = Integer.parseInt(face[0])-1;
                     indexData.add(index);
                     //read texture index data
-                    index = Integer.parseInt(face[1]) -1;
-                    textureIndexData.add(index);
+//                    index = Integer.parseInt(face[1]) -1;
+//                    textureIndexData.add(index);
                     //read normal index data
                     index = Integer.parseInt(face[2])-1;
                     normalsIndexData.add(index);
@@ -158,8 +158,8 @@ public class Model {
                     index = Integer.parseInt(face[0])-1;
                     indexData.add(index);
                     //read texture index data
-                    index = Integer.parseInt(face[1]) -1;
-                    textureIndexData.add(index);
+//                    index = Integer.parseInt(face[1]) -1;
+//                    textureIndexData.add(index);
                     //read normal index data
                     index = Integer.parseInt(face[2])-1;
                     normalsIndexData.add(index);
@@ -182,11 +182,11 @@ public class Model {
                 verticies.add(vertex[1]);
                 verticies.add(vertex[2]);
                 //read texture
-                index = textureIndexData.get(i);
-                float[] texture;
-                texture = textureData.get(index);
-                textures.add(texture[0]);
-                textures.add(texture[1]);
+//                index = textureIndexData.get(i);
+//                float[] texture;
+//                texture = textureData.get(index);
+//                textures.add(texture[0]);
+//                textures.add(texture[1]);
                 //read normal
                 index = normalsIndexData.get(i);
                 float[] normal = normalsData.get(index);
@@ -201,11 +201,11 @@ public class Model {
                 m_vertices[i] = verticies.get(i);
             }
 
-            m_uvs = new float[textures.size()];
-            for(int i = 0;i < m_uvs.length;i++)
-            {
-                m_uvs[i] = textures.get(i);
-            }
+//            m_uvs = new float[textures.size()];
+//            for(int i = 0;i < m_uvs.length;i++)
+//            {
+//                m_uvs[i] = textures.get(i);
+//            }
 
             m_normals = new float[normals.size()];
             for(int i = 0;i < m_normals.length;i++)

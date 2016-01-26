@@ -83,9 +83,16 @@ public class ShipShader {
         GLES20.glEnableVertexAttribArray(positionHandle);
 
         //Prepare the triangle
-        GLES20.glVertexAttribPointer(positionHandle,model.COORDS_PER_VERTEX,
-                GLES20.GL_FLOAT,false,model.COORDS_PER_VERTEX*4,model.getVertexBuffer()
-                );
+        GLES20.glVertexAttribPointer(positionHandle, model.COORDS_PER_VERTEX,
+                GLES20.GL_FLOAT, false, model.COORDS_PER_VERTEX * 4, model.getVertexBuffer()
+        );
+
+        int normalHandle = GLES20.glGetAttribLocation(m_program,"aNormal");
+
+        GLES20.glEnableVertexAttribArray(normalHandle);
+
+        GLES20.glVertexAttribPointer(normalHandle, model.COORDS_PER_VERTEX, GLES20.GL_FLOAT,
+                false, model.COORDS_PER_VERTEX * 4, model.getNormalsBuffer());
 
         //get the handle to the framet shaders color member
         int colorHandle = GLES20.glGetUniformLocation(m_program,"vColor");
@@ -99,11 +106,28 @@ public class ShipShader {
         //pass the mvp matrix
         GLES20.glUniformMatrix4fv(MVPHandle,1,false,MVP,0);
 
+        int MHandle = GLES20.glGetUniformLocation(m_program,"uMMatrix");
+
+        //pass the model matrix;
+        GLES20.glUniformMatrix4fv(MHandle,1,false,modelMatrix,0);
+
+        int VHandle = GLES20.glGetUniformLocation(m_program,"uVMatrix");
+
+        //pass the view matrix
+        GLES20.glUniformMatrix4fv(VHandle,1,false,view,0);
+
+        int PHandle = GLES20.glGetUniformLocation(m_program,"uPMatrix");
+
+        GLES20.glUniformMatrix4fv(PHandle,1,false,projection,0);
+
+        //GLES20.glDisable(GLES20.GL_CULL_FACE);
+
         //Draw the model
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,model.getVertexCount());
+        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, model.getVertexCount());
 
         //Disable vertex array
         GLES20.glDisableVertexAttribArray(positionHandle);
+        GLES20.glDisableVertexAttribArray(normalHandle);
     }
 
     public static int loadShader(int type,String shaderCode)

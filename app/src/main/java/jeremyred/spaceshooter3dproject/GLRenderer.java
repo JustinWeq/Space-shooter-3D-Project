@@ -7,7 +7,6 @@ import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.view.InputDevice;
-
 import java.util.ArrayList;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -25,10 +24,12 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     float[] m_projection = new float[16];
     float m_angle;
     boolean controllerIsConnected;
+    float m_screenWidth;
+    float m_screenHeight;
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        m_model = new Model("Models/ship.obj",Manager);
+        m_model = new Model("Models/test.obj",Manager);
         m_shader = new ShipShader("shaders/vertexShader.glsl","shaders/fragmentShader.glsl",LevelListActivity.Manager);
         //set the background frame color
         GLES20.glClearColor(0, 1, 0, 1);
@@ -46,14 +47,15 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         //redraw the background color
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         float[] view = new float[16];
-        float[] world = new float[16];
-        Matrix.setIdentityM(world,0);
-        Matrix.setLookAtM(view, 0, -3, -3, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+        Matrix.perspectiveM(view,0,70,m_screenWidth/m_screenHeight,1,70);
+        Matrix.setLookAtM(view, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
         //Matrix.translateM(world, 0, world, 0, 0, 0, 0);
-        Matrix.setRotateM(world, 0, m_angle, 1, 0, 0);
+      // Matrix.setRotateM(world, 0, m_angle, 1, 0, 0);
 
-       // place.setRotY(m_angle);
+        place.setRotX(m_angle);
+        //place.setRotY(m_angle);
+        //place.setRotZ(m_angle);
         //rotate world
         float[] color= {1,1,1,1};
         float[] world2 = place.getMatrix();
@@ -65,6 +67,8 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     {
         GLES20.glViewport(0, 0, width, height);
         float ratio = (float)width/height;
+        m_screenHeight = height;
+        m_screenWidth = width;
         Matrix.frustumM(m_projection,0,-ratio,ratio,-1,1,1,70);
     }
 

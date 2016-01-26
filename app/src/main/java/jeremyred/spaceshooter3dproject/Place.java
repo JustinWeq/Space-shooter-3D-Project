@@ -63,15 +63,12 @@ public class Place {
         Matrix.setIdentityM(rotation, 0);
 
         //rotate rotation matrix
-        Matrix.rotateM(rotation, 0, rotation, 0, m_rotX, 1, 0, 0);
+        Matrix.rotateM(rotation, 0, rotation,0, m_rotX, 1, 0, 0);
         Matrix.rotateM(rotation,0,rotation,0,m_rotY,0,1,0);
         Matrix.rotateM(rotation,0,rotation,0,m_rotZ,0,0,1);
 
-
-
-
         //set transform matrix
-        Matrix.setIdentityM(transformation,0);
+       Matrix.setIdentityM(transformation,0);
         Matrix.scaleM(transformation, 0, transformation, 0, m_scaleX, m_scaleY, m_scaleZ);
 
         //update matrix

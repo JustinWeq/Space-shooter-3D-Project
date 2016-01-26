@@ -56,6 +56,9 @@ public class Place {
         float[] translation = new float[16];
         float[] rotation = new float[16];
         float[] transformation = new float[16];
+        float[] rotationX = new float[16];
+        float[] rotationY = new float[16];
+        float[] rotationZ = new float[16];
         //identify translation
         Matrix.setIdentityM(translation, 0);
         //translate translation
@@ -63,12 +66,15 @@ public class Place {
         Matrix.setIdentityM(rotation, 0);
 
         //rotate rotation matrix
-        Matrix.rotateM(rotation, 0, rotation, 0, m_rotX, 1, 0, 0);
-        Matrix.rotateM(rotation, 0, rotation, 0, m_rotY, 0, 1, 0);
-        Matrix.rotateM(rotation,0,rotation,0,m_rotZ,0,0,1);
+        Matrix.setRotateM(rotationX,0,m_rotX,1,0,0);
+        Matrix.setRotateM(rotationY,0,m_rotY,0,1,0);
+        Matrix.setRotateM(rotationZ,0,m_rotY,0,0,1);
 
+        //put rotaions to gether
+        Matrix.multiplyMM(rotation,0,rotationX,0,rotationY,0);
+        Matrix.multiplyMM(rotation,0,rotation,0,rotationZ,0);
         //set transform matrix
-       Matrix.setIdentityM(transformation, 0);
+        Matrix.setIdentityM(transformation, 0);
         Matrix.scaleM(transformation, 0, transformation, 0, m_scaleX, m_scaleY, m_scaleZ);
 
         float[] scratch = new float[16];
@@ -76,7 +82,7 @@ public class Place {
         Matrix.setIdentityM(m_matrix,0);
         //update matrix
         Matrix.multiplyMM(scratch, 0, translation, 0, rotation, 0);
-        Matrix.multiplyMM(m_matrix,0,scratch,0,transformation,0);
+        Matrix.multiplyMM(m_matrix,0,transformation,0,scratch,0);
         m_needsGenerated = false;
     }
 

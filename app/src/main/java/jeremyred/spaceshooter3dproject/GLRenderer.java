@@ -33,7 +33,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         m_model = new Model("Models/ship.obj",Manager);
         m_shader = new ShipShader("shaders/vertexShader.glsl","shaders/fragmentShader.glsl",LevelListActivity.Manager);
         //set the background frame color
-        GLES20.glClearColor(0, 1, 0, 1);
+        GLES20.glClearColor(1, 0.32f, 0.45f, 1);
         m_angle = 0;
         place = new Place();
         place2 = new Place();

@@ -122,8 +122,10 @@ public class ShipShader {
 
         //GLES20.glDisable(GLES20.GL_CULL_FACE);
 
+
         //Draw the model
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, model.getVertexCount());
+        //GLES20.glBindBuffer(GLES20.GL_ELEMENT_ARRAY_BUFFER,);
 
         //Disable vertex array
         GLES20.glDisableVertexAttribArray(positionHandle);

@@ -13,6 +13,7 @@ import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 import java.nio.ShortBuffer;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Created by jeremy on 1/15/2016.
@@ -206,6 +207,7 @@ public class Model {
                 normals.add(normal[2]);
             }
 
+          //  Collections.reverse(verticies);
             m_vertices = new float[verticies.size()];
             for(int i = 0;i < m_vertices.length;i++)
             {
@@ -218,6 +220,7 @@ public class Model {
 //                m_uvs[i] = textures.get(i);
 //            }
 
+           // Collections.reverse(normals);
             m_normals = new float[normals.size()];
             for(int i = 0;i < m_normals.length;i++)
             {

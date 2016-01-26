@@ -21,6 +21,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     Model m_model;
     ShipShader m_shader;
     Place place;
+    Place place2;
     float[] m_projection = new float[16];
     float m_angle;
     boolean controllerIsConnected;
@@ -29,13 +30,15 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        m_model = new Model("Models/test.obj",Manager);
+        m_model = new Model("Models/ship.obj",Manager);
         m_shader = new ShipShader("shaders/vertexShader.glsl","shaders/fragmentShader.glsl",LevelListActivity.Manager);
         //set the background frame color
         GLES20.glClearColor(0, 1, 0, 1);
         m_angle = 0;
         place = new Place();
+        place2 = new Place();
         controllerIsConnected = controllerConnected();
+        GLES20.glEnable(GLES20.GL_DEPTH_TEST);
         controllerConnected();
     }
 
@@ -46,6 +49,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         //m_angle%= Math.PI;
         //redraw the background color
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
+        GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT);
         float[] view = new float[16];
         Matrix.perspectiveM(view,0,70,m_screenWidth/m_screenHeight,1,70);
         Matrix.setLookAtM(view, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
@@ -54,12 +58,17 @@ public class GLRenderer implements GLSurfaceView.Renderer {
       // Matrix.setRotateM(world, 0, m_angle, 1, 0, 0);
 
         place.setRotX(m_angle);
+        place.setZ(20);
         //place.setRotY(m_angle);
         //place.setRotZ(m_angle);
         //rotate world
         float[] color= {1,1,1,1};
         float[] world2 = place.getMatrix();
-        m_shader.drawModel(world2,view,m_projection,color,m_model);
+        m_shader.drawModel(place.getMatrix(),view,m_projection,color,m_model);
+
+        //m_shader.drawModel(world2,view,m_projection,color,m_model);
+
+        //m_shader.drawModel(place2.getMatrix(),view,m_projection,color,m_model);
     }
 
     @Override

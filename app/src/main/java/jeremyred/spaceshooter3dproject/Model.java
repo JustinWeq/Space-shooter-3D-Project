@@ -11,6 +11,7 @@ import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
+import java.nio.ShortBuffer;
 import java.util.ArrayList;
 
 /**
@@ -21,10 +22,12 @@ public class Model {
     private FloatBuffer m_vertexBuffer;
     private FloatBuffer m_normalsBuffer;
     private FloatBuffer m_uvsBuffer;
+    private ShortBuffer m_indexBuffer;
     private int m_vertexCount;
     private float[] m_vertices;
     private float[] m_normals;
     private float[] m_uvs;
+    private short[] m_indices;
     private Bitmap m_bitmap;
 
     public Model(String modelAddress,AssetManager manager)
@@ -56,6 +59,14 @@ public class Model {
         m_normalsBuffer.put(m_normals);
         //set buffer position to zero
         m_normalsBuffer.position(0);
+
+        //create index buffer
+        bb = ByteBuffer.allocateDirect(m_indices.length*2);
+        bb.order(ByteOrder.nativeOrder());
+
+        m_indexBuffer = bb.asShortBuffer();
+        m_indexBuffer.put(m_indices);
+        m_indexBuffer.position(0);
 
         //create buffer for the texture coordinates
         //bb = ByteBuffer.allocateDirect(m_uvs.length*4);
@@ -213,8 +224,13 @@ public class Model {
                 m_normals[i] = normals.get(i);
             }
 
-            inputStream = manager.open("Textures/" + bitmapName);
-            m_bitmap = BitmapFactory.decodeStream(inputStream);
+//            inputStream = manager.open("Textures/" + bitmapName);
+//            m_bitmap = BitmapFactory.decodeStream(inputStream);
+            m_indices= new short[indexData.size()];
+            for(int i = 0;i < m_indices.length;i++)
+            {
+                m_indices[i] =indexData.get(i).shortValue();
+            }
 
 
         }
@@ -244,6 +260,10 @@ public class Model {
     public FloatBuffer getNormalsBuffer()
     {
         return m_normalsBuffer;
+    }
+
+    public ShortBuffer getIndexBuffer(){
+        return m_indexBuffer;
     }
 
 

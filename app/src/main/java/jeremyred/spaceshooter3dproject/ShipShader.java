@@ -106,7 +106,7 @@ public class ShipShader {
         //pass the mvp matrix
         GLES20.glUniformMatrix4fv(MVPHandle,1,false,MVP,0);
 
-        int MHandle = GLES20.glGetUniformLocation(m_program,"uMMatrix");
+        int MHandle = GLES20.glGetUniformLocation(m_program, "uMMatrix");
 
         //pass the model matrix;
         GLES20.glUniformMatrix4fv(MHandle,1,false,modelMatrix,0);
@@ -114,19 +114,38 @@ public class ShipShader {
         int VHandle = GLES20.glGetUniformLocation(m_program,"uVMatrix");
 
         //pass the view matrix
-        GLES20.glUniformMatrix4fv(VHandle,1,false,view,0);
+        GLES20.glUniformMatrix4fv(VHandle, 1, false, view, 0);
 
         int PHandle = GLES20.glGetUniformLocation(m_program,"uPMatrix");
 
 
-        GLES20.glUniformMatrix4fv(PHandle,1,false,projection,0);
+        GLES20.glUniformMatrix4fv(PHandle, 1, false, projection, 0);
 
         int CPosHandle = GLES20.glGetUniformLocation(m_program,"uCameraPosition");
 
-
-        GLES20.glUniform3f(CPosHandle,0,0,-3);
+        GLES20.glUniform3f(CPosHandle, 0, 0, -3);
 
         //GLES20.glDisable(GLES20.GL_CULL_FACE);
+
+        int ACHandle = GLES20.glGetUniformLocation(m_program,"ambientColor");
+
+        GLES20.glUniform4f(ACHandle, 1, 1, 1, 0.5f);
+
+        int DCHandle = GLES20.glGetUniformLocation(m_program,"diffuseColor");
+
+        GLES20.glUniform4f(DCHandle, 1, 1, 1, 0.5f);
+
+        int LDHandle = GLES20.glGetUniformLocation(m_program,"lightDirection");
+
+        GLES20.glUniform3f(LDHandle, 0, 0, 1);
+
+        int SPHandle = GLES20.glGetUniformLocation(m_program,"specularPower");
+
+        GLES20.glUniform1f(SPHandle, 2);
+
+        int SCHandle = GLES20.glGetAttribLocation(m_program,"specularColor");
+
+        GLES20.glUniform4f(SCHandle,1,1,0,1);
 
 
         //Draw the model

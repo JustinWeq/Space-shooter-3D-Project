@@ -6,6 +6,10 @@ varying vec2 vTexCoord;
 varying vec4 viewDirection;
 void main() 
 {
+ vec3 lightDir;
+ float lightIntensity;
+ vec3 reflection;
+ vec4 specular;
  vec4 color;
  color.r = vNormal.r;
  color.g = vNormal.g;

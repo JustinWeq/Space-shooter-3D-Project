@@ -58,7 +58,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
       // Matrix.setRotateM(world, 0, m_angle, 1, 0, 0);
 
         place.setRotX(m_angle);
-        place.setZ(20);
+        place.setZ(5);
         //place.setRotY(m_angle);
         //place.setRotZ(m_angle);
         //rotate world

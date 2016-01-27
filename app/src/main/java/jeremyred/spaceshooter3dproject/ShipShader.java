@@ -129,11 +129,11 @@ public class ShipShader {
 
         int ACHandle = GLES20.glGetUniformLocation(m_program,"ambientColor");
 
-        GLES20.glUniform4f(ACHandle, 1, 1, 1, 0.5f);
+        GLES20.glUniform4f(ACHandle, 0.5f, 0.5f, 0.5f, 1);
 
         int DCHandle = GLES20.glGetUniformLocation(m_program,"diffuseColor");
 
-        GLES20.glUniform4f(DCHandle, 1, 1, 1, 0.5f);
+        GLES20.glUniform4f(DCHandle, 1, 1, 1, 1);
 
         int LDHandle = GLES20.glGetUniformLocation(m_program,"lightDirection");
 
@@ -141,7 +141,7 @@ public class ShipShader {
 
         int SPHandle = GLES20.glGetUniformLocation(m_program,"specularPower");
 
-        GLES20.glUniform1f(SPHandle, 2);
+        GLES20.glUniform1f(SPHandle, 1);
 
         int SCHandle = GLES20.glGetAttribLocation(m_program,"specularColor");
 

@@ -37,5 +37,7 @@ void main()
 
  color = color*textureColor;
 
+ color = clamp(color+specular,0.0,1.0);
+
  gl_FragColor = color;
 }

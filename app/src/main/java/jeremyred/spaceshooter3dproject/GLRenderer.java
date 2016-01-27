@@ -62,7 +62,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         //place.setRotY(m_angle);
         //place.setRotZ(m_angle);
         //rotate world
-        float[] color= {1,1,1,1};
+        float[] color= {0,0,1,1};
         float[] world2 = place.getMatrix();
         m_shader.drawModel(place.getMatrix(),view,m_projection,color,m_model);
 

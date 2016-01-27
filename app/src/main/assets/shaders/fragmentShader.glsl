@@ -16,9 +16,7 @@ void main()
  vec3 reflection;
  vec4 specular;
  vec4 color;
- color.r = vNormal.r;
- color.g = vNormal.g;
- color.b = vNormal.b;
- color.a = 1.0;
+ color = vColor;
+
  gl_FragColor = color;
 }

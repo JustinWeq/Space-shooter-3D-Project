@@ -30,7 +30,7 @@ void main()
 
 	reflection = normalize(2.0*lightIntensity*vNormal.rgb-lightDir);
 	
-	float specularCo = dot(reflection,viewDirection.rgb);
+	float specularCo = clamp(dot(reflection,viewDirection.rgb),0.0,1.0);
 	
 	specular = vec4(reflection,1.0);
  }

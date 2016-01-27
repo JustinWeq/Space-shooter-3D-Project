@@ -35,5 +35,7 @@ void main()
 	specular = specularColor*specularCo;
  }
 
+ color = color*textureColor;
+
  gl_FragColor = color;
 }

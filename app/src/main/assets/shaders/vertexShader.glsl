@@ -11,6 +11,7 @@ varying vec4 vNormal;
 varying vec2 vTexCoord;
 varying vec4 viewDirection;
 void main() {
+ vec4 worldPosition = vPosition*uMMatrix;
  vNormal = aNormal;
  vTexCoord = aTexCoord;
  vNormal = vNormal*uMMatrix;

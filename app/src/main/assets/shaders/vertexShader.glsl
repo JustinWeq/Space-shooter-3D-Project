@@ -8,8 +8,11 @@ attribute vec2 aTexCoord;
 
 varying vec4 vNormal;
 varying vec2 vTexCoord;
+varying vec4 lightDirection;
 void main() {
- gl_Position = uPMatrix*uVMatrix*uMMatrix*vPosition;
  vNormal = aNormal;
  vTexCoord = aTexCoord;
+ vNormal = vNormal*uMMatrix;
+ normalize(vNormal);
+ gl_Position = uPMatrix*uVMatrix*uMMatrix*vPosition;
 }

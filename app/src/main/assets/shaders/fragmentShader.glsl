@@ -25,7 +25,7 @@ void main()
  
  if(lightIntensity > 0.0)
  {
-
+	color+= (diffuseColor*lightIntensity);
  }
 
  gl_FragColor = color;

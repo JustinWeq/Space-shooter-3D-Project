@@ -29,7 +29,9 @@ void main()
     color = clamp(color,0.0,1.0);
 
 	reflection = normalize(2.0*lightIntensity*vNormal.rgb-lightDir);
-
+	
+	float specularCo;
+	
 	specular = vec4(reflection,1.0);
  }
 

@@ -23,7 +23,10 @@ void main()
  
  lightIntensity = clamp(dot(vNormal.rgb,lightDir),0.0,1.0);
  
- 
+ if(lightIntensity > 0.0)
+ {
+
+ }
 
  gl_FragColor = color;
 }

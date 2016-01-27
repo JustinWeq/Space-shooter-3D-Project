@@ -17,7 +17,9 @@ void main()
  vec4 specular;
  vec4 color;
  vec4 textureColor = vColor;
- color = textureColor;
+ color = ambientColor;
+ 
+ lightDir = -lightDirection;
 
  gl_FragColor = color;
 }

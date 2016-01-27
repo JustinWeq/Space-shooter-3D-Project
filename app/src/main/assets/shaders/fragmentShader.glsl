@@ -27,7 +27,8 @@ void main()
  {
 	color+= (diffuseColor*lightIntensity);
     color = clamp(color,0.0,1.0);
-	reflection = lightIntensity*vNormal.rgb;
+
+	reflection = 2.0*lightIntensity*vNormal.rgb;
  }
 
  gl_FragColor = color;

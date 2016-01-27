@@ -1,6 +1,9 @@
 package jeremyred.spaceshooter3dproject;
 
 import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
 import android.opengl.GLSurfaceView;
 import android.renderscript.ScriptGroup;
 import android.view.InputDevice;
@@ -11,10 +14,11 @@ import java.util.Map;
 /**
  * Created by jeremy on 1/15/2016.
  */
-public class GLSurface extends GLSurfaceView {
+public class GLSurface extends GLSurfaceView implements SensorEventListener{
 
     GLRenderer m_renderer;
     public static float Y1 = 0,Y2 = 0,X1 = 0,X2 = 0;
+    private final static float NS2S = 1.0f/1000000000.0f;
     public GLSurface(Context context)
     {
         super(context);
@@ -54,6 +58,17 @@ public class GLSurface extends GLSurfaceView {
         }
 
         return super.onGenericMotionEvent(event);
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event)
+    {
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 
     private static float getCenteredAxis(MotionEvent event,

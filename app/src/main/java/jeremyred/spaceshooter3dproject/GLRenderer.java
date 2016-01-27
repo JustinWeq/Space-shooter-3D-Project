@@ -7,6 +7,8 @@ import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 import android.view.InputDevice;
+import android.view.MotionEvent;
+
 import java.util.ArrayList;
 
 import javax.microedition.khronos.egl.EGLConfig;
@@ -27,6 +29,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     boolean controllerIsConnected;
     float m_screenWidth;
     float m_screenHeight;
+    private int gameController;
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -51,7 +54,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT);
         float[] view = new float[16];
-        Matrix.perspectiveM(view,0,70,m_screenWidth/m_screenHeight,1,70);
+        Matrix.perspectiveM(view, 0, 70, m_screenWidth / m_screenHeight, 1, 70);
         Matrix.setLookAtM(view, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
 
         //Matrix.translateM(world, 0, world, 0, 0, 0, 0);
@@ -64,7 +67,8 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         //rotate world
         float[] color= {0,0,1,1};
         float[] world2 = place.getMatrix();
-        m_shader.drawModel(place.getMatrix(),view,m_projection,color,m_model);
+        m_shader.drawModel(place.getMatrix(), view, m_projection, color, m_model);
+
 
         //m_shader.drawModel(world2,view,m_projection,color,m_model);
 
@@ -80,6 +84,8 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         m_screenWidth = width;
         Matrix.frustumM(m_projection,0,-ratio,ratio,-1,1,1,70);
     }
+
+
 
     private boolean controllerConnected()
     {
@@ -101,6 +107,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
         if(gameControllers.size() != 0)
         {
+            gameController = (int)gameControllers.get(0);
             return true;
         }
         return false;

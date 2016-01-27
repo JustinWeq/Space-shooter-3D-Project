@@ -118,7 +118,13 @@ public class ShipShader {
 
         int PHandle = GLES20.glGetUniformLocation(m_program,"uPMatrix");
 
+
         GLES20.glUniformMatrix4fv(PHandle,1,false,projection,0);
+
+        int CPosHandle = GLES20.glGetUniformLocation(m_program,"uCameraPosition");
+
+
+        GLES20.glUniform3f(CPosHandle,0,0,-3);
 
         //GLES20.glDisable(GLES20.GL_CULL_FACE);
 

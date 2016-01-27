@@ -16,5 +16,6 @@ void main() {
  vTexCoord = aTexCoord;
  vNormal = vNormal*uMMatrix;
  normalize(vNormal);
+ viewDirection = vec4(uCameraPosition,1)-worldPosition;
  gl_Position = uPMatrix*uVMatrix*uMMatrix*vPosition;
 }

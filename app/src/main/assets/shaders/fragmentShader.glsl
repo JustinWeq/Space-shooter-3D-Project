@@ -20,6 +20,10 @@ void main()
  color = ambientColor;
  
  lightDir = -lightDirection;
- lightIntensity = lightDir;
+ 
+ lightIntensity = clamp(dot(vNormal.rgb,lightDir),0.0,1.0);
+ 
+ 
+
  gl_FragColor = color;
 }

@@ -17,5 +17,6 @@ void main() {
  vNormal = vNormal*uMMatrix;
  normalize(vNormal);
  viewDirection = vec4(uCameraPosition,1)-worldPosition;
+ normalize(viewDirection);
  gl_Position = uPMatrix*uVMatrix*uMMatrix*vPosition;
 }

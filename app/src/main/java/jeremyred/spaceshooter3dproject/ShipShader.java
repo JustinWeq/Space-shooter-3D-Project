@@ -39,7 +39,7 @@ public class ShipShader {
             strBuild = new StringBuilder();
             while((news = reader.readLine()) != null) strBuild.append(news);
             //compile fragment shader code
-            m_fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER,strBuild.toString());
+            m_fragmentShader = loadShader(GLES20.GL_FRAGMENT_SHADER, strBuild.toString());
 
             //shaders have been compiled
             m_program = GLES20.glCreateProgram();
@@ -47,10 +47,16 @@ public class ShipShader {
             //add the vertex shader to the program
             GLES20.glAttachShader(m_program,m_vertexShader);
             //add the fragment shader to the program
-            GLES20.glAttachShader(m_program,m_fragmentShader);
+            GLES20.glAttachShader(m_program, m_fragmentShader);
 
             //create program executables
             GLES20.glLinkProgram(m_program);
+
+            int[] textureNames = new int[1];
+
+            //bind texture to texturename
+            GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D,textureNames[0]);
 
         }
         catch (Exception ex)

@@ -16,7 +16,7 @@ void main()
  vec3 reflection;
  vec4 specular = vec4(0.0,0.0,0.0,0.0);
  vec4 color;
- vec4 textureColor = vColor;
+ vec4 textureColor = texture2D(uTexture,vTexCoord);
  color = ambientColor;
  
  lightDir = -lightDirection;

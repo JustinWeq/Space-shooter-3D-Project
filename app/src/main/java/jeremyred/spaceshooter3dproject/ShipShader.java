@@ -3,6 +3,7 @@ package jeremyred.spaceshooter3dproject;
 import android.content.res.AssetManager;
 import android.opengl.GLES20;
 import android.opengl.GLES30;
+import android.opengl.GLUtils;
 import android.opengl.Matrix;
 
 import java.io.BufferedReader;
@@ -45,7 +46,7 @@ public class ShipShader {
             m_program = GLES20.glCreateProgram();
 
             //add the vertex shader to the program
-            GLES20.glAttachShader(m_program,m_vertexShader);
+            GLES20.glAttachShader(m_program, m_vertexShader);
             //add the fragment shader to the program
             GLES20.glAttachShader(m_program, m_fragmentShader);
 
@@ -57,6 +58,19 @@ public class ShipShader {
             //bind texture to texturename
             GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
             GLES20.glBindTexture(GLES20.GL_TEXTURE_2D,textureNames[0]);
+
+            //Set filtering mode
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D,
+                    GLES20.GL_TEXTURE_MIN_FILTER,GLES20.GL_NEAREST);
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D,
+                    GLES20.GL_TEXTURE_MAG_FILTER,GLES20.GL_NEAREST);
+
+            //Set wrapping mode
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D,
+                    GLES20.GL_TEXTURE_WRAP_S,GLES20.GL_CLAMP_TO_EDGE);
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D,GLES20.GL_TEXTURE_WRAP_T,
+                    GLES20.GL_CLAMP_TO_EDGE);
+
 
         }
         catch (Exception ex)
@@ -153,6 +167,8 @@ public class ShipShader {
 
         GLES20.glUniform4f(SCHandle,1,1,0,1);
 
+        //Load the bitmap into the bound texture
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D,0,model.getBitmap(),0);
 
         //Draw the model
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, model.getVertexCount());

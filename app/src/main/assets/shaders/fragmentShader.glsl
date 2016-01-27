@@ -21,6 +21,7 @@ void main()
  vec4 textureColor = texture2D(uTexture,vTexCoord);
  color = ambientColor;
  vec4 worldPos = gl_FragColor*uMMatrix;
+ vec4 viewDir = vec4(uCameraPosition,1.0)-worldPos;
  lightDir = -lightDirection;
  
  lightIntensity = clamp(dot(vNormal.rgb,lightDir),0.0,1.0);

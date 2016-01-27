@@ -118,12 +118,12 @@ public class Model {
                 else if(args[0].equals("vt"))
                 {
                     //read new texture
-//                    float texture[] = new float[2];
-//
-//                    texture[0] = Float.parseFloat(args[1]);
-//                    texture[1] = Float.parseFloat(args[2]);
-//
-//                    textureData.add(texture);
+                    float texture[] = new float[2];
+
+                    texture[0] = Float.parseFloat(args[1]);
+                    texture[1] = Float.parseFloat(args[2]);
+
+                    textureData.add(texture);
 
                 }
                 else if(args[0].equals("vn"))
@@ -145,8 +145,8 @@ public class Model {
                     int index = Integer.parseInt(face[0])-1;
                     indexData.add(index);
                     //read texture index data
-//                    index = Integer.parseInt(face[1]) -1;
-//                    textureIndexData.add(index);
+                    index = Integer.parseInt(face[1]) -1;
+                    textureIndexData.add(index);
                     //read normal index data
                     index = Integer.parseInt(face[2])-1;
                     normalsIndexData.add(index);
@@ -157,8 +157,8 @@ public class Model {
                     index = Integer.parseInt(face[0])-1;
                     indexData.add(index);
                     //read texture index data
-//                    index = Integer.parseInt(face[1]) -1;
-//                    textureIndexData.add(index);
+                    index = Integer.parseInt(face[1]) -1;
+                    textureIndexData.add(index);
                     //read normal index data
                     index = Integer.parseInt(face[2])-1;
                     normalsIndexData.add(index);
@@ -170,8 +170,8 @@ public class Model {
                     index = Integer.parseInt(face[0])-1;
                     indexData.add(index);
                     //read texture index data
-//                    index = Integer.parseInt(face[1]) -1;
-//                    textureIndexData.add(index);
+                    index = Integer.parseInt(face[1]) -1;
+                    textureIndexData.add(index);
                     //read normal index data
                     index = Integer.parseInt(face[2])-1;
                     normalsIndexData.add(index);
@@ -194,11 +194,11 @@ public class Model {
                 verticies.add(vertex[1]);
                 verticies.add(vertex[2]);
                 //read texture
-//                index = textureIndexData.get(i);
-//                float[] texture;
-//                texture = textureData.get(index);
-//                textures.add(texture[0]);
-//                textures.add(texture[1]);
+                index = textureIndexData.get(i);
+                float[] texture;
+                texture = textureData.get(index);
+                textures.add(texture[0]);
+                textures.add(texture[1]);
                 //read normal
                 index = normalsIndexData.get(i);
                 float[] normal = normalsData.get(index);
@@ -214,11 +214,11 @@ public class Model {
                 m_vertices[i] = verticies.get(i);
             }
 
-//            m_uvs = new float[textures.size()];
-//            for(int i = 0;i < m_uvs.length;i++)
-//            {
-//                m_uvs[i] = textures.get(i);
-//            }
+            m_uvs = new float[textures.size()];
+            for(int i = 0;i < m_uvs.length;i++)
+            {
+                m_uvs[i] = textures.get(i);
+            }
 
            // Collections.reverse(normals);
             m_normals = new float[normals.size()];
@@ -227,8 +227,8 @@ public class Model {
                 m_normals[i] = normals.get(i);
             }
 
-//            inputStream = manager.open("Textures/" + bitmapName);
-//            m_bitmap = BitmapFactory.decodeStream(inputStream);
+           inputStream = manager.open("Textures/" + bitmapName);
+           m_bitmap = BitmapFactory.decodeStream(inputStream);
             m_indices= new short[indexData.size()];
             for(int i = 0;i < m_indices.length;i++)
             {

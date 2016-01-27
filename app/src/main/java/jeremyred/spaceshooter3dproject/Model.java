@@ -70,14 +70,14 @@ public class Model {
         m_indexBuffer.position(0);
 
         //create buffer for the texture coordinates
-        //bb = ByteBuffer.allocateDirect(m_uvs.length*4);
-      //  bb.order(ByteOrder.nativeOrder());
+        bb = ByteBuffer.allocateDirect(m_uvs.length*4);
+        bb.order(ByteOrder.nativeOrder());
 
-      //  m_uvsBuffer = bb.asFloatBuffer();
+        m_uvsBuffer = bb.asFloatBuffer();
         //put the uv data in the uv buffer
-        //m_uvsBuffer.put(m_uvs);
-        //set the buffer position to 0
-       // m_uvsBuffer.position(0);
+        m_uvsBuffer.put(m_uvs);
+       // set the buffer position to 0
+        m_uvsBuffer.position(0);
     }
 
     public FloatBuffer getVertexBuffer()

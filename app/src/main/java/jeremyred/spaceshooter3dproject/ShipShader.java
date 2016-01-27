@@ -114,6 +114,12 @@ public class ShipShader {
         GLES20.glVertexAttribPointer(normalHandle, model.COORDS_PER_VERTEX, GLES20.GL_FLOAT,
                 false, model.COORDS_PER_VERTEX * 4, model.getNormalsBuffer());
 
+        int uvHandle = GLES20.glGetAttribLocation(m_program,"aTexCoord");
+
+        GLES20.glEnableVertexAttribArray(uvHandle);
+
+        GLES20.glVertexAttribPointer(uvHandle,2,GLES20.GL_FLOAT,false,2*4,model.getUVsBuffer());
+
         //get the handle to the framet shaders color member
         int colorHandle = GLES20.glGetUniformLocation(m_program,"vColor");
 

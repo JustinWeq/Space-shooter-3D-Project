@@ -8,7 +8,7 @@ attribute vec2 aTexCoord;
 
 varying vec4 vNormal;
 varying vec2 vTexCoord;
-varying vec4 lightDirection;
+varying vec4 viewDirection;
 void main() {
  vNormal = aNormal;
  vTexCoord = aTexCoord;

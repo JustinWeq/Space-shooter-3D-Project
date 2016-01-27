@@ -61,13 +61,7 @@ public class Model {
         //set buffer position to zero
         m_normalsBuffer.position(0);
 
-        //create index buffer
-        bb = ByteBuffer.allocateDirect(m_indices.length*2);
-        bb.order(ByteOrder.nativeOrder());
 
-        m_indexBuffer = bb.asShortBuffer();
-        m_indexBuffer.put(m_indices);
-        m_indexBuffer.position(0);
 
         //create buffer for the texture coordinates
         bb = ByteBuffer.allocateDirect(m_uvs.length*4);
@@ -229,11 +223,7 @@ public class Model {
 
            inputStream = manager.open("Textures/" + bitmapName);
            m_bitmap = BitmapFactory.decodeStream(inputStream);
-            m_indices= new short[indexData.size()];
-            for(int i = 0;i < m_indices.length;i++)
-            {
-                m_indices[i] =indexData.get(i).shortValue();
-            }
+
 
 
         }

@@ -36,7 +36,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         m_model = new Model("Models/ship.obj",Manager);
         m_shader = new ShipShader("shaders/vertexShader.glsl","shaders/fragmentShader.glsl",LevelListActivity.Manager);
         //set the background frame color
-        GLES20.glClearColor(1, 0.32f, 0.45f, 1);
+        GLES20.glClearColor(0, 0, 0, 0);
         m_angle = 0;
         place = new Place();
         place2 = new Place();
@@ -60,6 +60,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         //Matrix.translateM(world, 0, world, 0, 0, 0, 0);
       // Matrix.setRotateM(world, 0, m_angle, 1, 0, 0);
 
+        m_angle = m_angle+GameActivity.X1;
         place.setRotX(m_angle);
         place.setZ(5);
         //place.setRotY(m_angle);

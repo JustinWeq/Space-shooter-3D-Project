@@ -32,7 +32,7 @@ void main()
 	
 	float specularCo = pow(clamp(dot(reflection,viewDirection.rgb),0.0,1.0),specularPower);
 	
-	specular = vec4(reflection,1.0);
+	specular = specularColor*specularCo;
  }
 
  gl_FragColor = color;

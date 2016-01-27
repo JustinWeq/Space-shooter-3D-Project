@@ -3,6 +3,8 @@ uniform vec4 vColor;
 uniform sampler2D uTexture;
 uniform vec4 ambientColor;
 uniform vec4 diffuseColor;
+uniform mat4 uMMatrix;
+uniform vec3 uCameraPosition;
 uniform vec3 lightDirection;
 uniform float specularPower;
 uniform vec4 specularColor;

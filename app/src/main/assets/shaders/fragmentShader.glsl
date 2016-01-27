@@ -1,6 +1,11 @@
 precision mediump float;
 uniform vec4 vColor;
 uniform sampler2D uTexture;
+uniform vec4 ambientColor;
+uniform vec4 diffuseColor;
+uniform vec3 lightDirection;
+uniform float specularPower;
+uniform vec4 specularColor;
 varying vec4 vNormal;
 varying vec2 vTexCoord;
 varying vec4 viewDirection;

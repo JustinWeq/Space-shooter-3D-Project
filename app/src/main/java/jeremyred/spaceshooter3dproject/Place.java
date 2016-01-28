@@ -16,6 +16,7 @@ public class Place {
     private float m_scaleY;
     private float m_scaleZ;
     private float[] m_matrix = new float[16];
+    private float[] m_rotMatrix;
     private boolean m_needsGenerated;
     public Place()
     {
@@ -73,6 +74,7 @@ public class Place {
         //put rotaions to gether
         Matrix.multiplyMM(rotation,0,rotationX,0,rotationY,0);
         Matrix.multiplyMM(rotation,0,rotation,0,rotationZ,0);
+        m_rotMatrix = rotation;
         //set transform matrix
         Matrix.setIdentityM(transformation, 0);
         Matrix.scaleM(transformation, 0, transformation, 0, m_scaleX, m_scaleY, m_scaleZ);
@@ -139,4 +141,40 @@ public class Place {
         m_scaleZ = scaleZ;
         m_needsGenerated = true;
     }
+
+    public float[] getRotationatrix()
+    {
+        if(m_needsGenerated)
+        {
+            generateMatrix();
+        }
+
+        return m_rotMatrix;
+    }
+
+    public float[] getPos()
+    {
+        float[] pos = new float[3];
+        pos[0] = m_x;
+        pos[1] = m_y;
+        pos[2] = m_z;
+
+        return  pos;
+    }
+
+    public float getX()
+    {
+        return m_x;
+    }
+
+    public float getY()
+    {
+        return m_y;
+    }
+
+    public float getZ()
+    {
+        return m_z;
+    }
+
 }

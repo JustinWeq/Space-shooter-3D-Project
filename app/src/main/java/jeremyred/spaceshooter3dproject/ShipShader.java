@@ -81,7 +81,8 @@ public class ShipShader {
 
     }
 
-    public void drawModel(float[] modelMatrix,float[] view,float[] projection,float[] color,Model model)
+    public void drawModel(float[] modelMatrix,float[] view,float[] projection,float[] color,Model model,
+                          float[] camerapos)
     {
         //Add program to openGL ES enviroment
         GLES20.glUseProgram(m_program);
@@ -149,7 +150,7 @@ public class ShipShader {
 
         int CPosHandle = GLES20.glGetUniformLocation(m_program,"uCameraPosition");
 
-        GLES20.glUniform3f(CPosHandle, 0, 0, -3);
+        GLES20.glUniform3f(CPosHandle, camerapos[0],camerapos[1],camerapos[2]);
 
         //GLES20.glDisable(GLES20.GL_CULL_FACE);
 

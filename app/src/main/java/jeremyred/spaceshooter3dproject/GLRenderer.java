@@ -5,9 +5,11 @@ import android.graphics.Shader;
 import android.opengl.GLES20;
 import android.opengl.GLES30;
 import android.opengl.GLSurfaceView;
+import android.opengl.GLUtils;
 import android.opengl.Matrix;
 import android.view.InputDevice;
 import android.view.MotionEvent;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -24,6 +26,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     ShipShader m_shader;
     Place place;
     Place place2;
+    Player player;
     float[] m_projection = new float[16];
     float m_angle;
     boolean controllerIsConnected;
@@ -42,8 +45,12 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         place2 = new Place();
         controllerIsConnected = controllerConnected();
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
-        controllerConnected();
+        player = new Player();
     }
+
+    float dx = 0;
+    float dy = 0;
+    float dz = 0;
 
     @Override
     public void onDrawFrame(GL10 unused)
@@ -51,29 +58,27 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         m_angle+= 0.2f;
         //m_angle%= Math.PI;
         //redraw the background color
+        dx+= GameActivity.Y1*2;
+        dy+= GameActivity.X1*2;
+        dz += GameActivity.X2*2;
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT);
+        player.getPlace().setRotX(m_angle*2);
+        player.getPlace().setZ(5);
         float[] view = new float[16];
+        float[] pos = {0,0,-3,0};
+
+
         Matrix.perspectiveM(view, 0, 70, m_screenWidth / m_screenHeight, 1, 70);
-        Matrix.setLookAtM(view, 0, 0, 0, -3, 0f, 0f, 0f, 0f, 1.0f, 0.0f);
+       Matrix.setLookAtM(view, 0, pos[0], pos[1], pos[2], player.getPlace().getX(),
+                player.getPlace().getY(), player.getPlace().getZ(), 0f, 1.0f, 0.0f);
 
-        //Matrix.translateM(world, 0, world, 0, 0, 0, 0);
-      // Matrix.setRotateM(world, 0, m_angle, 1, 0, 0);
 
-        m_angle = m_angle+GameActivity.X1;
-        place.setRotX(m_angle);
-        place.setZ(5);
-        //place.setRotY(m_angle);
-        //place.setRotZ(m_angle);
-        //rotate world
+
+
         float[] color= {0,0,1,1};
-        float[] world2 = place.getMatrix();
-        m_shader.drawModel(place.getMatrix(), view, m_projection, color, m_model);
+        m_shader.drawModel(player.getPlace().getMatrix(), view, m_projection, color, m_model,pos);
 
-
-        //m_shader.drawModel(world2,view,m_projection,color,m_model);
-
-        //m_shader.drawModel(place2.getMatrix(),view,m_projection,color,m_model);
     }
 
     @Override

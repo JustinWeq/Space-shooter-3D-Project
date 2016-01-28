@@ -201,13 +201,14 @@ public class Model {
                 normals.add(normal[2]);
             }
 
-          //  Collections.reverse(verticies);
+            //Collections.reverse(verticies);
             m_vertices = new float[verticies.size()];
             for(int i = 0;i < m_vertices.length;i++)
             {
                 m_vertices[i] = verticies.get(i);
             }
 
+            //Collections.reverse(textures);
             m_uvs = new float[textures.size()];
             for(int i = 0;i < m_uvs.length;i++)
             {
@@ -258,6 +259,7 @@ public class Model {
     public ShortBuffer getIndexBuffer(){
         return m_indexBuffer;
     }
+
 
 
 }

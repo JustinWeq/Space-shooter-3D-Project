@@ -33,6 +33,8 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     float m_screenWidth;
     float m_screenHeight;
     private int gameController;
+    private final float MAX_X = 10;
+    private final float MAX_Y = 7;
 
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
@@ -58,17 +60,46 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         m_angle+= 0.2f;
         //m_angle%= Math.PI;
         //redraw the background color
-        dx+= GameActivity.Y1*2;
-        dy+= GameActivity.X1*2;
+        dx= GameActivity.Y1;
+        dy= GameActivity.X1;
         dz += GameActivity.X2*2;
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT);
-        player.getPlace().setRotX(m_angle*2);
-        player.getPlace().setZ(5);
+       // player.getPlace().setRotX(m_angle * 2);
+        player.getPlace().setZ(8);
+        player.getPlace().setX(player.getPlace().getX() + -dy);
+        player.getPlace().setY(player.getPlace().getY() + -dx);
+        player.getPlace().setRotX(-dy * 30);
+        player.getPlace().setRotZ(-dx*30);
+        player.getPlace().setRotX(180);
         float[] view = new float[16];
-        float[] pos = {0,0,-3,0};
+        float[] pos = {0,0,0,0};
+        pos[0] = player.getPlace().getX()*0.8f;
+        pos[1] = player.getPlace().getY()*0.8f;
 
 
+        place2.setZ(12);
+        place2.setX(1);
+
+        if(player.getPlace().getX() > MAX_X)
+        {
+            player.getPlace().setX(MAX_X);
+        }
+        else
+        if(player.getPlace().getX() < -MAX_X)
+        {
+            player.getPlace().setX(-MAX_X);
+        }
+
+        if(player.getPlace().getY() > MAX_Y)
+        {
+            player.getPlace().setY(MAX_Y);
+        }
+        else
+        if(player.getPlace().getY() < -MAX_Y)
+        {
+            player.getPlace().setY(-MAX_Y);
+        }
         Matrix.perspectiveM(view, 0, 70, m_screenWidth / m_screenHeight, 1, 70);
        Matrix.setLookAtM(view, 0, pos[0], pos[1], pos[2], player.getPlace().getX(),
                 player.getPlace().getY(), player.getPlace().getZ(), 0f, 1.0f, 0.0f);
@@ -78,6 +109,8 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
         float[] color= {0,0,1,1};
         m_shader.drawModel(player.getPlace().getMatrix(), view, m_projection, color, m_model,pos);
+
+        m_shader.drawModel(place2.getMatrix(), view, m_projection, color, m_model,pos);
 
     }
 

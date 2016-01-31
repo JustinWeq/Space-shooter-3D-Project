@@ -19,7 +19,7 @@ public class Floor extends Place {
         m_advanceX = advanceX;
     }
 
-    public float getAdvanceX(float advanceX)
+    public float getAdvanceX()
     {
         return m_advanceX;
     }

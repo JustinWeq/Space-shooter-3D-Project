@@ -67,9 +67,9 @@ public class ShipShader {
 
             //Set wrapping mode
             GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D,
-                    GLES20.GL_TEXTURE_WRAP_S,GLES20.GL_CLAMP_TO_EDGE);
+                    GLES20.GL_TEXTURE_WRAP_S,GLES20.GL_REPEAT);
             GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D,GLES20.GL_TEXTURE_WRAP_T,
-                    GLES20.GL_CLAMP_TO_EDGE);
+                    GLES20.GL_REPEAT);
 
 
         }
@@ -82,7 +82,7 @@ public class ShipShader {
     }
 
     public void drawModel(float[] modelMatrix,float[] view,float[] projection,float[] color,Model model,
-                          float[] camerapos)
+                          float[] camerapos,float uAdd)
     {
         //Add program to openGL ES enviroment
         GLES20.glUseProgram(m_program);
@@ -119,7 +119,7 @@ public class ShipShader {
 
         GLES20.glEnableVertexAttribArray(uvHandle);
 
-        GLES20.glVertexAttribPointer(uvHandle,2,GLES20.GL_FLOAT,false,2*4,model.getUVsBuffer());
+        GLES20.glVertexAttribPointer(uvHandle, 2, GLES20.GL_FLOAT, false, 2 * 4, model.getUVsBuffer());
 
         //get the handle to the framet shaders color member
         int colorHandle = GLES20.glGetUniformLocation(m_program,"vColor");
@@ -150,7 +150,7 @@ public class ShipShader {
 
         int CPosHandle = GLES20.glGetUniformLocation(m_program,"uCameraPosition");
 
-        GLES20.glUniform3f(CPosHandle, camerapos[0],camerapos[1],camerapos[2]);
+        GLES20.glUniform3f(CPosHandle, camerapos[0], camerapos[1], camerapos[2]);
 
         //GLES20.glDisable(GLES20.GL_CULL_FACE);
 
@@ -166,16 +166,21 @@ public class ShipShader {
 
         GLES20.glUniform3f(LDHandle, 0, 0, 1);
 
-        int SPHandle = GLES20.glGetUniformLocation(m_program,"specularPower");
+        int SPHandle = GLES20.glGetUniformLocation(m_program, "specularPower");
 
         GLES20.glUniform1f(SPHandle, 1);
 
-        int SCHandle = GLES20.glGetAttribLocation(m_program,"specularColor");
+        int SCHandle = GLES20.glGetAttribLocation(m_program, "specularColor");
 
-        GLES20.glUniform4f(SCHandle,1,1,0,1);
+
+        GLES20.glUniform4f(SCHandle, 1, 1, 0, 1);
+
+        int uAHandle = GLES20.glGetUniformLocation(m_program,"uAdd");
+
+        GLES20.glUniform1f(uAHandle,uAdd);
 
         //Load the bitmap into the bound texture
-        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D,0,model.getBitmap(),0);
+        GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, model.getBitmap(), 0);
 
         //Draw the model
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, model.getVertexCount());

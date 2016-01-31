@@ -120,11 +120,11 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
         float[] color= {0,0,1,1};
         m_shader.drawModel(GameManager.getGameManager().getPlayer().getPlace().getMatrix(), view, m_projection, color, gameManager.getPlayer().getModel()
-                ,pos);
+                ,pos,0);
 
         //draw the floor
         m_shader.drawModel(gameManager.getFloor().getMatrix(),view,m_projection,color,
-                gameManager.getFloor().getModel(),pos);
+                gameManager.getFloor().getModel(),pos,gameManager.getFloor().getAdvanceX());
 
         float[] color2 = {1,1,0,0.5f};
 

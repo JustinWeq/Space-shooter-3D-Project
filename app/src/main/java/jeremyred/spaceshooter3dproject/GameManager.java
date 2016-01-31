@@ -62,6 +62,9 @@ public class GameManager implements Runnable {
             //handle the players input
             handlePlayerInput();
 
+            //move the floor
+            m_floor.setAdvanceX(1*m_gameTime);
+
         }
     }
 

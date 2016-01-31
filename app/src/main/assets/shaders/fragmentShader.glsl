@@ -22,7 +22,7 @@ void main()
  vec3 reflection;
  vec4 specular = vec4(0.0,0.0,0.0,0.0);
  vec4 color;
- vec4 textureColor = texture2D(uTexture,vTexCoord);
+ vec4 textureColor = texture2D(uTexture,newUV);
  color = ambientColor;
  vec4 worldPos = gl_FragCoord*uMMatrix;
  vec4 viewDir = vec4(uCameraPosition,1.0)-worldPos;

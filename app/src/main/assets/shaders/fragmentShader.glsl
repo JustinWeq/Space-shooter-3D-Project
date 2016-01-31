@@ -8,6 +8,7 @@ uniform vec3 uCameraPosition;
 uniform vec3 lightDirection;
 uniform float specularPower;
 uniform vec4 specularColor;
+uniform float uAdd;
 varying vec4 vNormal;
 varying vec2 vTexCoord;
 varying vec4 viewDirection;
@@ -15,6 +16,7 @@ void main()
 {
  vec3 lightDir;
  float lightIntensity;
+ vec2 newUV = vTexCoord;
  vec3 reflection;
  vec4 specular = vec4(0.0,0.0,0.0,0.0);
  vec4 color;

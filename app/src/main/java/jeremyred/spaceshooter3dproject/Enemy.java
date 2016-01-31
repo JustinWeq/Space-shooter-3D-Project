@@ -13,6 +13,7 @@ public class Enemy {
     private float m_rateOfFire;
     private short m_modelID;
     private String m_name;
+    private float m_execution;
 
     //contructors
 
@@ -187,6 +188,16 @@ public class Enemy {
     {
         m_name = name;
     }
+
+    public void setExectution(float exectution)
+    {
+        m_execution = exectution;
+    }
+
+    public float getExection()
+    {
+        return m_execution;
+    }
     //misc private and protected methods
 
     @Override
@@ -247,4 +258,13 @@ public class Enemy {
         Enemy otherEnemy = (Enemy)other;
         return (int)(this.m_damage - otherEnemy.getDamage());
     }
+
+
+
+    public void setModelID(int modelID )
+    {
+        m_modelID =(short) modelID;
+    }
+
+
 }

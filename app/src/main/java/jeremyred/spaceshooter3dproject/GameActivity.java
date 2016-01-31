@@ -3,8 +3,11 @@ package jeremyred.spaceshooter3dproject;
 import android.app.Activity;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.InputDevice;
 import android.view.MotionEvent;
+
+
 
 /**
  * Created by jeremy on 1/15/2016.
@@ -21,6 +24,13 @@ public class GameActivity extends Activity {
         //create a GLSurfaceViewInstance and set it as the content view for this activity
         glView = new GLSurface(this);
         setContentView(glView);
+        //create the game Manager
+        GameManager.getGameManager();
+
+        Thread thread = new Thread(GameManager.getGameManager());
+        thread.start();
+
+        //handler.postAtFrontOfQueue(GameManager.getGameManager());
     }
 
     @Override

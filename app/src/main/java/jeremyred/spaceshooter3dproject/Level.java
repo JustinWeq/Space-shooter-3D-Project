@@ -100,6 +100,14 @@ public class Level {
                         {
                             enemy.setName(args[1]);
                         }
+                        else if(args[0].toUpperCase().equals("MODEL"))
+                        {
+                            enemy.setModelID(Integer.valueOf(args[1]));
+                        }
+                        else if(args[0].toUpperCase().equals("EXECUTION"))
+                        {
+
+                        }
 
                     }
 

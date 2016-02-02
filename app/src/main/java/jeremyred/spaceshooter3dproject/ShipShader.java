@@ -164,7 +164,7 @@ public class ShipShader {
 
         int LDHandle = GLES20.glGetUniformLocation(m_program,"lightDirection");
 
-        GLES20.glUniform3f(LDHandle, 0, 0, 1);
+        GLES20.glUniform3f(LDHandle, 0, 1, 0);
 
         int SPHandle = GLES20.glGetUniformLocation(m_program, "specularPower");
 

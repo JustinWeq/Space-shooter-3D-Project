@@ -1,8 +1,24 @@
+modeldef enemy.obj
 name level1
 difficulty easy
 enemy
+model 0
+execution 100
+x 0
+y 0
+z 70
 end
 enemy
+model 0
+execution 200
+x 0
+y 5
+z 70
 end
 enemy
+model 0
+execution 300
+x 0
+y -5
+z 70
 end

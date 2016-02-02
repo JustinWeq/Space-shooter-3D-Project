@@ -4,8 +4,8 @@ package jeremyred.spaceshooter3dproject;
  * Created by jeremy on 1/30/2016.
  */
 public class Floor extends Place {
-    public float m_advanceX;
-    public Model m_model;
+    private float m_advanceX;
+    private Model m_model;
 
     public Floor()
     {

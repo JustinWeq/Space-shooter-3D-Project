@@ -26,6 +26,7 @@ public class GameActivity extends Activity {
         setContentView(glView);
         //create the game Manager
         GameManager.getGameManager();
+        GameManager.getGameManager().setLevel(Level.CurrentLevel);
 
         Thread thread = new Thread(GameManager.getGameManager());
         thread.start();

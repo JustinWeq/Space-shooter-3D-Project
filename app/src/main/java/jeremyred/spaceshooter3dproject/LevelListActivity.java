@@ -21,6 +21,12 @@ public class LevelListActivity extends Activity {
     {
         //call super
         super.onCreate(savedInstanceState);
+        if(savedInstanceState != null)
+        {
+            int selectedIndex = savedInstanceState.getInt("selected");
+
+            ((Spinner)findViewById(R.id.levels)).setSelection(selectedIndex);
+        }
         //set the layout
         setContentView(R.layout.main_content);
         Manager = getAssets();
@@ -33,7 +39,7 @@ public class LevelListActivity extends Activity {
         //set up new intent to go to new activity
         Intent intent = new Intent(this,LevelDetailsActivity.class);
         Spinner spinner = (Spinner) findViewById(R.id.levels);
-        intent.putExtra(SELECTED_LEVEL,spinner.getSelectedItemId());
+        intent.putExtra(SELECTED_LEVEL, spinner.getSelectedItemId());
         startActivity(intent);
     }
 
@@ -82,6 +88,16 @@ public class LevelListActivity extends Activity {
         }
 
         return 0;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+        //get selected index for the spinner
+        int selectedIndex = (int)((Spinner)(findViewById(R.id.levels))).getSelectedItemId();
+
+        outState.putInt("selected",selectedIndex);
     }
 
     private void processJoystickInput(MotionEvent event,int historyPos)

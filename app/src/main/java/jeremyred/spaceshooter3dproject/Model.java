@@ -99,81 +99,78 @@ public class Model {
             {
                 args = line.split(" ");
 
-                if(args[0].equals("v"))
-                {
-                    //add new vertex
-                    float vertex[] = new float[COORDS_PER_VERTEX];
+                switch (args[0]) {
+                    case "v":
+                        //add new vertex
+                        float vertex[] = new float[COORDS_PER_VERTEX];
 
-                    vertex[0] = Float.parseFloat(args[1]);
-                    vertex[1] = Float.parseFloat(args[2]);
-                    vertex[2] = Float.parseFloat(args[3]);
-                    vertexData.add(vertex);
-                }
-                else if(args[0].equals("vt"))
-                {
-                    //read new texture
-                    float texture[] = new float[2];
+                        vertex[0] = Float.parseFloat(args[1]);
+                        vertex[1] = Float.parseFloat(args[2]);
+                        vertex[2] = Float.parseFloat(args[3]);
+                        vertexData.add(vertex);
+                        break;
+                    case "vt":
+                        //read new texture
+                        float texture[] = new float[2];
 
-                    texture[0] = Float.parseFloat(args[1]);
-                    texture[1] = Float.parseFloat(args[2]);
+                        texture[0] = Float.parseFloat(args[1]);
+                        texture[1] = Float.parseFloat(args[2]);
 
-                    textureData.add(texture);
+                        textureData.add(texture);
 
-                }
-                else if(args[0].equals("vn"))
-                {
-                    //read new normal
-                    float normal[] = new float[3];
+                        break;
+                    case "vn":
+                        //read new normal
+                        float normal[] = new float[3];
 
-                    normal[0] = Float.parseFloat(args[1]);
-                    normal[1] = Float.parseFloat(args[2]);
-                    normal[2] = Float.parseFloat(args[3]);
+                        normal[0] = Float.parseFloat(args[1]);
+                        normal[1] = Float.parseFloat(args[2]);
+                        normal[2] = Float.parseFloat(args[3]);
 
-                    normalsData.add(normal);
-                }
-                else if(args[0].equals("f"))
-                {
-                    //get first face point
-                    String[] face = args[1].split("/");
-                    //read vertex
-                    int index = Integer.parseInt(face[0])-1;
-                    indexData.add(index);
-                    //read texture index data
-                    index = Integer.parseInt(face[1]) -1;
-                    textureIndexData.add(index);
-                    //read normal index data
-                    index = Integer.parseInt(face[2])-1;
-                    normalsIndexData.add(index);
+                        normalsData.add(normal);
+                        break;
+                    case "f":
+                        //get first face point
+                        String[] face = args[1].split("/");
+                        //read vertex
+                        int index = Integer.parseInt(face[0]) - 1;
+                        indexData.add(index);
+                        //read texture index data
+                        index = Integer.parseInt(face[1]) - 1;
+                        textureIndexData.add(index);
+                        //read normal index data
+                        index = Integer.parseInt(face[2]) - 1;
+                        normalsIndexData.add(index);
 
-                    //get second face point
-                    face = args[2].split("/");
-                    //read vertex
-                    index = Integer.parseInt(face[0])-1;
-                    indexData.add(index);
-                    //read texture index data
-                    index = Integer.parseInt(face[1]) -1;
-                    textureIndexData.add(index);
-                    //read normal index data
-                    index = Integer.parseInt(face[2])-1;
-                    normalsIndexData.add(index);
+                        //get second face point
+                        face = args[2].split("/");
+                        //read vertex
+                        index = Integer.parseInt(face[0]) - 1;
+                        indexData.add(index);
+                        //read texture index data
+                        index = Integer.parseInt(face[1]) - 1;
+                        textureIndexData.add(index);
+                        //read normal index data
+                        index = Integer.parseInt(face[2]) - 1;
+                        normalsIndexData.add(index);
 
 
-                    //get third face point
-                    face = args[3].split("/");
-                    //read vertex
-                    index = Integer.parseInt(face[0])-1;
-                    indexData.add(index);
-                    //read texture index data
-                    index = Integer.parseInt(face[1]) -1;
-                    textureIndexData.add(index);
-                    //read normal index data
-                    index = Integer.parseInt(face[2])-1;
-                    normalsIndexData.add(index);
-                }
-                else if(args[0].equals("texture"))
-                {
-                    //store the ships texture name
-                    bitmapName = args[1];
+                        //get third face point
+                        face = args[3].split("/");
+                        //read vertex
+                        index = Integer.parseInt(face[0]) - 1;
+                        indexData.add(index);
+                        //read texture index data
+                        index = Integer.parseInt(face[1]) - 1;
+                        textureIndexData.add(index);
+                        //read normal index data
+                        index = Integer.parseInt(face[2]) - 1;
+                        normalsIndexData.add(index);
+                        break;
+                    case "texture":
+                        //store the ships texture name
+                        bitmapName = args[1];
+                        break;
                 }
             }
             ArrayList<Float> verticies = new ArrayList<>();
@@ -201,7 +198,7 @@ public class Model {
                 normals.add(normal[2]);
             }
 
-            //Collections.reverse(verticies);
+           // Collections.reverse(verticies);
             m_vertices = new float[verticies.size()];
             for(int i = 0;i < m_vertices.length;i++)
             {
@@ -259,6 +256,8 @@ public class Model {
     public ShortBuffer getIndexBuffer(){
         return m_indexBuffer;
     }
+
+    public float[] getVertices(){ return m_vertices;}
 
 
 

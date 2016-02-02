@@ -6,16 +6,14 @@ package jeremyred.spaceshooter3dproject;
 public class Sphere {
 
     private float m_radius;
-    private float m_x;
-    private float m_y;
-    private float m_z;
+
 
     public Sphere()
     {
-        m_x = m_y = m_z = m_radius = 0;
+         m_radius = 0;
     }
 
-    public Sphere(float[] vertices,float x,float y,float z)
+    public Sphere(float[] vertices)
     {
         //find the farthest point from the origen
         float farthestDistance = 0f;
@@ -31,44 +29,23 @@ public class Sphere {
         }
 
         m_radius = farthestDistance;
-        m_x = x;
-        m_y = y;
-        m_z = z;
+
     }
 
-    public void setX(float x)
-    {
-        m_x = x;
-    }
 
-    public void setY(float y)
-    {
-        m_y = y;
-    }
-
-    public void setZ(float z)
-    {
-        m_z = z;
-    }
-
-    public float getX()
-    {
-        return m_x;
-    }
-
-    public float getY()
-    {
-        return m_y;
-    }
-
-    public float getZ()
-    {
-        return m_z;
-    }
 
     public void setRadius(float radius)
     {
         m_radius = radius;
+    }
+
+    public static boolean collides(Sphere s1,Sphere s2,float x1,float y1, float z1,
+                                float x2, float y2,float z2)
+    {
+        //check distance
+        float distance =(float)(Math.pow(x1 - x2,2) + Math.pow(y1-y2,2) + Math.pow(z1-z2,2));
+
+        return  (distance < s1.getRadius()+s2.getRadius());
     }
 
     public float getRadius()

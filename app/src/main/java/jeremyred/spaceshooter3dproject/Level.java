@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.Buffer;
 import java.util.ArrayList;
+import java.util.Objects;
 
 /**
  * a simple class that contains mehods and propertys for storing basic level data
@@ -24,6 +25,8 @@ public class Level {
     private String m_levelName;
     private LevelDifficulty m_difficulty;
     private ArrayList<Enemy> m_enemys;
+    private static ArrayList<Model> m_models = new ArrayList<>();
+    private static ArrayList<Sphere> m_modelSpheres = new ArrayList<>();
     private String m_name;
     private boolean m_error;
     public static Level CurrentLevel;
@@ -56,11 +59,22 @@ public class Level {
         //read each line
         String line;
 
-            while((line = br.readLine()) != null && line != "")
+            while((line = br.readLine()) != null && !Objects.equals(line, ""))
             {
                 //split lines into arguments
                 String[] args = line.split(" ");
                 //parse input
+                if(args[0].toUpperCase().equals("MODELDEF"))
+                {
+                    //load new model and add it to the level
+                    Model model = new Model("Models/" + args[1],LevelListActivity.Manager);
+
+                    //add new model to the list of models
+                    m_models.add(model);
+
+                    //generate model collision information
+                    m_modelSpheres.add( new Sphere(model.getVertices()));
+                }
                 if(args[0].toUpperCase().equals("ENEMY"))
                 {
                     //create the enemy to add
@@ -106,7 +120,7 @@ public class Level {
                         }
                         else if(args[0].toUpperCase().equals("EXECUTION"))
                         {
-
+                            enemy.setExectution(Float.parseFloat(args[1]));
                         }
 
                     }
@@ -227,6 +241,16 @@ public class Level {
     public int compareTo(Level other)
     {
         return (this.m_difficulty.compareTo(other.m_difficulty));
+    }
+
+    public void addModel(Model model)
+    {
+        m_models.add(model);
+    }
+
+    public Model getModel(int index)
+    {
+        return m_models.get(index);
     }
 
 

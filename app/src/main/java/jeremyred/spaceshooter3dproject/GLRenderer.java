@@ -39,12 +39,13 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     private final float MAX_X = 10;
     private final float MAX_Y = 7;
 
+
     @Override
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         m_model = new Model("Models/ship.obj",Manager);
         m_shader = new ShipShader("shaders/vertexShader.glsl","shaders/fragmentShader.glsl",LevelListActivity.Manager);
         //set the background frame color
-        GLES20.glClearColor(0, 0, 1, 0);
+        GLES20.glClearColor(0, 0, 0, 0);
         m_angle = 0;
         place = new Place();
         place2 = new Place();
@@ -74,6 +75,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         dz += GameActivity.X2*2;
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT);
+       // GLES20.glEnable(GLES20.GL_CULL_FACE);
        // player.getPlace().setRotX(m_angle * 2);
         player.getPlace().setZ(8);
         player.getPlace().setX(player.getPlace().getX() + -dy);
@@ -121,14 +123,25 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         float[] color= {0,0,1,1};
         m_shader.drawModel(GameManager.getGameManager().getPlayer().getPlace().getMatrix(), view, m_projection, color, gameManager.getPlayer().getModel()
                 ,pos,0);
-
+        float[] backCOlor = {1,1,1,1};
         //draw the floor
         m_shader.drawModel(gameManager.getFloor().getMatrix(),view,m_projection,color,
                 gameManager.getFloor().getModel(),pos,gameManager.getFloor().getAdvanceX());
 
+      //  m_effectShader.drawModel(gameManager.getPlayerSheild().getMatrix(),view,m_projection,gameManager.getPlayerSheild().getColor(),
+      //          gameManager.getPlayerSheild().getModel(),backCOlor);
+
         float[] color2 = {1,1,0,0.5f};
 
-        float[] backCOlor = {0,0,1,1};
+        //render each of the active enemys in the level
+        for(int i = 0;i < gameManager.getActiveEnemys().size();i++)
+        {
+            GameEnemy enemy = gameManager.getActiveEnemys().get(i);
+            m_shader.drawModel(enemy.getMatrix(),view,m_projection,color,Level.CurrentLevel.getModel(enemy.getM_modelID()),pos,0
+                     );
+        }
+
+
         //m_shader.drawModel(place2.getMatrix(), view, m_projection, color, m_model,pos);
         m_effectShader.drawModel(place2.getMatrix(),view,m_projection,color2,m_model2,backCOlor);
 

@@ -17,8 +17,8 @@ void main()
  vec3 lightDir;
  float lightIntensity;
  vec2 newUV = vTexCoord;
- newUV.r = vTexCoord.r;
- newUV.g = vTexCoord.g + uAdd;
+ newUV.r = vTexCoord.r + uAdd;
+ newUV.g = vTexCoord.g;
  vec3 reflection;
  vec4 specular = vec4(0.0,0.0,0.0,0.0);
  vec4 color;

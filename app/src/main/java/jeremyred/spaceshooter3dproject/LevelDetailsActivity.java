@@ -13,6 +13,7 @@ import android.widget.TextView;
 public class LevelDetailsActivity extends Activity {
 
     Level m_level;
+    private int m_selectedLevel;
     @Override
     public void onCreate(Bundle savedInstanceState)
     {
@@ -22,8 +23,18 @@ public class LevelDetailsActivity extends Activity {
         AssetManager manager = getAssets();
         try{
             DataManager dataManager = DataManager.getDataManager();
-            m_level  = dataManager.getLevelList().get((int)(getIntent().getLongExtra(
-                    LevelListActivity.SELECTED_LEVEL,0)));
+            if(savedInstanceState != null)
+            {
+                m_selectedLevel = savedInstanceState.getInt("level");
+            }
+            else
+            {
+                m_selectedLevel = (int) (getIntent().getLongExtra(
+                        LevelListActivity.SELECTED_LEVEL, 0));
+            }
+            m_level  = dataManager.getLevelList().get(m_selectedLevel);
+            m_selectedLevel = (int)(getIntent().getLongExtra(
+                    LevelListActivity.SELECTED_LEVEL,0));
         }
         catch(Exception ex)
         {
@@ -46,5 +57,13 @@ public class LevelDetailsActivity extends Activity {
         Intent intent= new Intent(this,GameActivity.class);
         //luanch intent
         startActivity(intent);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState)
+    {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("level",m_selectedLevel);
     }
 }

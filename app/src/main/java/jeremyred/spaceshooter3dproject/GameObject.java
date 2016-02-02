@@ -23,6 +23,11 @@ public class GameObject extends Place {
 
     public void setModelID(int modelID)
     {
+        m_modelID = modelID;
+    }
 
+    public int getM_modelID()
+    {
+        return m_modelID;
     }
 }

@@ -34,7 +34,22 @@ public class ShipShader {
     private int m_specularPower;
     private int m_diffuseColor;
     private int m_uAddHandle;
-
+    private boolean m_positionsInit = false;
+    private boolean m_normalsInit = false;
+    private boolean m_uvssInit = false;
+    private boolean m_colorsInit = false;
+    private boolean m_mvpInit = false;
+    private boolean m_modelInit = false;
+    private boolean m_viewInit = false;
+    private boolean m_projectionInit = false;
+    private boolean m_ambeintInit = false;
+    private boolean m_cameraInit = false;
+    private boolean m_lightDirInit = false;
+    private boolean m_specularColorInit = false;
+    private boolean m_specularPowerInit = false;
+    private boolean m_diffuseInit = false;
+    private boolean m_uAddInit = false;
+    private boolean m_textureInit = false;
 
 
     public ShipShader(String vertexShaderAddress,String fragmentShaderAddress,AssetManager manager)
@@ -190,82 +205,98 @@ public class ShipShader {
     {
         GLES20.glVertexAttribPointer(m_normalHandle, Model.COORDS_PER_VERTEX, GLES20.GL_FLOAT, false,
                 Model.COORDS_PER_VERTEX * 4, normals);
+        m_normalsInit = true;
     }
 
     public void setTexture(Bitmap texture)
     {
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, texture, 0);
+        m_textureInit = true;
     }
 
     public void setTextureCoords(FloatBuffer texCoords)
     {
         GLES20.glVertexAttribPointer(m_uvHandle, 2, GLES20.GL_FLOAT, false, 2 * 4, texCoords);
+        m_uvssInit = true;
     }
 
     public void setPositions(FloatBuffer positions)
     {
         GLES20.glVertexAttribPointer(m_positionHandle, Model.COORDS_PER_VERTEX, GLES20.GL_FLOAT,
                 false, Model.COORDS_PER_VERTEX * 4, positions);
+        m_positionsInit = true;
     }
 
     public void setColor(float[] color)
     {
         GLES20.glUniform4fv(m_colorHandle, 1, color, 0);
+        m_colorsInit = true;
     }
 
     public void setMVP(float[] mvp)
     {
         GLES20.glUniformMatrix4fv(m_MVPHandle, 1, false, mvp, 0);
+        m_mvpInit = true;
     }
 
     public void setModel(float[] model)
     {
         GLES20.glUniformMatrix4fv(m_modelHandle, 1, false, model, 0);
+        m_modelInit = true;
     }
 
     public void setView(float[] view)
     {
         GLES20.glUniformMatrix4fv(m_viewHandle,1,false,view,0);
+        m_viewInit = true;
     }
 
     public void setProjection(float[] projection)
     {
         GLES20.glUniformMatrix4fv(m_projectionHandle, 1, false, projection, 0);
+        m_projectionInit = true;
     }
 
     public void setAmbientColor(float[] ambientColor)
     {
         GLES20.glUniform4fv(m_ambientColorHandle, 1, ambientColor, 0);
+        m_ambeintInit = true;
     }
 
     public void setCameraPosition(float[] cameraPosition)
     {
         GLES20.glUniform3fv(m_cameraPosHandle, 1, cameraPosition, 0);
+        m_cameraInit = true;
     }
 
     public void setDiffuseColor(float[] diffuseColor)
     {
         GLES20.glUniform4fv(m_diffuseColor, 1, diffuseColor, 0);
+        m_diffuseInit = true;
     }
 
     public void setLightDirection(float[] lightDirection)
     {
         GLES20.glUniform3fv(m_lightDirectionHandle, 1, lightDirection, 0);
+        m_lightDirInit = true;
     }
 
     public void setSpecularPower(float specularPower)
     {
         GLES20.glUniform1f(m_specularPower, specularPower);
+        m_specularPowerInit = true;
     }
 
     public void setSpecularColor(float[] specularColor)
     {
         GLES20.glUniform4fv(m_specularColorHandle, 1, specularColor, 0);
+        m_specularColorInit = true;
     }
 
     public void setUAdd(float uAdd)
     {
         GLES20.glUniform1f(m_uAddHandle, uAdd);
+        m_uAddInit = true;
     }
 
     public void drawModel(float[] modelMatrix,float[] view,float[] projection,float[] color,Model model,

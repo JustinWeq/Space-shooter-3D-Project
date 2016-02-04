@@ -16,7 +16,10 @@
         <activity
             android:name=".LevelListActivity"
             android:label="Space shooter 3D"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:screenOrientation="landscape"
+
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -25,7 +28,9 @@
 
         <activity android:name=".LevelDetailsActivity"
             android:label="Level Detials"
-            android:parentActivityName=".LevelListActivity"/>
+            android:parentActivityName=".LevelListActivity"
+            android:screenOrientation="landscape"
+            />
 
         <activity android:name=".GameActivity"
             android:label="Game"

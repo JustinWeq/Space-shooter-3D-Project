@@ -32,6 +32,7 @@ public class GameManager implements Runnable {
     private float m_playerZ;
     private int m_enemyIndex;
     private int m_currentLevel;
+    public static boolean DIRTY;
 
     public GameManager()
     {
@@ -63,6 +64,7 @@ public class GameManager implements Runnable {
         m_playerSheild.getPlace().setScaleZ(0.3f);
 
         m_playerZ = 10;
+        DIRTY = false;
 
     }
 
@@ -96,6 +98,7 @@ public class GameManager implements Runnable {
         //update game Logic
         while(!quit)
         {
+            DIRTY = false;
             while(isPuased)
             {
                 //loop
@@ -148,6 +151,7 @@ public class GameManager implements Runnable {
                 m_activeEnemys.get(i).setZ(m_activeEnemys.get(i).getZ()- ((playerSpeed/10)*m_gameTime));
             }
 
+            DIRTY = true;
         }
     }
 

@@ -36,7 +36,8 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     float m_screenWidth;float m_angle;
     float m_screenHeight;
 
-    private final float MAX_X = 10;private int gameController;
+    private final float MAX_X = 10;
+    private int gameController;
     private final float MAX_Y = 7;
 
 
@@ -85,6 +86,8 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     @Override
     public void onDrawFrame(GL10 unused)
     {
+
+
         GameManager gameManager = GameManager.getGameManager();
 
         //clear the buffer
@@ -108,9 +111,9 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 //                ,pos,0);
 
         //prepare the model
-        m_shader.setModelAttributes(gameManager.getPlayer().getModel());
+       // m_shader.setModelAttributes(gameManager.getPlayer().getModel());
 
-        m_shader.setModel(gameManager.getPlayer().getPlace().getMatrix());
+        //m_shader.setModel(gameManager.getPlayer().getPlace().getMatrix());
 
         //set view and projection
         m_shader.setView(view);
@@ -119,13 +122,28 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
         m_shader.setCameraPosition(pos);
 
-        m_shader.drawPreparedModel(gameManager.getPlayer().getModel().getVertexCount());
-        float[] backCOlor = {1,1,1,1};
-        //draw the floor
-        m_shader.drawModel(gameManager.getFloor().getMatrix(),view,m_projection,color,
-                gameManager.getFloor().getModel(),pos,gameManager.getFloor().getAdvanceX());
+        m_shader.setModelAttributes(newPlayer.getModel());
 
-      //  m_effectShader.drawModel(gameManager.getPlayerSheild().getMatrix(),view,m_projection,gameManager.getPlayerSheild().getColor(),
+        m_shader.setModel(newPlayer.getPlace().getMatrix());
+        m_shader.setUAdd(0);
+
+        m_shader.drawPreparedModel(newPlayer.getModel().getVertexCount());
+
+
+
+       // m_shader.drawPreparedModel(gameManager.getPlayer().getModel().getVertexCount());
+        float[] backCOlor = {1, 1, 1, 1};
+        //draw the floor
+        m_shader.drawModel(gameManager.getFloor().getMatrix(), view, m_projection, color,
+                gameManager.getFloor().getModel(),pos,gameManager.getFloor().getAdvanceX());
+        m_shader.setModelAttributes(newPlayer.getModel());
+
+        m_shader.setModel(newPlayer.getPlace().getMatrix());
+        m_shader.setUAdd(0);
+
+
+
+        //  m_effectShader.drawModel(gameManager.getPlayerSheild().getMatrix(),view,m_projection,gameManager.getPlayerSheild().getColor(),
       //          gameManager.getPlayerSheild().getModel(),backCOlor);
 
         float[] color2 = {1,1,0,0.5f};

@@ -19,7 +19,7 @@ import java.util.Collections;
  * Created by jeremy on 1/15/2016.
  */
 public class Model {
-    public final int COORDS_PER_VERTEX = 3;
+    public static final int COORDS_PER_VERTEX = 3;
     private FloatBuffer m_vertexBuffer;
     private FloatBuffer m_normalsBuffer;
     private FloatBuffer m_uvsBuffer;

@@ -7,6 +7,7 @@ import android.opengl.Matrix;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.FloatBuffer;
 
 /**
  * A shader class for effects such as lasers or explosions that do not want to have lightin applied to them
@@ -55,13 +56,28 @@ public class LaserShader {
             GLES20.glLinkProgram(m_program);
             m_MVPHandle = GLES20.glGetUniformLocation(m_program, "uMVPMatrix");
 
+            //enable vertex array
+            GLES20.glEnable(m_MVPHandle);
+
             m_vertexHandle = GLES20.glGetAttribLocation(m_program, "vPosition");
+
+            //enable vertex array
+            GLES20.glEnable(m_vertexHandle);
 
             m_uvHandle = GLES20.glGetAttribLocation(m_program,"aTexCoord");
 
+            //eneable vertex array
+            GLES20.glEnable(m_uvHandle);
+
             m_colorHandle = GLES20.glGetUniformLocation(m_program, "uColor");
 
+            //enable vertex array
+            GLES20.glEnable(m_colorHandle);
+
             m_backColor = GLES20.glGetUniformLocation(m_program,"uBackColor");
+
+            //enable vertex array
+            GLES20.glEnable(m_backColor);
 
 
         }
@@ -70,6 +86,33 @@ public class LaserShader {
             ex.printStackTrace();
         }
 
+    }
+
+    public void setMVP(float[] mvp)
+    {
+        GLES20.glUniform4fv(m_MVPHandle,1,mvp,0);
+    }
+
+    public void setPositions(FloatBuffer positions)
+    {
+        GLES20.glVertexAttribPointer(m_vertexHandle, Model.COORDS_PER_VERTEX, GLES20.GL_FLOAT, false,
+                Model.COORDS_PER_VERTEX * 4, positions);
+    }
+
+    public void setTextureCoords(FloatBuffer texCoords)
+    {
+        GLES20.glVertexAttribPointer(m_uvHandle,2,GLES20.GL_FLOAT,false,
+                2*4,texCoords);
+    }
+
+    public void setColor(float[] color)
+    {
+        GLES20.glUniform4fv(m_colorHandle, 1, color, 0);
+    }
+
+    public void setBackColor(float[] backColor)
+    {
+        GLES20.glUniform4fv(m_backColor,1,backColor,0);
     }
 
     public void drawModel(float[] mmodel,float[] view,float[] projection,

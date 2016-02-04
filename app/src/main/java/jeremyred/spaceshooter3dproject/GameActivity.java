@@ -1,9 +1,13 @@
 package jeremyred.spaceshooter3dproject;
 
 import android.app.Activity;
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorManager;
 import android.opengl.GLSurfaceView;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.InputDevice;
 import android.view.MotionEvent;
 
@@ -12,9 +16,15 @@ import android.view.MotionEvent;
 /**
  * Created by jeremy on 1/15/2016.
  */
-public class GameActivity extends Activity {
+public class GameActivity extends Activity implements SensorEventListener {
     private GLSurfaceView glView;
     public static float Y1 = 0,Y2 = 0,X1 = 0,X2 = 0;
+    private static final float SCALAR = 3;
+
+    public static float AxisX = 0,Axisy = 0,AxisZ = 0;
+
+    private SensorManager m_manager;
+    private Sensor m_sensor;
 
     @Override
     public void onCreate(Bundle savedInstanceId)
@@ -32,6 +42,25 @@ public class GameActivity extends Activity {
         thread.start();
 
         //handler.postAtFrontOfQueue(GameManager.getGameManager());
+        m_manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        m_sensor = m_manager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event)
+    {
+
+            //its a rotation
+            AxisX = event.values[1]*event.values[3]*SCALAR;
+            Axisy = -event.values[0]*event.values[3]*SCALAR;
+            AxisZ = event.values[2]*event.values[3]*SCALAR;
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 
     @Override
@@ -89,6 +118,20 @@ public class GameActivity extends Activity {
         X2 = getCenteredAxis(event,device,MotionEvent.AXIS_RX,historyPos);
         Y1 = getCenteredAxis(event,device,MotionEvent.AXIS_Y,historyPos);
         Y2 = getCenteredAxis(event,device,MotionEvent.AXIS_RY,historyPos);
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        m_manager.registerListener(this,m_sensor,SensorManager.SENSOR_DELAY_FASTEST);
+    }
+
+    @Override
+    protected void onPause()
+    {
+        super.onPause();
+        m_manager.unregisterListener(this);
     }
 
 

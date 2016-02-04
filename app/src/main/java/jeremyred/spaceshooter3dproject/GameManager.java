@@ -1,5 +1,8 @@
 package jeremyred.spaceshooter3dproject;
 
+import android.content.Context;
+import android.hardware.Sensor;
+import android.hardware.SensorManager;
 import android.os.SystemClock;
 
 import java.util.ArrayList;
@@ -10,6 +13,8 @@ import java.util.ArrayList;
 public class GameManager implements Runnable {
 
     private static GameManager Main_Game_Manager;
+    private SensorManager m_sensorManager;
+    private Sensor m_sensor;
     private boolean isPuased;
     private long m_lastMilliSeconds;
     private static final float regFrameRate = 1000f/60f;
@@ -148,8 +153,11 @@ public class GameManager implements Runnable {
 
     private void handlePlayerInput()
     {
-        float dx = GLRenderer.X1;
-        float dy = GLRenderer.Y1;
+        float dx = GameActivity.X1;
+        float dy = GameActivity.Y1;
+        dx += GameActivity.AxisX;
+        dy += GameActivity.Axisy;
+
 
 
         m_player.getPlace().setX(m_player.getPlace().getX() + (-dx*m_gameTime));

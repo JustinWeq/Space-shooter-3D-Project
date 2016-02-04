@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:paddingLeft="18dp"
     android:paddingTop="18dp"
+    android:background="@drawable/background"
    >
 
     <TextView
@@ -13,6 +14,9 @@
         android:text="@string/level_txtViewStr"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:textColor="@color/colorText"
+        android:background="@color/colorButton"
+        android:layout_gravity="center_horizontal"
         />
     <TextView
         android:id="@+id/number_txtView"
@@ -22,6 +26,9 @@
         android:layout_alignLeft= "@id/level_txtView"
         android:layout_marginTop="18dp"
         android:text="@string/enemys_txtViewStr"
+        android:textColor="@color/colorText"
+        android:background="@color/colorButton"
+        android:layout_gravity="center_horizontal"
         />
     <TextView
         android:id="@+id/difficulty_txtView"
@@ -31,6 +38,9 @@
         android:layout_alignLeft = "@id/level_txtView"
         android:layout_marginTop="18dp"
         android:text="@string/difficulty_txtViewStr"
+        android:textColor="@color/colorText"
+        android:background="@color/colorButton"
+        android:layout_gravity="center_horizontal"
         />
     <Button
         android:id="@+id/ok_btn"
@@ -40,6 +50,11 @@
         android:layout_alignLeft = "@id/difficulty_txtView"
         android:layout_marginTop="18dp"
         android:text="Start"
-        android:onClick="onClickOK"/>
+        android:onClick="onClickOK"
+        android:textColor="@color/colorText"
+        android:background="@color/colorButton"
+        android:layout_gravity="center_horizontal"
+        />
+
 
 </LinearLayout>

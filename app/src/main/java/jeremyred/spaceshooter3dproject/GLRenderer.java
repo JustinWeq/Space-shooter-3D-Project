@@ -31,12 +31,12 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     Player player;
     public static float X1 = 0,Y1 = 0;
     float[] m_projection = new float[16];
-    float m_angle;
+
     boolean controllerIsConnected;
-    float m_screenWidth;
+    float m_screenWidth;float m_angle;
     float m_screenHeight;
-    private int gameController;
-    private final float MAX_X = 10;
+
+    private final float MAX_X = 10;private int gameController;
     private final float MAX_Y = 7;
 
 
@@ -54,6 +54,28 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         player = new Player();
         m_effectShader = new LaserShader();
         m_model2 = new Model("Models/laser.obj",Manager);
+
+        //float[]
+        //prepare the shader
+        float[] ac  = {0.2f,0.2f, 0.2f,1f};
+        m_shader.setAmbientColor(ac);
+
+        float[] dc =  {0.75f,0.75f,0.75f,1};
+        m_shader.setDiffuseColor(dc);
+
+        float[] lightDir = {0,1,0};
+
+        m_shader.setLightDirection(lightDir);
+
+        m_shader.setSpecularPower(1);
+
+        float[] specularColor = {1,1,0,1};
+
+        m_shader.setSpecularColor(specularColor);
+
+        float[] color= {0, 0, 1, 1};
+        m_shader.setColor(color);
+
     }
 
     float dx = 0;
@@ -64,65 +86,40 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 unused)
     {
         GameManager gameManager = GameManager.getGameManager();
-        //gameManager.GameLoop();
-        m_angle+= 0.2f;
-        //m_angle%= Math.PI;
-        //redraw the background color
-        dx= GameActivity.Y1;
-        dy= GameActivity.X1;
-        Y1 = GameActivity.Y1;
-        X1 = GameActivity.X1;
-        dz += GameActivity.X2*2;
+
+        //clear the buffer
         GLES20.glClear(GLES20.GL_COLOR_BUFFER_BIT);
         GLES20.glClear(GLES20.GL_DEPTH_BUFFER_BIT);
-       // GLES20.glEnable(GLES20.GL_CULL_FACE);
-       // player.getPlace().setRotX(m_angle * 2);
-        player.getPlace().setZ(8);
-        player.getPlace().setX(player.getPlace().getX() + -dy);
-        player.getPlace().setY(player.getPlace().getY() + -dx);
-        player.getPlace().setRotX(-dy * 30);
-        player.getPlace().setRotZ(-dx * 30);
-        player.getPlace().setRotX(180);
+
         float[] view = new float[16];
         float[] pos = {0,0,0,0};
         Player newPlayer = gameManager.getPlayer();
         pos[0] = newPlayer.getPlace().getX()*0.8f;
         pos[1] = newPlayer.getPlace().getY()*0.8f;
 
-
-        place2.setZ(2);
-        place2.setX(1);
-
-        if(player.getPlace().getX() > MAX_X)
-        {
-            player.getPlace().setX(MAX_X);
-        }
-        else
-        if(player.getPlace().getX() < -MAX_X)
-        {
-            player.getPlace().setX(-MAX_X);
-        }
-
-        if(player.getPlace().getY() > MAX_Y)
-        {
-            player.getPlace().setY(MAX_Y);
-        }
-        else
-        if(player.getPlace().getY() < -MAX_Y)
-        {
-            player.getPlace().setY(-MAX_Y);
-        }
         //Player newPlayer = gameManager.getPlayer();
         Matrix.perspectiveM(view, 0, 70, m_screenWidth / m_screenHeight, 1, 70);
-       Matrix.setLookAtM(view, 0, pos[0], pos[1], pos[2], newPlayer.getPlace().getX(),
+        Matrix.setLookAtM(view, 0, pos[0], pos[1], pos[2], newPlayer.getPlace().getX(),
                newPlayer.getPlace().getY(), newPlayer.getPlace().getZ(), 0f, 1.0f, 0.0f);
 
 
-
-
         float[] color= {0,0,1,1};
-        m_shader.drawModel(GameManager.getGameManager().getPlayer().getPlace().getMatrix(), view, m_projection, color, gameManager.getPlayer().getModel()
-                ,pos,0);
+//        m_shader.drawModel(GameManager.getGameManager().getPlayer().getPlace().getMatrix(), view, m_projection, color, gameManager.getPlayer().getModel()
+//                ,pos,0);
+
+        //prepare the model
+        m_shader.setModelAttributes(gameManager.getPlayer().getModel());
+
+        m_shader.setModel(gameManager.getPlayer().getPlace().getMatrix());
+
+        //set view and projection
+        m_shader.setView(view);
+
+        m_shader.setProjection(m_projection);
+
+        m_shader.setCameraPosition(pos);
+
+        m_shader.drawPreparedModel(gameManager.getPlayer().getModel().getVertexCount());
         float[] backCOlor = {1,1,1,1};
         //draw the floor
         m_shader.drawModel(gameManager.getFloor().getMatrix(),view,m_projection,color,

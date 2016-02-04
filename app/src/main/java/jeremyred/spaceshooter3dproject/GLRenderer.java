@@ -74,8 +74,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
         m_shader.setSpecularColor(specularColor);
 
-        float[] color= {0, 0, 1, 1};
-        m_shader.setColor(color);
+
 
     }
 

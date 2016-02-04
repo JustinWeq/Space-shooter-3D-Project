@@ -1,5 +1,4 @@
 precision mediump float;
-uniform vec4 vColor;
 uniform sampler2D uTexture;
 uniform vec4 ambientColor;
 uniform vec4 diffuseColor;

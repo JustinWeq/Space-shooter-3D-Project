@@ -22,8 +22,6 @@ public class ShipShader {
     private int m_positionHandle;
     private int m_normalHandle;
     private int m_uvHandle;
-    private int m_colorHandle;
-    private int m_MVPHandle;
     private int m_modelHandle;
     private int m_viewHandle;
     private int m_projectionHandle;
@@ -37,8 +35,6 @@ public class ShipShader {
     private boolean m_positionsInit = false;
     private boolean m_normalsInit = false;
     private boolean m_uvssInit = false;
-    private boolean m_colorsInit = false;
-    private boolean m_mvpInit = false;
     private boolean m_modelInit = false;
     private boolean m_viewInit = false;
     private boolean m_projectionInit = false;
@@ -123,17 +119,9 @@ public class ShipShader {
             //enable vertex array
             GLES20.glEnableVertexAttribArray(m_uvHandle);
 
-            //get the handle to the fragment shaders color member
-            m_colorHandle = GLES20.glGetUniformLocation(m_program,"vColor");
 
-            //enable vertex array
-            GLES20.glEnable(m_colorHandle);
 
-            //get the handle to the MVP matrix
-            m_MVPHandle = GLES20.glGetUniformLocation(m_program,"uMVPMatrix");
 
-            //enable vertex array
-            GLES20.glEnable(m_MVPHandle);
 
             //get a handle to the model matrix
             m_modelHandle = GLES20.glGetUniformLocation(m_program, "uMMatrix");
@@ -227,17 +215,8 @@ public class ShipShader {
         m_positionsInit = true;
     }
 
-    public void setColor(float[] color)
-    {
-        GLES20.glUniform4fv(m_colorHandle, 1, color, 0);
-        m_colorsInit = true;
-    }
 
-    public void setMVP(float[] mvp)
-    {
-        GLES20.glUniformMatrix4fv(m_MVPHandle, 1, false, mvp, 0);
-        m_mvpInit = true;
-    }
+
 
     public void setModel(float[] model)
     {
@@ -351,9 +330,7 @@ public class ShipShader {
 //
 //        //set color for drawing the triangle
 //        GLES20.glUniform4fv(colorHandle, 1, color, 0);
-
-        //set colors
-        setColor(color);
+        ;
 
         //get handle to shapes transfomr matrix
 //        int MVPHandle = GLES20.glGetUniformLocation(m_program,"uMVPMatrix");
@@ -361,8 +338,6 @@ public class ShipShader {
 //        //pass the mvp matrix
 //        GLES20.glUniformMatrix4fv(MVPHandle,1,false,MVP,0);
 
-        //set mvp matrix
-        setMVP(MVP);
 
 //        int MHandle = GLES20.glGetUniformLocation(m_program, "uMMatrix");
 //

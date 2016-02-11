@@ -37,7 +37,7 @@
             android:screenOrientation="landscape"/>
 
         <activity android:name=".MainMenuActivity"
-            android:label="Main Menu"
+            android:label="3D space shooter"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             >

@@ -13,6 +13,15 @@ public class GameSettings {
     private boolean m_alphaBlendingEnabled;
     private int m_controllerSensitivity;
     private static GameSettings m_gameSettings;
+    public static final int DEFAULT_BRIGHTNESS = 25;
+    public static final boolean DEFAULT_AA = true;
+    public static final int DEFAULT_MUSIC_VOLUME = 100;
+    public static final int DEFAULT_SFX_VOLUME = 100;
+    public static final boolean DEFAULT_LIGHT_SETTING = true;
+    public static final boolean DEFAULT_ALPHASTATE = true;
+    public static final int DEFAULT_CONTROLLER_SENSITIVITY = 100;
+
+
 
     private GameSettings(int musicVolume,int sfxVolume,boolean controllerEnabled,boolean lightingEnabled,boolean aaEnabled,int brightness,
                         boolean alphaBlendingEnabled,int controllerSensitivity)
@@ -29,14 +38,15 @@ public class GameSettings {
 
     private GameSettings()
     {
-        m_musicVolume = 100;
-        m_SFXVolume = 100;
+        m_musicVolume = DEFAULT_MUSIC_VOLUME;
+        m_SFXVolume = DEFAULT_SFX_VOLUME;
+
         m_controllerEnabled = true;
-        m_lightingEnabled = true;
-        m_AAEnabled = true;
-        m_brightness = 100;
-        m_alphaBlendingEnabled = true;
-        m_controllerSensitivity = 100;
+        m_lightingEnabled = DEFAULT_LIGHT_SETTING;
+        m_AAEnabled = DEFAULT_AA;
+        m_brightness = DEFAULT_BRIGHTNESS;
+        m_alphaBlendingEnabled = DEFAULT_ALPHASTATE;
+        m_controllerSensitivity = DEFAULT_CONTROLLER_SENSITIVITY;
     }
 
     public int getMusicVolume()

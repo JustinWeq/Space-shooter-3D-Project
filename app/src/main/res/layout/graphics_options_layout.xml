@@ -3,51 +3,52 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="18dp"
-    android:paddingRight="18dp"
     android:paddingTop="18dp"
-    android:background="@drawable/background"
-   >
+    android:paddingRight="18dp">
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/swhAA"
+        android:text="@string/swhAAStr"
+        android:textColor="@color/colorText"
+        android:background="@color/colorButton"
+        android:layout_gravity="center_horizontal"/>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/swhLighting"
+        android:text="@string/swhLightingStr"
+        android:textColor="@color/colorText"
+        android:background="@color/colorButton"
+        android:layout_gravity="center_horizontal"/>
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/swhAlphaBlending"
+        android:text="@string/swhABStr"
+        android:textColor="@color/colorText"
+        android:background="@color/colorButton"
+        android:layout_gravity="center_horizontal"/>
 
     <TextView
-        android:id="@+id/lblLevel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/lblLevelStr"
-        android:textColor="@color/colorText"
-        android:background="@color/colorButton"
         android:layout_gravity="center_horizontal"
-        />
-    <TextView
-        android:id="@+id/lblNumber"
-        android:layout_width="wrap_content"
+        android:id="@+id/lblBrightness"
+        android:textColor="@color/colorText"
+        android:text="@string/lblBrightnessStr" />
+
+    <SeekBar
+        android:layout_width="256dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:text="@string/lblNumberStr"
-        android:textColor="@color/colorText"
-        android:background="@color/colorButton"
         android:layout_gravity="center_horizontal"
+        android:max="100"
+        android:id="@+id/skbBrightness"
         />
-    <TextView
-        android:id="@+id/lblDifficulty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:text="@string/lblDifficultyStr"
-        android:textColor="@color/colorText"
-        android:background="@color/colorButton"
-        android:layout_gravity="center_horizontal"
-        />
-    <Button
-        android:id="@+id/btnOk"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="18dp"
-        android:text="@string/btnOk2Str"
-        android:onClick="onClickOK"
-        android:textColor="@color/colorText"
-        android:background="@color/colorButton"
-        android:layout_gravity="center_horizontal"
-        />
+
 
 
 </LinearLayout>

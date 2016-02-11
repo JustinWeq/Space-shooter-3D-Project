@@ -3,6 +3,9 @@ package jeremyred.spaceshooter3dproject;
 import android.content.Context;
 import android.hardware.Sensor;
 import android.hardware.SensorManager;
+import android.media.AudioAttributes;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.SystemClock;
 
 import java.util.ArrayList;
@@ -32,6 +35,7 @@ public class GameManager implements Runnable {
     private float m_playerZ;
     private int m_enemyIndex;
     private int m_currentLevel;
+    private SoundPool soundPool;
     public static boolean DIRTY;
 
     public GameManager()
@@ -66,11 +70,27 @@ public class GameManager implements Runnable {
         m_playerZ = 10;
         DIRTY = false;
 
+        //create soundPool
+        soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC,0);
+
+
     }
 
     @Override
     public void run() {
-        
+
+        int id = -1;
+        try {
+            id = soundPool.load(LevelListActivity.Manager.openFd("Sounds/Desolation.mp3"),0);
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
+        }
+        //start playing the game music
+
+
+        soundPool.play(id,1,1,0,0,1);
         //run the GameLoop
         GameLoop();
 

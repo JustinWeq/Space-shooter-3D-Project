@@ -172,7 +172,7 @@ public class ShipShader {
             GLES20.glEnable(m_specularPower);
 
             //get a handle to the lightins specular color
-            m_specularColorHandle = GLES20.glGetAttribLocation(m_program, "specularColor");
+            m_specularColorHandle = GLES20.glGetUniformLocation(m_program, "specularColor");
 
             GLES20.glEnable(m_specularColorHandle);
 
@@ -459,6 +459,7 @@ public class ShipShader {
 
     public void drawPreparedModel(int vertexCount)
     {
+        GLES20.glUseProgram(m_program);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES,0,vertexCount);
     }
 }

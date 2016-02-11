@@ -1,9 +1,28 @@
 <resources>
     <string name="app_name">Space shooter 3D Project</string>
-    <string name="level_txtViewStr">Selected Level: </string>
-    <string name="difficulty_txtViewStr">Difficulty level: </string>
-    <string name="enemys_txtViewStr">Number of enemys: </string>
-    <string-array name="levels">
+    <string name="lblLevelStr">Selected Level: </string>
+    <string name="lblDifficultyStr">Difficulty level: </string>
+    <string name="lblNumberStr">Number of enemys: </string>
+    <string name="btnOkStr">Select Level</string>
+    <string name="btnOk2Str">Start</string>
+    <string name="btnPlayStr">Play</string>
+    <string name="btnOptionsStr">Options</string>
+    <string name="btnControlsStr">Controls</string>
+    <string name="btnInfoStr">Info</string>
+    <string name="btnGraphicsStr">Graphics</string>
+    <string name="btnSoundStr">Sound</string>
+    <string name="btnDataStr">Data</string>
+    <string name="btnSaveStr">Save</string>
+    <string name="swhAAStr">Anti Aliasing</string>
+    <string name="swhLightingStr">Lighting</string>
+    <string name="swhABStr">Alpha Blending</string>
+    <string name="lblBrightnessStr">Brightness</string>
+    <string name="lblMusicSoundStr">Music</string>
+    <string name="lblSFXStr">Effects</string>
+    <string name="swhControllerStr">Use controller</string>
+    <string name="lblSensitivityStr">Sensitivity</string>
+    <string name="btnResetSaveStr">Reset save(click 3 times)</string>
+    <string-array name="spnLevelsArr">
         <item>level1</item>
         <item>level2</item>
         <item>level3</item>

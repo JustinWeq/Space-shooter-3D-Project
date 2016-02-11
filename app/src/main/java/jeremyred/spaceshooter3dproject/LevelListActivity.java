@@ -25,7 +25,7 @@ public class LevelListActivity extends Activity {
         {
             int selectedIndex = savedInstanceState.getInt("selected");
 
-            ((Spinner)findViewById(R.id.levels)).setSelection(selectedIndex);
+            ((Spinner)findViewById(R.id.spnLevels)).setSelection(selectedIndex);
         }
         //set the layout
         setContentView(R.layout.main_content);
@@ -38,7 +38,7 @@ public class LevelListActivity extends Activity {
     {
         //set up new intent to go to new activity
         Intent intent = new Intent(this,LevelDetailsActivity.class);
-        Spinner spinner = (Spinner) findViewById(R.id.levels);
+        Spinner spinner = (Spinner) findViewById(R.id.spnLevels);
         intent.putExtra(SELECTED_LEVEL, spinner.getSelectedItemId());
         startActivity(intent);
     }
@@ -95,7 +95,7 @@ public class LevelListActivity extends Activity {
     {
         super.onSaveInstanceState(outState);
         //get selected index for the spinner
-        int selectedIndex = (int)((Spinner)(findViewById(R.id.levels))).getSelectedItemId();
+        int selectedIndex = (int)((Spinner)(findViewById(R.id.spnLevels))).getSelectedItemId();
 
         outState.putInt("selected",selectedIndex);
     }

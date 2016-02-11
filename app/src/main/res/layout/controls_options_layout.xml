@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingRight="18dp"
+    android:paddingLeft = "18dp"
+    android:paddingTop="18dp">
+
+    <Switch
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/swhController"
+        android:text="@string/swhControllerStr"
+        android:textColor="@color/colorText"
+        android:background="@color/colorButton"
+        android:layout_gravity="center_horizontal"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:id="@+id/lblSensitivity"
+        android:textColor="@color/colorText"
+        android:text="@string/lblSensitivityStr" />
+
+    <SeekBar
+        android:layout_width="256dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:max="100"
+        android:id="@+id/skbSensitivity"
+        />
+
+
+</LinearLayout>

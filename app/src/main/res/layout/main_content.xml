@@ -7,25 +7,20 @@
 
 
     <Spinner
-        android:id="@+id/levels"
+        android:id="@+id/spnLevels"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical = "true"
         android:layout_gravity="center"
-        android:entries="@array/levels"
+        android:entries="@array/spnLevelsArr"
         android:background="@color/colorButton"
 
 
     />
     <Button
-        android:id="@+id/ok"
+        android:id="@+id/btnOk"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Select Level"
-        android:layout_alignLeft="@id/levels"
-        android:layout_below="@id/levels"
+        android:text="@string/btnOkStr"
         android:layout_marginTop="24dp"
         android:layout_gravity="center_horizontal"
         android:onClick="onClickOk"

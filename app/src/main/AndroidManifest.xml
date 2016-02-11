@@ -18,23 +18,42 @@
             android:label="Space shooter 3D"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape"
-
+            android:parentActivityName=".MainMenuActivity"
             >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
-            </intent-filter>
+
         </activity>
 
         <activity android:name=".LevelDetailsActivity"
             android:label="Level Detials"
             android:parentActivityName=".LevelListActivity"
+            android:theme="@style/AppTheme"
             android:screenOrientation="landscape"
             />
 
         <activity android:name=".GameActivity"
             android:label="Game"
-            android:parentActivityName=".LevelDetailsActivity"/>
+            android:parentActivityName=".LevelDetailsActivity"
+            android:theme="@style/AppTheme"
+            android:screenOrientation="landscape"/>
+
+        <activity android:name=".MainMenuActivity"
+            android:label="Main Menu"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+            </activity>
+
+        <activity android:name=".OptionsActivity"
+            android:label="Options"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainMenuActivity">
+
+        </activity>
 
     </application>
 

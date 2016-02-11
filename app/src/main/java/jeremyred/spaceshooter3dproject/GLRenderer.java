@@ -70,7 +70,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
         m_shader.setSpecularPower(1);
 
-        float[] specularColor = {1,1,0,1};
+        float[] specularColor = {0,0,0,0};
 
         m_shader.setSpecularColor(specularColor);
 
@@ -148,16 +148,20 @@ public class GLRenderer implements GLSurfaceView.Renderer {
         float[] color2 = {1,1,0,0.5f};
 
         //render each of the active enemys in the level
+        m_shader.setModelAttributes(Level.CurrentLevel.getModel(0));
         for(int i = 0;i < gameManager.getActiveEnemys().size();i++)
         {
             GameEnemy enemy = gameManager.getActiveEnemys().get(i);
-            m_shader.drawModel(enemy.getMatrix(),view,m_projection,color,Level.CurrentLevel.getModel(enemy.getM_modelID()),pos,0
-                     );
+            //m_shader.drawModel(enemy.getMatrix(),view,m_projection,color,Level.CurrentLevel.getModel(enemy.getM_modelID()),pos,0
+                     //);
+            m_shader.setModel(enemy.getMatrix());
+            m_shader.drawPreparedModel(Level.CurrentLevel.getModel(0).getVertexCount());
+
         }
 
 
         //m_shader.drawModel(place2.getMatrix(), view, m_projection, color, m_model,pos);
-        m_effectShader.drawModel(place2.getMatrix(),view,m_projection,color2,m_model2,backCOlor);
+        //m_effectShader.drawModel(place2.getMatrix(),view,m_projection,color2,m_model2,backCOlor);
 
     }
 

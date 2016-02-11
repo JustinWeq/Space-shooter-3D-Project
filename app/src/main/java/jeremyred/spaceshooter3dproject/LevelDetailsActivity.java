@@ -41,12 +41,18 @@ public class LevelDetailsActivity extends Activity {
             ex.printStackTrace();
         }
         //set the text values
-        TextView view = (TextView) findViewById(R.id.level_txtView);
-        view.setText(view.getText()+m_level.getName());
-        view = (TextView) findViewById(R.id.difficulty_txtView);
-        view.setText(view.getText()+m_level.getDifficulty());
-        view =(TextView) findViewById(R.id.number_txtView);
-        view.setText(view.getText()+""+m_level.getListOfEnemys().size());
+        TextView view = (TextView) findViewById(R.id.lblLevel);
+        String addStr = view.getText() +m_level.getName();
+        view.setText(addStr);
+
+        view = (TextView) findViewById(R.id.lblDifficulty);
+        addStr = view.getText() +m_level.getDifficulty();
+        view.setText(addStr);
+
+        view =(TextView) findViewById(R.id.lblNumber);
+         addStr = view.getText() + ""+m_level.getListOfEnemys().size();
+        view.setText(addStr);
+
         GLRenderer.Manager = getAssets();
         Level.CurrentLevel = m_level;
     }

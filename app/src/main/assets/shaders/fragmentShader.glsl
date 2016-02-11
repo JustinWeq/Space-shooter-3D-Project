@@ -26,7 +26,6 @@ void main()
  vec4 worldPos = gl_FragCoord*uMMatrix;
  vec4 viewDir = vec4(uCameraPosition,1.0)-worldPos;
  lightDir = -lightDirection;
- 
  lightIntensity = clamp(dot(vNormal.rgb,lightDir),0.0,1.0);
  
  if(lightIntensity > 0.0)

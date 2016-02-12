@@ -34,4 +34,20 @@ public class MainMenuActivity extends Activity {
         startActivity(intent);
     }
 
+    public void onClickControls(View view)
+    {
+        //go to the controls activity
+        Intent intent = new Intent(this,ControlsActivity.class);
+        //start the controls activity
+        startActivity(intent);
+    }
+
+    public void onClickInfo(View view)
+    {
+        //go to the info actvity
+        Intent intent = new Intent(this,InfoActivity.class);
+        //start the info activity
+        startActivity(intent);
+    }
+
 }

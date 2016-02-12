@@ -83,7 +83,8 @@ public class OptionsActivity extends FragmentActivity
     }
 
     public void onClickSave(View view) {
-
+        //go back to parent
+        finish();
     }
 
 }

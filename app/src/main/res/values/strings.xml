@@ -22,6 +22,12 @@
     <string name="swhControllerStr">Use controller</string>
     <string name="lblSensitivityStr">Sensitivity</string>
     <string name="btnResetSaveStr">Reset save(click 3 times)</string>
+    <string name="lblInfoStr">This was a project created by jeremy red \n
+        for CS 241 at edmonds community college. \ n
+        This app demontrates graphics and basic gameplay in android using openGL \n
+        ES 2.0
+    </string>
+    <string name="btnBackStr">Back</string>
     <string-array name="spnLevelsArr">
         <item>level1</item>
         <item>level2</item>

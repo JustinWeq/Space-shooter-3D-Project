@@ -55,6 +55,18 @@
 
         </activity>
 
+        <activity android:name=".ControlsActivity"
+            android:label="Controls"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainMenuActivity"/>
+
+        <activity android:name=".InfoActivity"
+            android:label="Info"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainMenuActivity"/>
+
     </application>
 
 </manifest>

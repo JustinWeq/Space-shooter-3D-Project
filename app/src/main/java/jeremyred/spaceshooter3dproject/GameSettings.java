@@ -13,6 +13,8 @@ public class GameSettings {
     private boolean m_alphaBlendingEnabled;
     private int m_controllerSensitivity;
     private static GameSettings m_gameSettings;
+    private int m_playerPos;
+    private int m_currentlevel;
     public static final int DEFAULT_BRIGHTNESS = 25;
     public static final boolean DEFAULT_AA = true;
     public static final int DEFAULT_MUSIC_VOLUME = 100;
@@ -137,6 +139,26 @@ public class GameSettings {
         }
 
         return m_gameSettings;
+    }
+
+    public int getPlayerPos()
+    {
+        return m_playerPos;
+    }
+
+    public int getCurrentLevel()
+    {
+        return m_currentlevel;
+    }
+
+    public void setCurrentLevel(int currentLevel)
+    {
+        m_currentlevel= currentLevel;
+    }
+
+    public void setPlayerPos(int playerPos)
+    {
+        m_playerPos = playerPos;
     }
 
 

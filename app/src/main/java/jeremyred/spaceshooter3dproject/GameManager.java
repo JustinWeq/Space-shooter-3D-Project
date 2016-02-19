@@ -36,7 +36,7 @@ public class GameManager implements Runnable {
     private int m_enemyIndex;
     private int m_currentLevel;
     private SoundPool soundPool;
-    public static boolean DIRTY;
+    public ArrayList<ArrayList<float[]>> m_render_groups;
 
     public GameManager()
     {
@@ -57,7 +57,7 @@ public class GameManager implements Runnable {
 
         //m_playerSheild.setPlace(m_player.getPlace());
 
-        m_playerSheild.setPlace( new Place());
+        m_playerSheild.setPlace(new Place());
 
         m_playerSphere = new Sphere(m_player.getModel().getVertices());
 
@@ -68,29 +68,29 @@ public class GameManager implements Runnable {
         m_playerSheild.getPlace().setScaleZ(0.3f);
 
         m_playerZ = 10;
-        DIRTY = false;
 
         //create soundPool
         soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC,0);
 
+        m_render_groups = new ArrayList<>();
+
+        //initalize render groups
+
+        for(int i = 0; i < ModelManager.getModeManager().getModelCount();i++)
+        {
+            m_render_groups.add( new ArrayList<float[]>());
+        }
 
     }
 
     @Override
     public void run() {
 
-        int id = -1;
-        try {
-            id = soundPool.load(LevelListActivity.Manager.openFd("Sounds/Desolation.mp3"),0);
-        }
-        catch (Exception ex)
-        {
-            ex.printStackTrace();
-        }
+
         //start playing the game music
+        //m_render_groups = new ArrayList<>(Level.CurrentLevel.get);
 
 
-        soundPool.play(id,1,1,0,0,1);
         //run the GameLoop
         GameLoop();
 
@@ -115,72 +115,102 @@ public class GameManager implements Runnable {
     private float temp = 0;
     public void GameLoop()
     {
-        //update game Logic
-        while(!quit)
-        {
-            DIRTY = false;
-            while(isPuased)
-            {
-                //loop
-            }
 
-            //get the gametime
-            setGameTime();
-            //temp+= 0.2*m_gameTime;
-            if(temp > 360)
-            {
-                temp -= 360;
-            }
+        //play the backgournd music
 
-           // m_player.getPlace().setRotX(temp);
-            //handle the players input
-            handlePlayerInput();
-
-            //move the floor
-            m_floor.setAdvanceX(m_floor.getAdvanceX()+(playerSpeed*m_gameTime));
-
-            if(m_floor.getAdvanceX() > 1)
-            {
-                m_floor.setAdvanceX(m_floor.getAdvanceX() - 1f);
-            }
-
-            //move the player
-            m_playerZ+= playerSpeed*m_gameTime;
-
-            //check to see if playerZ is greater then the execution time on the current enemy
-            if(m_enemyIndex < m_toBeEnemyList.size())
-            {
-                if (m_toBeEnemyList.get(m_enemyIndex).getExection() < m_playerZ) {
-                    Enemy tobeEnemy = m_toBeEnemyList.get(m_enemyIndex);
-                    //add new enemy to list of active enemys
-                    GameEnemy nenemy = new GameEnemy();
-                    nenemy.setX(tobeEnemy.getX());
-                    nenemy.setY(tobeEnemy.getY());
-                    nenemy.setZ(tobeEnemy.getZ());
-                    nenemy.setRotX(180);
-                    nenemy.setModelID(tobeEnemy.getModelID());
-                    m_activeEnemys.add(nenemy);
-                    m_enemyIndex++;
+        try {
+            //update game Logic
+            while (!quit) {
+                //GLRenderer.M_Semaphore.acquire();
+                RenderQueueItem frame = new RenderQueueItem();
+                while (isPuased) {
+                    //loop
                 }
+
+                //get the gametime
+                setGameTime();
+                //temp+= 0.2*m_gameTime;
+                if (temp > 360) {
+                    temp -= 360;
+                }
+
+                // m_player.getPlace().setRotX(temp);
+                //handle the players input
+                handlePlayerInput();
+
+                //move the floor
+                m_floor.setAdvanceX(m_floor.getAdvanceX() + (playerSpeed * m_gameTime));
+
+                if (m_floor.getAdvanceX() > 1) {
+                    m_floor.setAdvanceX(m_floor.getAdvanceX() - 1f);
+                }
+
+                //move the player
+                m_playerZ += playerSpeed * m_gameTime;
+
+                //check to see if playerZ is greater then the execution time on the current enemy
+                if (m_enemyIndex < m_toBeEnemyList.size()) {
+                    if (m_toBeEnemyList.get(m_enemyIndex).getExection() < m_playerZ) {
+                        Enemy tobeEnemy = m_toBeEnemyList.get(m_enemyIndex);
+                        //add new enemy to list of active enemys
+                        GameEnemy nenemy = new GameEnemy();
+                        nenemy.setX(tobeEnemy.getX());
+                        nenemy.setY(tobeEnemy.getY());
+                        nenemy.setZ(tobeEnemy.getZ());
+                        nenemy.setRotX(180);
+                        nenemy.setModelID(tobeEnemy.getModelID());
+                        m_activeEnemys.add(nenemy);
+                        m_enemyIndex++;
+                    }
+                }
+
+
+                for (int i = 0; i < m_activeEnemys.size(); i++) {
+                    m_activeEnemys.get(i).setZ(m_activeEnemys.get(i).getZ() - ((playerSpeed / 10) * m_gameTime));
+                }
+
+                //clear previous render groups
+//                for (int i = 0; i < m_render_groups.size(); i++) {
+//                    m_render_groups.get(i).clear();
+//                }
+
+                //set render groups
+//                for (int i = 0; i < m_activeEnemys.size(); i++) {
+//                    m_render_groups.get(m_activeEnemys.get(i).getM_modelID()).add(m_activeEnemys.get(i).getMatrix());
+//                }
+
+                for(int i = 0; i < m_activeEnemys.size();i++)
+                {
+                    frame.AddItem(m_activeEnemys.get(i).getM_modelID(),m_activeEnemys.get(i).getMatrix());
+                }
+
+                frame.copyPlayerMatrix(m_player.getPlace().getMatrix());
+                frame.setPlayerPos(new float[]{m_player.getPlace().getX(),m_player.getPlace().getY(),
+                m_player.getPlace().getZ(),0});
+                RenderQueue.getRenderQueue().addFrame(frame);
+
+
+               // GLRenderer.M_Semaphore.release();
+
             }
-
-
-
-            for(int i = 0;i < m_activeEnemys.size();i++)
-            {
-                m_activeEnemys.get(i).setZ(m_activeEnemys.get(i).getZ()- ((playerSpeed/10)*m_gameTime));
-            }
-
-            DIRTY = true;
+        }
+        catch (Exception ex)
+        {
+            ex.printStackTrace();
         }
     }
 
     private void handlePlayerInput()
     {
-        float dx = GameActivity.X1;
-        float dy = GameActivity.Y1;
-        dx += GameActivity.AxisX;
-        dy += GameActivity.Axisy;
+        float dx,dy;
+        if(GameSettings.getGameSettings().getControllerEnabled()) {
+            dx = GameActivity.X1;
+            dy = GameActivity.Y1;
+        }
+        else {
+            dx = GameActivity.AxisX;
+            dy = GameActivity.Axisy;
+        }
 
 
 
@@ -297,6 +327,11 @@ public class GameManager implements Runnable {
     public ArrayList<GameEnemy> getActiveEnemys()
     {
         return m_activeEnemys;
+    }
+
+    public ArrayList<ArrayList<float[]>> getRenderGroups()
+    {
+        return m_render_groups;
     }
 
 

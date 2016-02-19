@@ -1,6 +1,7 @@
 package jeremyred.spaceshooter3dproject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.AssetManager;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ public class LevelListActivity extends Activity {
     public static float Y1 = 0,Y2 = 0,X1 = 0,X2 = 0;
     public final static String SELECTED_LEVEL= "jeremyred.spaceshooter3dproject.SELECTED_LEVEL";
     public static AssetManager Manager;
+    public static Context PContext;
     @Override
     protected  void onCreate(Bundle savedInstanceState)
     {
@@ -30,6 +32,10 @@ public class LevelListActivity extends Activity {
         //set the layout
         setContentView(R.layout.main_content);
         Manager = getAssets();
+        PContext = this;
+        SoundManager sound = SoundManager.getSoundManager(this);
+
+        sound.play();
 
 
     }

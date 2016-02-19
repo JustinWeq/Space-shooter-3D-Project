@@ -32,6 +32,7 @@ public class OptionsActivity extends FragmentActivity
 
         //Add the fragment to the fragment container frame layout
         getSupportFragmentManager().beginTransaction().add(R.id.fragment_container,firstFragment).commit();
+
         m_tab = 0;
     }
 

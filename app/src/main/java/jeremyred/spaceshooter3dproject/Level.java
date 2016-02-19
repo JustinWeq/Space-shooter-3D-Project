@@ -59,7 +59,7 @@ public class Level {
         //read each line
         String line;
 
-            while((line = br.readLine()) != null && !Objects.equals(line, ""))
+            while((line = br.readLine()) != null)
             {
                 //split lines into arguments
                 String[] args = line.split(" ");
@@ -251,6 +251,10 @@ public class Level {
     public Model getModel(int index)
     {
         return m_models.get(index);
+    }
+
+    public int getNumberOfModels(){
+        return m_models.size();
     }
 
 

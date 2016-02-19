@@ -3,7 +3,10 @@ package jeremyred.spaceshooter3dproject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.InputDevice;
 import android.view.View;
+
+import java.util.ArrayList;
 
 /**
  * A simple activity intferace that displays buttons for the user to click on
@@ -15,6 +18,8 @@ public class MainMenuActivity extends Activity {
         super.onCreate(savedInstanceID);
 
         setContentView(R.layout.main_menu_layout);
+
+        GameSettings.getGameSettings().setControllerEnabled(controllerConnected());
 
     }
 
@@ -48,6 +53,31 @@ public class MainMenuActivity extends Activity {
         Intent intent = new Intent(this,InfoActivity.class);
         //start the info activity
         startActivity(intent);
+    }
+
+    private boolean controllerConnected()
+    {
+        ArrayList gameControllers = new ArrayList();
+        int[] deviceIds = InputDevice.getDeviceIds();
+        for(int deviceId: deviceIds)
+        {
+            InputDevice device = InputDevice.getDevice(deviceId);
+            int sources= device.getSources();
+
+            //Veryfy that the device is a gamecontroller
+            if((sources & InputDevice.SOURCE_GAMEPAD) == InputDevice.SOURCE_GAMEPAD)
+            {
+                if (!gameControllers.contains(deviceId)) {
+                    gameControllers.add(deviceId);
+                }
+            }
+        }
+
+        if(gameControllers.size() != 0)
+        {
+            return true;
+        }
+        return false;
     }
 
 }

@@ -10,12 +10,11 @@ varying vec4 vNormal;
 varying vec2 vTexCoord;
 varying vec4 viewDirection;
 void main() {
- vec4 worldPosition = vPosition*uMMatrix;
- vNormal = aNormal;
- vTexCoord = aTexCoord;
- vNormal = vNormal*uMMatrix;
- normalize(vNormal);
- viewDirection = vec4(uCameraPosition,1)-worldPosition;
- normalize(viewDirection);
- gl_Position = uPMatrix*uVMatrix*uMMatrix*vPosition;
+	gl_Position = uMMatrix*vec4(vPosition.rgb,1.0);
+	gl_Position = uVMatrix*gl_Position;
+	gl_Position = uPMatrix*gl_Position;
+
+	vTexCoord = aTexCoord;
+	vNormal = uMMatrix*aNormal;
+	vNormal = normalize(vNormal);
 }

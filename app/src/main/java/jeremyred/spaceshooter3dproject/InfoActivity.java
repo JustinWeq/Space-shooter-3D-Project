@@ -16,7 +16,7 @@ public class InfoActivity extends Activity {
     }
 
     public void onClickBack(View view) {
-        //go back to aprent activity
+        //go back to parent activity
         finish();
     }
 }

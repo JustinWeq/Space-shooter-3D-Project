@@ -13,7 +13,7 @@ public class Sheild {
         m_color = color;
         if(model == null)
         {
-            model = new Model("Models/Sheild.obj",LevelListActivity.Manager);
+            model = new Model("Models/Shield.obj",LevelListActivity.Manager);
         }
     }
 

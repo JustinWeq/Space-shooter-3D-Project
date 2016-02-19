@@ -44,6 +44,7 @@ public class GameActivity extends Activity implements SensorEventListener {
         //handler.postAtFrontOfQueue(GameManager.getGameManager());
         m_manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         m_sensor = m_manager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
+        SoundManager.getSoundManager(this).play();
 
     }
 

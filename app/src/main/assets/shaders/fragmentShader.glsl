@@ -13,36 +13,27 @@ varying vec2 vTexCoord;
 varying vec4 viewDirection;
 void main() 
 {
- vec3 lightDir;
- float lightIntensity;
- vec2 newUV = vTexCoord;
- newUV.r = vTexCoord.r + uAdd;
- newUV.g = vTexCoord.g;
- vec3 reflection;
- vec4 specular = vec4(0.0,0.0,0.0,0.0);
- vec4 color;
- vec4 textureColor = texture2D(uTexture,newUV);
- color = ambientColor;
- vec4 worldPos = gl_FragCoord*uMMatrix;
- vec4 viewDir = vec4(uCameraPosition,1.0)-worldPos;
- lightDir = -lightDirection;
- lightIntensity = clamp(dot(vNormal.rgb,lightDir),0.0,1.0);
- 
- if(lightIntensity > 0.0)
- {
-	color+= (diffuseColor*lightIntensity);
-    color = clamp(color,0.0,1.0);
+	vec4 textureColor;
+	vec4 color;
+	vec3 lightDir;
+	float lightIntensity;
+	vec2 newTex = vTexCoord;
+	newTex.y = vTexCoord.y+uAdd;
 
-	reflection = normalize(2.0*lightIntensity*vNormal.rgb-lightDir);
-	
-	float specularCo = pow(clamp(dot(reflection,viewDir.rgb),0.0,1.0),specularPower);
-	
-	specular = specularColor*specularCo;
- }
+	textureColor = texture2D(uTexture,vTexCoord);
 
- color = color*textureColor;
+	color = ambientColor;
 
- color = clamp(color+specular,0.0,1.0);
+	lightDir = -lightDirection;
 
- gl_FragColor = color;
+	lightIntensity = clamp(dot(vNormal.rgb,lightDir),0.0,1.0);
+
+	if(lightIntensity > 0.0)
+	{
+		color+=(diffuseColor*lightIntensity);
+	}
+
+	color = clamp(color,0.0,1.0);
+
+	gl_FragColor = color*textureColor;
 }

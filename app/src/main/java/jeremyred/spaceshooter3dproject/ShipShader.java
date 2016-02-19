@@ -6,6 +6,7 @@ import android.opengl.GLES20;
 import android.opengl.GLES30;
 import android.opengl.GLUtils;
 import android.opengl.Matrix;
+import android.util.Log;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -437,8 +438,11 @@ public class ShipShader {
         int shader = GLES20.glCreateShader(type);
 
         //add the source code to the shader and compile it
-        GLES20.glShaderSource(shader,shaderCode);
+        GLES20.glShaderSource(shader, shaderCode);
         GLES20.glCompileShader(shader);
+        final int[] compileStatus = new int[1];
+        String error = GLES20.glGetShaderInfoLog(shader);
+        Log.e("Shader error",error);
         return shader;
     }
 

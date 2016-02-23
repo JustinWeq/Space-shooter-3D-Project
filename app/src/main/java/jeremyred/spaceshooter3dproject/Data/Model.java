@@ -266,7 +266,7 @@ public class Model {
     {
         return m_vertexCount;
     }
-
+//in
     public Bitmap getBitmap()
     {
         return m_bitmap;

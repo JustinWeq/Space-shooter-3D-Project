@@ -14,29 +14,29 @@
         <supports-gl-texture android:name="GL_OES_compressed_paletted_texture" />
 
         <activity
-            android:name=".LevelListActivity"
+            android:name=".Activitys.LevelListActivity"
             android:label="Space shooter 3D"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape"
-            android:parentActivityName=".MainMenuActivity"
+            android:parentActivityName=".Activitys.MainMenuActivity"
             >
 
         </activity>
 
-        <activity android:name=".LevelDetailsActivity"
+        <activity android:name=".Activitys.LevelDetailsActivity"
             android:label="Level Detials"
-            android:parentActivityName=".LevelListActivity"
+            android:parentActivityName=".Activitys.LevelListActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape"
             />
 
-        <activity android:name=".GameActivity"
+        <activity android:name=".Activitys.GameActivity"
             android:label="Game"
-            android:parentActivityName=".LevelDetailsActivity"
+            android:parentActivityName=".Activitys.LevelDetailsActivity"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape"/>
 
-        <activity android:name=".MainMenuActivity"
+        <activity android:name=".Activitys.MainMenuActivity"
             android:label="3D space shooter"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
@@ -47,25 +47,25 @@
             </intent-filter>
             </activity>
 
-        <activity android:name=".OptionsActivity"
+        <activity android:name=".Activitys.OptionsActivity"
             android:label="Options"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".MainMenuActivity">
+            android:parentActivityName=".Activitys.MainMenuActivity">
 
         </activity>
 
-        <activity android:name=".ControlsActivity"
+        <activity android:name=".Activitys.ControlsActivity"
             android:label="Controls"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".MainMenuActivity"/>
+            android:parentActivityName=".Activitys.MainMenuActivity"/>
 
-        <activity android:name=".InfoActivity"
+        <activity android:name=".Activitys.InfoActivity"
             android:label="Info"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".MainMenuActivity"/>
+            android:parentActivityName=".Activitys.MainMenuActivity"/>
 
     </application>
 

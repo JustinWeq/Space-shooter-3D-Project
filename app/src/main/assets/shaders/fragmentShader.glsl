@@ -13,27 +13,26 @@ varying vec2 vTexCoord;
 varying vec4 viewDirection;
 void main() 
 {
-	vec4 textureColor;
-	vec4 color;
-	vec3 lightDir;
-	float lightIntensity;
-	vec2 newTex = vTexCoord;
-	newTex.y = vTexCoord.y+uAdd;
+		vec4 textureColor;
+		vec4 color;
+		vec3 lightDir;
+		float lightIntensity;
+		vec2 newTex = vTexCoord;
+		newTex.y = vTexCoord.y+uAdd;
 
-	textureColor = texture2D(uTexture,vTexCoord);
+		textureColor = texture2D(uTexture,vTexCoord);
 
-	color = ambientColor;
+		color = ambientColor;
 
-	lightDir = -lightDirection;
+		lightDir = lightDirection;
 
-	lightIntensity = clamp(dot(vNormal.rgb,lightDir),0.0,1.0);
+		lightIntensity = clamp(dot(vNormal.rgb,lightDir),0.0,1.0);
 
-	if(lightIntensity > 0.0)
-	{
-		color+=(diffuseColor*lightIntensity);
-	}
+		if(lightIntensity > 0.0)
+		{
+			color+=(diffuseColor*lightIntensity);
+		}
+		color = clamp(color,0.0,1.0);
 
-	color = clamp(color,0.0,1.0);
-
-	gl_FragColor = color*textureColor;
+		gl_FragColor = color*textureColor;
 }

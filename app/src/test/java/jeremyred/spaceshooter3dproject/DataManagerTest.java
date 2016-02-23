@@ -4,6 +4,9 @@ import junit.framework.TestCase;
 
 import java.util.ArrayList;
 
+import jeremyred.spaceshooter3dproject.Data.Level;
+import jeremyred.spaceshooter3dproject.Managers.DataManager;
+
 /**
  * Created by jeremy on 2/7/2016.
  */

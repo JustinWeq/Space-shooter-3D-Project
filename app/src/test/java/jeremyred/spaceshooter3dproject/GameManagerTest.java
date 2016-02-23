@@ -1,8 +1,8 @@
 package jeremyred.spaceshooter3dproject;
 
-import android.content.Intent;
-
 import junit.framework.TestCase;
+
+import jeremyred.spaceshooter3dproject.Managers.GameManager;
 
 /**
  * Created by jeremy on 2/7/2016.

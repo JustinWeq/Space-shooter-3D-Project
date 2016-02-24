@@ -191,6 +191,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
             //m_shader.drawModel(place2.getMatrix(), view, m_projection, color, m_model,pos);
             //m_effectShader.drawModel(place2.getMatrix(),view,m_projection,color2,m_model2,backCOlor);
        //     M_Semaphore.release();
+
         }
         catch (Exception ex)
         {

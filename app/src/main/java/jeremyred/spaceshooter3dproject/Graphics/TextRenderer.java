@@ -6,6 +6,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.FloatBuffer;
+
 import jeremyred.spaceshooter3dproject.Activitys.MainMenuActivity;
 
 /**
@@ -16,11 +20,16 @@ public class TextRenderer {
     private String m_text;
     private Bitmap m_bitmap;
     private boolean m_needsGenerated;
+    private int m_vertexCount;
+    private FloatBuffer m_vertexBuffer;
+    private FloatBuffer m_uvBuffer;
 
     public TextRenderer()
     {
         m_text = "Test";
         m_needsGenerated = true;
+        //generate model
+        setUpModel();
     }
 
     public void generateBitmap()
@@ -57,5 +66,78 @@ public class TextRenderer {
     {
         m_text = text;
         m_needsGenerated = true;
+    }
+
+    private void setUpModel()
+    {
+        //set the vertices
+        float[] vertices=
+        {
+            //upper left corner
+                -0.5f,0.5f,0,
+
+                //upper right corner
+                0.5f,0.5f,0,
+
+                //lower left corner
+                -0.5f,00.5f,0,
+
+                //upper right corner
+                0.5f,0.5f,0,
+
+                //lower riht corner
+                0.5f,-0.5f,0,
+
+                //lower left corner,
+                -0.5f,-0.5f,0
+        };
+        //set up uvs
+        float[] uvs=
+        {
+            //upper left corner
+                0,0,
+
+                //upper right corner
+                1,0,
+
+                //lower left corner
+                0,1,
+
+                //upper right corner
+                1,0,
+
+                //lower right corner
+                1,1,
+
+                //lower left corner
+                0,1
+        };
+
+
+        //set up the two buffers
+
+        //set up the vertex buffer
+        ByteBuffer bb = ByteBuffer.allocateDirect(vertices.length*4);
+
+        bb.order(ByteOrder.nativeOrder());
+
+        m_vertexBuffer = bb.asFloatBuffer();
+
+        m_vertexBuffer.put(vertices);
+
+        m_vertexBuffer.position(0);
+
+        //set up the uv buffer
+        bb = ByteBuffer.allocateDirect(uvs.length*4);
+
+        bb.order(ByteOrder.nativeOrder());
+
+        m_uvBuffer = bb.asFloatBuffer();
+
+        m_uvBuffer = bb.asFloatBuffer();
+
+        m_uvBuffer.put(uvs);
+
+        m_uvBuffer.position(0);
     }
 }

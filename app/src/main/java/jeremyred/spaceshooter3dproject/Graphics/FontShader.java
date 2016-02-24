@@ -70,7 +70,7 @@ public class FontShader {
         {
             ex.printStackTrace();
         }
-    }
+    }//l
 
     public void setPositions(FloatBuffer positionBuffer)
     {

@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.FloatBuffer;
 
-import jeremyred.spaceshooter3dproject.Activitys.MainMenuActivity;
+import jeremyred.spaceshooter3dproject.MainMenuActivity;
 
 /**
  * Created by jeremy on 2/23/2016.

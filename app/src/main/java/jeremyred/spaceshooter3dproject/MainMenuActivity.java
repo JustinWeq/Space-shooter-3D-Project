@@ -1,4 +1,4 @@
-package jeremyred.spaceshooter3dproject.Activitys;
+package jeremyred.spaceshooter3dproject;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,6 +10,10 @@ import android.view.View;
 
 import java.util.ArrayList;
 
+import jeremyred.spaceshooter3dproject.Activitys.ControlsActivity;
+import jeremyred.spaceshooter3dproject.Activitys.InfoActivity;
+import jeremyred.spaceshooter3dproject.Activitys.LevelListActivity;
+import jeremyred.spaceshooter3dproject.Activitys.OptionsActivity;
 import jeremyred.spaceshooter3dproject.Managers.GameSettings;
 import jeremyred.spaceshooter3dproject.R;
 

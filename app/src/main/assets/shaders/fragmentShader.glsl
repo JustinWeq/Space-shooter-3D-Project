@@ -34,5 +34,8 @@ void main()
 		}
 		color = clamp(color,0.0,1.0);
 
-		gl_FragColor = color*textureColor;
+		color = color*textureColor;
+
+		color.a = 1.0;
+		gl_FragColor = color;
 }

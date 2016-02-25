@@ -45,6 +45,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     private int gameController;
     private final float MAX_Y = 7;
     private TextRenderer m_text;
+    private FontShader m_fontShader;
 
 
     @Override
@@ -79,10 +80,11 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
         float[] specularColor = {0,0,0,0};
 
-        m_shader.setSpecularColor(specularColor);
+       // m_shader.setSpecularColor(specularColor);
 
+        m_fontShader = new FontShader();
 
-
+        m_text = new TextRenderer();
     }
 
     float dx = 0;
@@ -93,6 +95,9 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     public void onDrawFrame(GL10 unused)
     {
         try {
+
+            GLES20.glEnable(GLES20.GL_BLEND);
+            GLES20.glBlendFunc(GLES20.GL_SRC_ALPHA, GLES20.GL_ONE_MINUS_SRC_ALPHA);
            // M_Semaphore.acquire();
             RenderQueueItem frame = RenderQueue.getRenderQueue().getFrame();
             if(frame == null)
@@ -138,7 +143,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
             m_shader.setCameraPosition(pos);
 
-            m_shader.setUAdd(1);
+            //m_shader.setUAdd(1);
 
 
             // m_shader.drawPreparedModel(gameManager.getPlayer().getModel().getVertexCount());
@@ -154,26 +159,9 @@ public class GLRenderer implements GLSurfaceView.Renderer {
             //m_shader.setModel(newPlayer.getPlace().getMatrix());
             m_shader.setModel(frame
                     .getPlayerMatrix());
-            m_shader.setUAdd(0);
+            //m_shader.setUAdd(0);
             m_shader.drawPreparedModel(newPlayer.getModel().getVertexCount());
 
-            //  m_effectShader.drawModel(gameManager.getPlayerSheild().getMatrix(),view,m_projection,gameManager.getPlayerSheild().getColor(),
-            //          gameManager.getPlayerSheild().getModel(),backCOlor);
-
-            float[] color2 = {1, 1, 0, 0.5f};
-
-            //render each of the active enemys in the level
-//        m_shader.setModelAttributes(Level.CurrentLevel.getModel(0));
-//        for(int i = 0;i < gameManager.getActiveEnemys().size();i++)
-//        {
-//            GameEnemy enemy = gameManager.getActiveEnemys().get(i);
-//            //m_shader.drawModel(enemy.getMatrix(),view,m_projection,color,Level.CurrentLevel.getModel(enemy.getM_modelID()),pos,0
-//                     //);
-//            m_shader.setModel(enemy.getMatrix());
-//            m_shader.drawPreparedModel(Level.CurrentLevel.getModel(0).getVertexCount());
-//
-//        }
-            //ArrayList<ArrayList<float[]>> renderGroups = gameManager.getRenderGroups();
             for (int i = 0; i < renderGroups.size(); i++) {
                 if (renderGroups.get(i).size() != 0) {
                     //render since there is at least one model
@@ -187,10 +175,40 @@ public class GLRenderer implements GLSurfaceView.Renderer {
                 }
             }
 
+            //prepare to render the font
+            String text = frame.getText();
+            m_text.setText(frame.getText());
 
-            //m_shader.drawModel(place2.getMatrix(), view, m_projection, color, m_model,pos);
-            //m_effectShader.drawModel(place2.getMatrix(),view,m_projection,color2,m_model2,backCOlor);
-       //     M_Semaphore.release();
+            float[] world = new float[16];
+            Matrix.setIdentityM(world,0);
+            Matrix.translateM(world,0,world,0,0,0,2);
+
+            float[] ortho = new float[16];
+
+            //set up ortho graphic matrix
+            Matrix.orthoM(ortho, 0, -m_screenWidth / 2, m_screenWidth / 2, -m_screenHeight / 2
+                    , m_screenHeight / 2, 0, 10);
+
+            float[] mvp = new float[16];
+            Matrix.multiplyMM(mvp, 0, ortho, 0, view, 0);
+
+            Matrix.multiplyMM(mvp, 0, world, 0, mvp, 0);
+
+
+            //place the matrix in the shader
+           // m_fontShader.setMVP(mvp);
+
+            //set the texture
+            m_fontShader.setTexture(m_text.getBitmap());
+
+            //set positions
+            m_fontShader.setPositions(m_text.getVertexBuffer());
+
+            //set uvs
+            m_fontShader.setTextureCoords(m_text.getUVBuffer());
+
+            //render thte text
+            //m_fontShader.drawPreparedModel(6);
 
         }
         catch (Exception ex)

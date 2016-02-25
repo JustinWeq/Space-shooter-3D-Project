@@ -475,17 +475,4 @@ public class GLShader {
         GLES20.glUseProgram(m_program);
         GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, vertexCount);
     }
-
-    /**
-     * Determines the draw type for the shader
-     * 0 is defualt(with lighting)
-     * 1 is drawing with the whole texture
-     * 2 is the same as 1 except it does not draw black, this is effective for drawing 2D drawings
-     * or text
-     * @param drawType
-     */
-    public void setDrawType(int drawType)
-    {
-        GLES20.glUniform1i(m_uDrawType,drawType);
-    }
 }

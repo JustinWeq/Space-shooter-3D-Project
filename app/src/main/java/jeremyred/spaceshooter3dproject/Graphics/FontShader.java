@@ -9,7 +9,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.FloatBuffer;
 
-import jeremyred.spaceshooter3dproject.Activitys.MainMenuActivity;
+import jeremyred.spaceshooter3dproject.MainMenuActivity;
 
 /**
  * Created by jeremy on 2/23/2016.
@@ -29,7 +29,7 @@ public class FontShader {
         StringBuilder stringBuilder = new StringBuilder();
         try
         {
-            InputStream is = MainMenuActivity.MANAGER.open("shaders/fontVertexShader");
+            InputStream is = MainMenuActivity.MANAGER.open("shaders/fontVertexShader.glsl");
             BufferedReader reader = new BufferedReader(new InputStreamReader(is));
 
             String line;
@@ -44,7 +44,7 @@ public class FontShader {
 
             //load the fragment shader
             stringBuilder = new StringBuilder();
-            is = MainMenuActivity.MANAGER.open("shaders/fontFragmentShader");
+            is = MainMenuActivity.MANAGER.open("shaders/fontFragmentShader.glsl");
             reader = new BufferedReader(new InputStreamReader(is));
 
             line = null;
@@ -61,9 +61,9 @@ public class FontShader {
             GLES20.glEnable(m_uTextureHandle);
             m_aTexCoordHandle = GLES20.glGetAttribLocation(m_program, "aTexCoord");
             GLES20.glEnable(m_aTexCoordHandle);
-            m_uMVPHandle = GLES20.glGetAttribLocation(m_program,"uMVPMatrix");
+            m_uMVPHandle = GLES20.glGetUniformLocation(m_program,"uMVPMatrix");
             GLES20.glEnable(m_uMVPHandle);
-            m_aPosition = GLES20.glGetAttribLocation(m_program,"aPosition");
+            m_aPosition = GLES20.glGetAttribLocation(m_program,"aPos");
             GLES20.glEnable(m_aPosition);
         }
         catch (Exception ex)
@@ -84,7 +84,7 @@ public class FontShader {
 
     public void setMVP(float[] mvp)
     {
-        GLES20.glUniformMatrix4fv(m_uMVPHandle, 16, false, mvp, 0);
+        GLES20.glUniformMatrix4fv(m_uMVPHandle, 1, false, mvp, 0);
     }
 
     public void setTexture(Bitmap texture)

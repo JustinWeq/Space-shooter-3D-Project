@@ -8,7 +8,7 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-import jeremyred.spaceshooter3dproject.Activitys.MainMenuActivity;
+import jeremyred.spaceshooter3dproject.MainMenuActivity;
 
 /**
  * Created by jeremy on 2/21/2016.

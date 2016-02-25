@@ -18,7 +18,7 @@
             android:label="Space shooter 3D"
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape"
-            android:parentActivityName=".Activitys.MainMenuActivity"
+            android:parentActivityName=".MainMenuActivity"
             >
 
         </activity>
@@ -36,7 +36,7 @@
             android:theme="@style/AppTheme"
             android:screenOrientation="landscape"/>
 
-        <activity android:name=".Activitys.MainMenuActivity"
+        <activity android:name=".MainMenuActivity"
             android:label="3D space shooter"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
@@ -51,7 +51,7 @@
             android:label="Options"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".Activitys.MainMenuActivity">
+            android:parentActivityName=".MainMenuActivity">
 
         </activity>
 
@@ -59,13 +59,13 @@
             android:label="Controls"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".Activitys.MainMenuActivity"/>
+            android:parentActivityName=".MainMenuActivity"/>
 
         <activity android:name=".Activitys.InfoActivity"
             android:label="Info"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
-            android:parentActivityName=".Activitys.MainMenuActivity"/>
+            android:parentActivityName=".MainMenuActivity"/>
 
     </application>
 

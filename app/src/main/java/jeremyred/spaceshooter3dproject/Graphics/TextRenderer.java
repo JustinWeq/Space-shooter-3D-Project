@@ -10,7 +10,7 @@ import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
-import jeremyred.spaceshooter3dproject.Activitys.MainMenuActivity;
+import jeremyred.spaceshooter3dproject.MainMenuActivity;
 
 /**
  * Created by jeremy on 2/22/2016.
@@ -30,6 +30,9 @@ public class TextRenderer {
         m_needsGenerated = true;
         //generate model
         setUpModel();
+
+        Bitmap.Config config = Bitmap.Config.ARGB_8888;
+        m_bitmap =Bitmap.createBitmap(MainMenuActivity.getScreenWidth(),MainMenuActivity.getScreenHeight(),config);
     }
 
     public void generateBitmap()
@@ -139,5 +142,15 @@ public class TextRenderer {
         m_uvBuffer.put(uvs);
 
         m_uvBuffer.position(0);
+    }
+
+    public FloatBuffer getVertexBuffer()
+    {
+        return m_vertexBuffer;
+    }
+
+    public FloatBuffer getUVBuffer()
+    {
+        return m_uvBuffer;
     }
 }

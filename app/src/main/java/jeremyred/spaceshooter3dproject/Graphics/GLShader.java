@@ -454,7 +454,7 @@ public class GLShader {
         Log.e("Shader error",error);
         return shader;
     }
-
+//l
     public void setModelAttributes(Model model)
     {
         //set uvs

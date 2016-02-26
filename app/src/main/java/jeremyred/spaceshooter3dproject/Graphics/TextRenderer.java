@@ -76,23 +76,12 @@ public class TextRenderer {
         //set the vertices
         float[] vertices=
         {
-            //upper left corner
-                -0.5f,0.5f,0,
-
-                //upper right corner
-                0.5f,0.5f,0,
-
-                //lower left corner
-                -0.5f,00.5f,0,
-
-                //upper right corner
-                0.5f,0.5f,0,
-
-                //lower riht corner
-                0.5f,-0.5f,0,
-
-                //lower left corner,
-                -0.5f,-0.5f,0
+                -0.5f,0.5f,-0.2f,
+                -0.5f,-0.5f,-0.2f,
+                0.5f,-0.5f,-0.2f,
+                -0.5f,0.5f,-0.2f,
+                0.5f,-0.5f,-0.2f,
+                0.5f,0.5f,-0.2f
         };
         //set up uvs
         float[] uvs=

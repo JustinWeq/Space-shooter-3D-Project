@@ -51,17 +51,35 @@ public class FontShader {
             while((line = reader.readLine())!= null)
                 stringBuilder.append(line);
 
+
             m_fragmentShader = GLShader.loadShader(GLES20.GL_FRAGMENT_SHADER,stringBuilder.toString());
 
             GLES20.glAttachShader(m_program,m_vertexShader);
             GLES20.glAttachShader(m_program, m_fragmentShader);
             GLES20.glLinkProgram(m_program);
+            int[] textureNames = new int[1];
+
+            //bind texture to texturename
+            GLES20.glActiveTexture(GLES20.GL_TEXTURE0);
+            GLES20.glBindTexture(GLES20.GL_TEXTURE_2D, textureNames[0]);
+
+            //Set filtering mode
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D,
+                    GLES20.GL_TEXTURE_MIN_FILTER,GLES20.GL_NEAREST);
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D,
+                    GLES20.GL_TEXTURE_MAG_FILTER, GLES20.GL_NEAREST);
+
+            //Set wrapping mode
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D,
+                    GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_REPEAT);
+            GLES20.glTexParameteri(GLES20.GL_TEXTURE_2D, GLES20.GL_TEXTURE_WRAP_T,
+                    GLES20.GL_REPEAT);
 
             m_uTextureHandle = GLES20.glGetUniformLocation(m_program, "uTexture");
             GLES20.glEnable(m_uTextureHandle);
             m_aTexCoordHandle = GLES20.glGetAttribLocation(m_program, "aTexCoord");
             GLES20.glEnable(m_aTexCoordHandle);
-            m_uMVPHandle = GLES20.glGetUniformLocation(m_program,"uMVPMatrix");
+            m_uMVPHandle = GLES20.glGetUniformLocation(m_program, "uMVPMatrix");
             GLES20.glEnable(m_uMVPHandle);
             m_aPosition = GLES20.glGetAttribLocation(m_program,"aPos");
             GLES20.glEnable(m_aPosition);
@@ -74,12 +92,12 @@ public class FontShader {
 
     public void setPositions(FloatBuffer positionBuffer)
     {
-        GLES20.glVertexAttrib4fv(m_aPosition,positionBuffer);
+        GLES20.glVertexAttribPointer(m_aPosition,4,GLES20.GL_FLOAT,false,4*4,positionBuffer);
     }
 
     public void setTextureCoords(FloatBuffer texCoordBuffer)
     {
-        GLES20.glVertexAttrib2fv(m_aTexCoordHandle, texCoordBuffer);
+        GLES20.glVertexAttribPointer(m_aTexCoordHandle,2,GLES20.GL_FLOAT,false,2*4,texCoordBuffer);
     }
 
     public void setMVP(float[] mvp)

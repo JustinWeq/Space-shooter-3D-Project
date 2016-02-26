@@ -56,10 +56,15 @@ public class Model {
      */
     private float[] m_uvs;
     /**
-     *
+     * the bitmap for the model
      */
     private Bitmap m_bitmap;
 
+    /**
+     * overloaded constructor-- creates a new instance of Model with overloadd parameters
+     * @param modelAddress the address of the model to load
+     * @param manager the asset manager to lado the model from
+     */
     public Model(String modelAddress,AssetManager manager)
     {
         //load the model data
@@ -103,11 +108,22 @@ public class Model {
         m_uvsBuffer.position(0);
     }
 
+    /**
+     * returns the vertex buffer
+     * @return the vertex buffer for the model
+     */
     public FloatBuffer getVertexBuffer()
     {
         return m_vertexBuffer;
     }
 
+
+    /**
+     * reads a obj model file into the model data
+     * @param vertices the vertices to be outputed to
+     * @param modelAddres the model address of the model
+     * @param manager the asset manager to use for loading
+     */
     private void readOBJModel(float[] vertices,String modelAddres,AssetManager manager)
     {
         String bitmapName = "";
@@ -262,27 +278,46 @@ public class Model {
 
     }
 
+    /**
+     * returns the vertex count
+     * @return the vertex count
+     */
     public int getVertexCount()
     {
         return m_vertexCount;
     }
-//in
+
+    /**
+     * returns the bitmap for this model
+     * @return the bitmap for the model
+     */
     public Bitmap getBitmap()
     {
         return m_bitmap;
     }
 
+    /**
+     * returns the texture coordinates for this model
+     * @return the texture coords
+     */
     public FloatBuffer getUVsBuffer()
     {
         return m_uvsBuffer;
     }
 
+    /**
+     * returns the normals buffer
+     * @return the normals buffer for this model
+     */
     public FloatBuffer getNormalsBuffer()
     {
         return m_normalsBuffer;
     }
 
-
+    /**
+     * returns the vertices for the model(note* this is usefull for generating collision info
+     * @return the vertices for the model
+     */
     public float[] getVertices(){ return m_vertices;}
 
 

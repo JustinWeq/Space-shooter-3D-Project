@@ -5,18 +5,36 @@ import android.opengl.Matrix;
 import jeremyred.spaceshooter3dproject.Activitys.LevelListActivity;
 
 /**
- * Created by jeremy on 1/27/2016.
+ * A class that holds information for the player
+ * @author jeremy red
+ * @version 2/25/2016
  */
 public class Player {
+    /**
+     * the place for the player
+     */
     Place m_place;
+    /**
+     * the model for the player
+     */
     Model m_model;
+    /**
+     * the camera view for the player
+     */
     float[] m_cameraView = new float[16];
+
+    /**
+     * defualt constructor-- creates a new instance of Player with defualt parameters
+     */
     public Player()
     {
         m_place = new Place();
         m_model = new Model("Models/ship.obj", LevelListActivity.Manager);
     }
 
+    /**
+     * updates the player info
+     */
     public void update()
     {
         float[] pos = {0,0,-3};
@@ -28,16 +46,28 @@ public class Player {
 
     }
 
+    /**
+     * returns the model for the player
+     * @return
+     */
     public Model getModel()
     {
         return m_model;
     }
 
+    /**
+     * returns the view
+     * @return the view
+     */
     public float[] getView()
     {
         return m_cameraView;
     }
 
+    /**
+     * returns the place
+     * @return the place
+     */
     public  Place getPlace()
     {
         return m_place;

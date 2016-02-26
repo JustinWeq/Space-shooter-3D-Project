@@ -207,8 +207,8 @@ public class GLRenderer implements GLSurfaceView.Renderer {
             //set uvs
             m_fontShader.setTextureCoords(m_text.getUVBuffer());
 
-            //render thte text
-            //m_fontShader.drawPreparedModel(6);
+            //render the text
+            m_fontShader.drawPreparedModel(6);
 
         }
         catch (Exception ex)

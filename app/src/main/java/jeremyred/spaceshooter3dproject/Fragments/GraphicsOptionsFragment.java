@@ -15,18 +15,30 @@ import jeremyred.spaceshooter3dproject.Managers.GameSettings;
 import jeremyred.spaceshooter3dproject.R;
 
 /**
- * Created by jeremy on 2/9/2016.
+ * a fragment that is used to display the graphics options
+ * @author jeremy red
+ * @version 3/1/2016
  */
 public class GraphicsOptionsFragment extends Fragment {
 
+    /**
+     * the rooot view
+     */
     View m_root;
-    @Override
+
+    /**
+     * called to create the view
+     * @param inflater the inflater to use to create the view
+     * @param container the container the view is inside of
+     * @param savedInstanceState the saved instance state of the last view
+     * @return the view for this fragment
+     */
     public View onCreateView(LayoutInflater inflater,ViewGroup container,Bundle savedInstanceState)
     {
         View rootView = inflater.inflate(R.layout.graphics_options_layout, container, false);
 
         m_root = rootView;
-        String string = "";
+        String string;
         final GameSettings settings= GameSettings.getGameSettings();
 
         TextView lblBrightness = (TextView)rootView.findViewById(R.id.lblBrightness);

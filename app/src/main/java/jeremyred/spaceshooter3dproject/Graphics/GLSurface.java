@@ -12,14 +12,33 @@ import jeremyred.spaceshooter3dproject.Graphics.GLConfig;
 import jeremyred.spaceshooter3dproject.Graphics.GLRenderer;
 
 /**
- * Created by jeremy on 1/15/2016.
+ * a class tha manges the games drawing
+ * @author jeremy red
+ * @version 3/1/2016
  */
 public class GLSurface extends GLSurfaceView implements SensorEventListener{
 
+    /**
+     * the renderer
+     */
     GLRenderer m_renderer;
+    /**
+     * the positions of the joysticks
+     */
     public static float Y1 = 0,Y2 = 0,X1 = 0,X2 = 0;
+    /**
+     * used to convert nanoseconds to seconds
+     */
     private final static float NS2S = 1.0f/1000000000.0f;
+    /**
+     * the configuration chooser
+     */
     private GLConfig configChooser;
+
+    /**
+     * overloaded constructor creates a new instance of GLSurface with overloaded parameters
+     * @param context the context
+     */
     public GLSurface(Context context)
     {
         super(context);
@@ -36,6 +55,9 @@ public class GLSurface extends GLSurfaceView implements SensorEventListener{
     }
 
     @Override
+    /**
+     * activated upon a generic motion dispatch
+     */
     public boolean onGenericMotionEvent(MotionEvent event)
     {
         //check that the event came from a game controller
@@ -62,6 +84,9 @@ public class GLSurface extends GLSurfaceView implements SensorEventListener{
     }
 
     @Override
+    /**
+     * called on senso accuaracy changed
+     */
     public void onSensorChanged(SensorEvent event)
     {
 

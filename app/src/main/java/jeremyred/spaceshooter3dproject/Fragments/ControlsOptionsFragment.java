@@ -14,11 +14,24 @@ import jeremyred.spaceshooter3dproject.Managers.GameSettings;
 import jeremyred.spaceshooter3dproject.R;
 
 /**
- * Created by jeremy on 2/9/2016.
+ * A fragment that is used to display control options
+ * @author jeremy red
+ * @version 3/1/2016
  */
 public class ControlsOptionsFragment extends Fragment {
 
+    /**
+     * the rot view
+     */
     private View m_root;
+
+    /**
+     * the method that is used to create the view
+     * @param inflater the inflater to inflate the view with
+     * @param container the container the view is in
+     * @param savedInstanceState the saved instance state of the last view
+     * @return the view for this fragment
+     */
     public View onCreateView(LayoutInflater inflater,ViewGroup container,
                              Bundle savedInstanceState)
     {

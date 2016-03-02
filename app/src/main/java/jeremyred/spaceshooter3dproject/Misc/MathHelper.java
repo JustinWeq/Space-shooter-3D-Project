@@ -3,10 +3,21 @@ package jeremyred.spaceshooter3dproject.Misc;
 import android.opengl.Matrix;
 
 /**
- * Created by jeremy on 1/27/2016.
+ * A class that helps with some math calculations
+ * @author jeremy red
+ * @version 3/1/2016
  */
 public  class MathHelper {
 
+    /**
+     * returns a rotation based on a view matrix
+     * @param lookAt the look at pos
+     * @param lookFrom the look from pos
+     * @param rotX the rot x
+     * @param rotY the rot y
+     * @param rotZ the rot z
+     * @return the rotation matrix for the cam
+     */
     public static float[] getRotationViewMatrix(float[] lookAt,float[] lookFrom,
                                                 float rotX,float rotY,float rotZ)
     {

@@ -12,17 +12,43 @@ import java.nio.FloatBuffer;
 import jeremyred.spaceshooter3dproject.MainMenuActivity;
 
 /**
- * Created by jeremy on 2/23/2016.
+ * A class that contains methods and feilds for managing the font shader
+ * @author jeremy red
+ * @version 2/25/2016
  */
 public class FontShader {
+    /**
+     * the GL program for the shader
+     */
     private int  m_program;
+    /**
+     * the vertex shader
+     */
     private int m_vertexShader;
+    /**
+     * the fragment shader
+     */
     private int m_fragmentShader;
+    /**
+     * the texture handle
+     */
     private int  m_uTextureHandle;
+    /**
+     * the texture coordinates handle
+     */
     private int m_aTexCoordHandle;
+    /**
+     * the model view projection matrix handle
+     */
     private int m_uMVPHandle;
+    /**
+     * the position attribute handle
+     */
     private int m_aPosition;
 
+    /**
+     * defualt constructor-- creates a new instance of FontShader with defualt parameters
+     */
     public FontShader()
     {
         //load the file
@@ -47,7 +73,7 @@ public class FontShader {
             is = MainMenuActivity.MANAGER.open("shaders/fontFragmentShader.glsl");
             reader = new BufferedReader(new InputStreamReader(is));
 
-            line = null;
+            line = "";
             while((line = reader.readLine())!= null)
                 stringBuilder.append(line);
 
@@ -90,26 +116,46 @@ public class FontShader {
         }
     }//lkl
 
+    /**
+     * sets the positions for the shader
+     * @param positionBuffer the positions
+     */
     public void setPositions(FloatBuffer positionBuffer)
     {
         GLES20.glVertexAttribPointer(m_aPosition,4,GLES20.GL_FLOAT,false,4*4,positionBuffer);
     }
 
+    /**
+     * sets the texture coordinates
+     * @param texCoordBuffer the texture coordinates
+     */
     public void setTextureCoords(FloatBuffer texCoordBuffer)
     {
         GLES20.glVertexAttribPointer(m_aTexCoordHandle,2,GLES20.GL_FLOAT,false,2*4,texCoordBuffer);
     }
 
+    /**
+     * sets the mvp matrix
+     * @param mvp the MVP matrix
+     */
     public void setMVP(float[] mvp)
     {
         GLES20.glUniformMatrix4fv(m_uMVPHandle, 1, false, mvp, 0);
     }
 
+    /**
+     * sets the texture
+     * @param texture the texture to set
+     */
     public void setTexture(Bitmap texture)
     {
         GLUtils.texImage2D(0, 0, texture, 0);
     }
 
+    /**
+     * draw the preparered model
+     * @param vertexCount
+     */
     public void drawPreparedModel(int vertexCount)
     {
         GLES20.glUseProgram(m_program);

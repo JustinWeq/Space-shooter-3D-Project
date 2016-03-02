@@ -24,7 +24,7 @@ public class Player {
     float[] m_cameraView = new float[16];
 
     /**
-     * defualt constructor-- creates a new instance of Player with defualt parameters
+     * default constructor-- creates a new instance of Player with default parameters
      */
     public Player()
     {
@@ -48,7 +48,7 @@ public class Player {
 
     /**
      * returns the model for the player
-     * @return
+     * @return the  model for the player
      */
     public Model getModel()
     {

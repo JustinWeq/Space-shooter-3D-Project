@@ -37,7 +37,7 @@ public class Sheild {
 
     /**
      * sets the place for the sheild
-     * @param place
+     * @param place the place that is used
      */
     public void setPlace(Place place)
     {
@@ -64,7 +64,7 @@ public class Sheild {
 
     /**
      * decreases the alpha for the sheild
-     * @param decrease
+     * @param decrease the amount to decrease
      */
     public void decreaseAlpha(float decrease)
     {
@@ -85,7 +85,7 @@ public class Sheild {
 
     /**
      * returns the color for the shield
-     * @return
+     * @return the color
      */
     public float[] getColor()
     {

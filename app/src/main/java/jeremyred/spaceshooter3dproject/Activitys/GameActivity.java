@@ -18,19 +18,47 @@ import jeremyred.spaceshooter3dproject.Managers.SoundManager;
 
 
 /**
- * Created by jeremy on 1/15/2016.
+ * an activity that the game is played in
+ * @author jeremy red
+ * @version 3/1/2016
  */
 public class GameActivity extends Activity implements SensorEventListener {
+    /**
+     * the view surface that the game is rendererd too
+     */
     private GLSurfaceView glView;
+    /**
+     * the joystick values
+     */
     public static float Y1 = 0,Y2 = 0,X1 = 0,X2 = 0;
+    /**
+     * the scaler
+     */
     private static final float SCALAR = 3;
 
+    /**
+     * the x,y and z axis of device rotation
+     */
     public static float AxisX = 0,Axisy = 0,AxisZ = 0;
 
+    /**
+     * the sensor manager
+     */
     private SensorManager m_manager;
+    /**
+     * the sensor to use for sensing
+     */
     private Sensor m_sensor;
 
-    @Override
+    /**
+     * the public game activity
+     */
+    public GameActivity MainGameActivity;
+
+    /**
+     * called upon game activity creation
+     * @param savedInstanceId the saved instance of the last game activity
+     */
     public void onCreate(Bundle savedInstanceId)
     {
         super.onCreate(savedInstanceId);
@@ -50,9 +78,14 @@ public class GameActivity extends Activity implements SensorEventListener {
         m_sensor = m_manager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
         SoundManager.getSoundManager(this).play();
 
+        MainGameActivity = this;
+
     }
 
-    @Override
+    /**
+     * called upon sensor change
+     * @param event the event that triggered the sensor
+     */
     public void onSensorChanged(SensorEvent event)
     {
 
@@ -63,12 +96,20 @@ public class GameActivity extends Activity implements SensorEventListener {
 
     }
 
-    @Override
+    /**
+     * called on sensor accuracy changed
+     * @param sensor the sensor that is used
+     * @param accuracy the accuracy for the sensor
+     */
     public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
 
-    @Override
+    /**
+     * called upon dispatch of the generic motion envent
+     * @param event the event that was dispatched
+     * @return  a bool indicating sucsess
+     */
     public boolean  dispatchGenericMotionEvent (MotionEvent event)
     {
 
@@ -95,6 +136,14 @@ public class GameActivity extends Activity implements SensorEventListener {
         return super.onGenericMotionEvent(event);
     }
 
+    /**
+     * gets the centered version on the passed in axis
+     * @param event the event that is used
+     * @param device the inut device
+     * @param axis the axis
+     * @param historyPos the historical position
+     * @return the value on the passed in axis
+     */
     private static float getCenteredAxis(MotionEvent event,
                                          InputDevice device,int axis,int historyPos)
     {
@@ -115,6 +164,11 @@ public class GameActivity extends Activity implements SensorEventListener {
         return 0;
     }
 
+    /**
+     * processes the joystick input
+     * @param event the even that was called
+     * @param historyPos the historical position
+     */
     private void processJoystickInput(MotionEvent event,int historyPos)
     {
         InputDevice device = event.getDevice();
@@ -125,14 +179,18 @@ public class GameActivity extends Activity implements SensorEventListener {
         Y2 = getCenteredAxis(event,device,MotionEvent.AXIS_RY,historyPos);
     }
 
-    @Override
+    /**
+     * called upon resum of the game activity
+     */
     protected void onResume()
     {
         super.onResume();
         m_manager.registerListener(this,m_sensor,SensorManager.SENSOR_DELAY_FASTEST);
     }
 
-    @Override
+    /**
+     * called on pause of the activity
+     */
     protected void onPause()
     {
         super.onPause();

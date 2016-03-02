@@ -13,13 +13,25 @@ import jeremyred.spaceshooter3dproject.Managers.DataManager;
 import jeremyred.spaceshooter3dproject.R;
 
 /**
- * Created by jeremy on 1/15/2016.
+ * an activity containg the level details
+ * @author jeremy red
+ * @version 3/1/2016
  */
 public class LevelDetailsActivity extends Activity {
 
+    /**
+     * the current level id
+     */
     Level m_level;
+    /**
+     * the selected level
+     */
     private int m_selectedLevel;
-    @Override
+
+    /**
+     * called on creation of the activity
+     * @param savedInstanceState the saved instance state of the last LevelDetailsActivity
+     */
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -62,6 +74,10 @@ public class LevelDetailsActivity extends Activity {
         Level.CurrentLevel = m_level;
     }
 
+    /**
+     * called on the ok button being clicked
+     * @param view the view
+     */
     public void onClickOK(View view)
     {
         //set up new intent to go to the game
@@ -70,7 +86,10 @@ public class LevelDetailsActivity extends Activity {
         startActivity(intent);
     }
 
-    @Override
+    /**
+     * called upon save of the instance
+     * @param outState the outstate of the save instance
+     */
     protected void onSaveInstanceState(Bundle outState)
     {
         super.onSaveInstanceState(outState);

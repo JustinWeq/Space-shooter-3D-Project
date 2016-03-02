@@ -22,33 +22,94 @@ import jeremyred.spaceshooter3dproject.Managers.RenderQueue;
 import jeremyred.spaceshooter3dproject.Data.RenderQueueItem;
 
 /**
- * Created by jeremy on 1/15/2016.
+ * A class that is used for rendering the game
  */
 public class GLRenderer implements GLSurfaceView.Renderer {
 
+    /**
+     * the asset manager for the GLRednerer
+     */
     public static AssetManager Manager;
+    /**
+     * the model fo
+     */
     Model m_model;
+    /**
+     * the second model
+     */
     Model m_model2;
+    /**
+     * the defualt shader
+     */
     GLShader m_shader;
+    /**
+     * the effect shader
+     */
     LaserShader m_effectShader;
+    /**
+     * the first place
+     */
     Place place;
+    /**
+     * the seonc dplace
+     */
     Place place2;
+    /**
+     * the player
+     */
     Player player;
+    /**
+     * the semaphore
+     */
     public static Semaphore M_Semaphore = new Semaphore(1);
+    /**
+     * the joystick pos
+     */
     public static float X1 = 0,Y1 = 0;
+    /**
+     * the projection matrix
+     */
     float[] m_projection = new float[16];
 
-    float m_screenWidth;float m_angle;
+    /**
+     * the screen width
+     */
+    float m_screenWidth;
+    /**
+     * the test rotation angle
+     */
+    float m_angle;
+    /**
+     * the screen height
+     */
     float m_screenHeight;
 
+    /**
+     * the maximum x coord
+     */
     private final float MAX_X = 10;
+    /**
+     * the gamcontroller id
+     */
     private int gameController;
+    /**
+     * the maximum y
+     */
     private final float MAX_Y = 7;
+    /**
+     * the text renderer
+     */
     private TextRenderer m_text;
+    /**
+     * the font shader
+     */
     private FontShader m_fontShader;
 
 
     @Override
+    /**
+     * the method that is activated upon surface creation
+     */
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
         m_model = new Model("Models/ship.obj",Manager);
         m_shader = new GLShader("shaders/vertexShader.glsl","shaders/fragmentShader.glsl", LevelListActivity.Manager);
@@ -78,20 +139,18 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
         m_shader.setSpecularPower(1);
 
-        float[] specularColor = {0,0,0,0};
 
-       // m_shader.setSpecularColor(specularColor);
 
         m_fontShader = new FontShader();
 
         m_text = new TextRenderer();
     }
 
-    float dx = 0;
-    float dy = 0;
-    float dz = 0;
 
     @Override
+    /**
+     * the method that is called upon frame draw
+     */
     public void onDrawFrame(GL10 unused)
     {
         try {
@@ -127,7 +186,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
                     frame.getPlayerPos()[1], frame.getPlayerPos()[2], 0f, 1.0f, 0.0f);
 
 
-            float[] color = {1, 1, 1, 1};
+
 //        m_shader.drawModel(GameManager.getGameManager().getPlayer().getPlace().getMatrix(), view, m_projection, color, gameManager.getPlayer().getModel()
 //                ,pos,0);
 
@@ -208,7 +267,7 @@ public class GLRenderer implements GLSurfaceView.Renderer {
             m_fontShader.setTextureCoords(m_text.getUVBuffer());
 
             //render the text
-            m_fontShader.drawPreparedModel(6);
+           // m_fontShader.drawPreparedModel(6);
 
         }
         catch (Exception ex)
@@ -219,6 +278,9 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     }
 
     @Override
+    /**
+     * the method that is called upon surface changed(EG: device rotated)
+     */
     public void onSurfaceChanged(GL10 unused,int width,int height)
     {
         GLES20.glViewport(0, 0, width, height);

@@ -11,13 +11,28 @@ import java.io.InputStreamReader;
 import jeremyred.spaceshooter3dproject.MainMenuActivity;
 
 /**
- * Created by jeremy on 2/21/2016.
+ * a class that help manage the data base
+ * @author jeremy red
+ * @version 3/1/2016
  */
 public class DataBaseHelper extends SQLiteOpenHelper {
+    /**
+     * the name of the data base
+     */
     private final static String DB_NAME = "GameDataDB";
+    /**
+     * the data base version
+     */
     private final static int DB_VERSOIN = 1;
+    /**
+     * teh location of the sql script
+     */
     private final String ON_CREATE_SCRIPT = "SQLScripts/onCreate.sql";
 
+    /**
+     * overloaded constructor creates a new instance of DataBaseHelper with overloaded parameters
+     * @param context the context
+     */
     public DataBaseHelper(Context context)
     {
         super(context,DB_NAME,null,DB_VERSOIN);
@@ -45,6 +60,9 @@ public class DataBaseHelper extends SQLiteOpenHelper {
     }
 
     @Override
+    /**
+     * activated upon upgrade
+     */
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }

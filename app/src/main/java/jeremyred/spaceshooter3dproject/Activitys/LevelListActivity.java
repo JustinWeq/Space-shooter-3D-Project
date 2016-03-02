@@ -14,14 +14,32 @@ import jeremyred.spaceshooter3dproject.R;
 import jeremyred.spaceshooter3dproject.Managers.SoundManager;
 
 /**
- * Created by jeremy on 1/14/2016.
+ * a class that contains the list of levels
+ * @author jeremy red
+ * @version 3/1/2016
  */
 public class LevelListActivity extends Activity {
+    /**
+     * the axis stick info
+     */
     public static float Y1 = 0,Y2 = 0,X1 = 0,X2 = 0;
+    /**
+     * the selected level intent id
+     */
     public final static String SELECTED_LEVEL= "jeremyred.spaceshooter3dproject.SELECTED_LEVEL";
+    /**
+     * the public asset manager
+     */
     public static AssetManager Manager;
+    /**
+     * the public context
+     */
     public static Context PContext;
-    @Override
+
+    /**
+     * called upon the creation of the Level list activity
+     * @param savedInstanceState the saved instant state of the last activity
+     */
     protected  void onCreate(Bundle savedInstanceState)
     {
         //call super
@@ -43,6 +61,10 @@ public class LevelListActivity extends Activity {
 
     }
 
+    /**
+     * called on the ok button being clicked
+     * @param view the view
+     */
     public void onClickOk(View view)
     {
         //set up new intent to go to new activity
@@ -52,7 +74,11 @@ public class LevelListActivity extends Activity {
         startActivity(intent);
     }
 
-    @Override
+    /**
+     * called upon generic motion event being dispatched
+     * @param event the evet that was dispatched
+     * @return a bool indicating success
+     */
     public boolean  dispatchGenericMotionEvent (MotionEvent event)
     {
 
@@ -79,6 +105,14 @@ public class LevelListActivity extends Activity {
         return super.onGenericMotionEvent(event);
     }
 
+    /**
+     * returns the centered axis
+     * @param event the event
+     * @param device the InputDevice
+     * @param axis the asix
+     * @param historyPos the historical pos
+     * @return the centered axis
+     */
     private static float getCenteredAxis(MotionEvent event,
                                          InputDevice device,int axis,int historyPos)
     {
@@ -99,7 +133,10 @@ public class LevelListActivity extends Activity {
         return 0;
     }
 
-    @Override
+    /**
+     * called on the saved instance state
+     * @param outState the state that is going to be saved
+     */
     protected void onSaveInstanceState(Bundle outState)
     {
         super.onSaveInstanceState(outState);
@@ -109,6 +146,11 @@ public class LevelListActivity extends Activity {
         outState.putInt("selected",selectedIndex);
     }
 
+    /**
+     * process the joystick input
+     * @param event the event
+     * @param historyPos the historical pos
+     */
     private void processJoystickInput(MotionEvent event,int historyPos)
     {
         InputDevice device = event.getDevice();

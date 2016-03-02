@@ -13,17 +13,40 @@ import java.nio.FloatBuffer;
 import jeremyred.spaceshooter3dproject.MainMenuActivity;
 
 /**
- * Created by jeremy on 2/22/2016.
+ * A class that manages a bitmap that text is rendered too
+ * @author jeremy red
+ * @version 3/1/2016
  */
 public class TextRenderer {
 
+    /**
+     * the text to render
+     */
     private String m_text;
+    /**
+     * the bitmap to render too
+     */
     private Bitmap m_bitmap;
+    /**
+     * a bool indicating generating is needed
+     */
     private boolean m_needsGenerated;
+    /**
+     * the vertex count
+     */
     private int m_vertexCount;
+    /**
+     * the models vertex buffer
+     */
     private FloatBuffer m_vertexBuffer;
+    /**
+     * the uvs buffer
+     */
     private FloatBuffer m_uvBuffer;
 
+    /**
+     * default constructor creates a new instance of TextRenderer with default parameters
+     */
     public TextRenderer()
     {
         m_text = "Test";
@@ -35,6 +58,9 @@ public class TextRenderer {
         m_bitmap =Bitmap.createBitmap(MainMenuActivity.getScreenWidth(),MainMenuActivity.getScreenHeight(),config);
     }
 
+    /**
+     * generates the bitmap with the text
+     */
     public void generateBitmap()
     {
         m_bitmap.recycle();
@@ -56,6 +82,10 @@ public class TextRenderer {
         m_needsGenerated = false;
     }
 
+    /**
+     * returns the bitmap
+     * @return the bitmap to render too
+     */
     public Bitmap getBitmap()
     {
         if(m_needsGenerated)
@@ -65,23 +95,37 @@ public class TextRenderer {
         return m_bitmap;
     }
 
+    /**
+     * sets the text in the text renderer
+     * @param text the text to render
+     */
     public void setText(String text)
     {
         m_text = text;
         m_needsGenerated = true;
     }
 
+    /**
+     * sets up the model for rendering
+     */
     private void setUpModel()
     {
         //set the vertices
         float[] vertices=
         {
-                -0.5f,0.5f,-0.2f,
-                -0.5f,-0.5f,-0.2f,
-                0.5f,-0.5f,-0.2f,
-                -0.5f,0.5f,-0.2f,
-                0.5f,-0.5f,-0.2f,
-                0.5f,0.5f,-0.2f
+                //upper left corner
+                -1,1,0,
+                //upper right corner
+                1,1,0,
+                //lower left corner
+                -1,-1,0,
+
+                //upper right corner
+                1,1,0,
+                //lower right corner
+                1,-1,0
+                //lower left corner
+                -1,-1,0
         };
         //set up uvs
         float[] uvs=
@@ -133,11 +177,19 @@ public class TextRenderer {
         m_uvBuffer.position(0);
     }
 
+    /**
+     * returns the vertex buffer for the model
+     * @return the vertex buffer
+     */
     public FloatBuffer getVertexBuffer()
     {
         return m_vertexBuffer;
     }
 
+    /**
+     * returns the uv buffer for the model
+     * @return the uvs buffer
+     */
     public FloatBuffer getUVBuffer()
     {
         return m_uvBuffer;

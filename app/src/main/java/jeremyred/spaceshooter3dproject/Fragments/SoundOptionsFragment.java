@@ -13,11 +13,24 @@ import jeremyred.spaceshooter3dproject.Managers.GameSettings;
 import jeremyred.spaceshooter3dproject.R;
 
 /**
- * Created by jeremy on 2/9/2016.
+ * a fragment that displays options for the sound
+ * @author jeremy red
+ * @version 3/1/2016
  */
 public class SoundOptionsFragment extends Fragment {
 
+    /**
+     * the root view
+     */
     private View m_root;
+
+    /**
+     * used to create the view
+     * @param inflater the inflator to use for inflating the view
+     * @param container the container the view is put into
+     * @param savedInstanceState the saved instance state of the last view
+     * @return the view that is created
+     */
     public View onCreateView(LayoutInflater inflater,ViewGroup container,
                              Bundle savedInstanceState)
     {
@@ -32,7 +45,7 @@ public class SoundOptionsFragment extends Fragment {
         skbMusic.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-;
+
                 TextView lblMusic = (TextView) m_root.findViewById(R.id.lblMusicSound);
                 String string = "Music " + progress;
                 lblMusic.setText(string);

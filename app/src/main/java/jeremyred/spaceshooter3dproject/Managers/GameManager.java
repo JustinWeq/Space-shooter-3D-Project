@@ -20,33 +20,104 @@ import jeremyred.spaceshooter3dproject.Data.Sheild;
 import jeremyred.spaceshooter3dproject.Data.Sphere;
 
 /**
- * Created by jeremy on 1/28/2016.
+ * A class tha handle game simulation
+ * @author jeremy red
+ * @version 3/1/2016
  */
 public class GameManager implements Runnable {
 
+    /**
+     * the public game manager
+     */
     private static GameManager Main_Game_Manager;
+    /**
+     * the sensor manager
+     */
     private SensorManager m_sensorManager;
+    /**
+     * he sensor
+     */
     private Sensor m_sensor;
+    /**
+     * a bool that indicates whether the game is paused or not
+     */
     private boolean isPuased;
+    /**
+     * indicates the last frame time in milliseconds
+     */
     private long m_lastMilliSeconds;
+    /**
+     * the regular frame rate
+     */
     private static final float regFrameRate = 1000f/60f;
+    /**
+     * the game time
+     */
     private float m_gameTime;
+    /**
+     * the player
+     */
     private Player m_player;
+    /**
+     * a bool indicating whether the thread should quit or not
+     */
     private boolean quit;
+    /**
+     * the floor of the game
+     */
     private Floor m_floor;
+    /**
+     * the max x value
+     */
     private final float MAX_X = 10;
+    /**
+     * the max play y value
+     */
     private final float MAX_Y = 7;
+    /**
+     * the player sheild
+     */
     private Sheild m_playerSheild;
+    /**
+     * the player sphere
+     */
     private Sphere m_playerSphere;
+    /**
+     * the player speed
+     */
     private float playerSpeed = 1;
+    /**
+     * the list of enemys to be crated in the level
+     */
     private ArrayList<Enemy> m_toBeEnemyList = new ArrayList<>();
+    /**
+     * the list of active enemys
+     */
     private ArrayList<GameEnemy> m_activeEnemys = new ArrayList<>();
+    /**
+     * the plays z location
+     */
     private float m_playerZ;
+    /**
+     * the players current index
+     */
     private int m_enemyIndex;
+    /**
+     * the player current level
+     */
     private int m_currentLevel;
+    /**
+     * the sound pool to use for SFX effects
+     */
     private SoundPool soundPool;
+    /**
+     * the list of render groups
+     */
     public ArrayList<ArrayList<float[]>> m_render_groups;
 
+    /**
+     * defualt constructor, creates a new instance of GameManager with default parameters
+     */
     public GameManager()
     {
         isPuased = false;
@@ -93,6 +164,9 @@ public class GameManager implements Runnable {
     }
 
     @Override
+    /**
+     * runs the game logic
+     */
     public void run() {
 
 
@@ -106,6 +180,10 @@ public class GameManager implements Runnable {
 
     }
 
+    /**
+     * sets the games current level
+     * @param level the current level to set the game to
+     */
     public void setLevel(Level level)
     {
 
@@ -121,7 +199,10 @@ public class GameManager implements Runnable {
 
     }
 
-    private float temp = 0;
+    int temp = 0;
+    /**
+     * the main game loop
+     */
     public void GameLoop()
     {
 
@@ -206,6 +287,9 @@ public class GameManager implements Runnable {
         }
     }
 
+    /**
+     * handles the players input and movement
+     */
     private void handlePlayerInput()
     {
         float dx,dy;
@@ -251,6 +335,10 @@ public class GameManager implements Runnable {
         m_playerSheild.getPlace().setZ(m_player.getPlace().getZ());
     }
 
+    /**
+     * returns the public game manager
+     * @return the game manager
+     */
     public static GameManager getGameManager()
     {
         if(Main_Game_Manager == null)
@@ -261,21 +349,33 @@ public class GameManager implements Runnable {
         return Main_Game_Manager;
     }
 
+    /**
+     * tells the game manager to quit
+     */
     public void quit()
     {
         quit = true;
     }
 
+    /**
+     * tells the game amanger to pause
+     */
     public void pause()
     {
         isPuased = true;
     }
 
+    /**
+     * tells the game manager to unpause
+     */
     public void unPause()
     {
         isPuased = false;
     }
 
+    /**
+     * sets up the game time to be used
+     */
     private void setGameTime()
     {
         //set the current game time to move things by
@@ -310,31 +410,59 @@ public class GameManager implements Runnable {
         m_lastMilliSeconds = currentMilli;
     }
 
+    /**
+     * returns the game managers player(note* this is not to be used except for testing, use renderqueus instead
+     * @return the player
+     */
+    @Deprecated
     public Player getPlayer()
     {
         return m_player;
     }
 
+    /**
+     * returns the floor for the game manager
+     * @return the floor
+     */
     public Floor getFloor()
     {
         return m_floor;
     }
 
+    /**
+     * returns the players sheild
+     * @return the players sheild
+     */
     public Sheild getPlayerSheild()
     {
         return m_playerSheild;
     }
 
+    /**
+     * returns the players collision sphere
+     * @return the players sphere
+     */
     public Sphere getPlayerSphere()
     {
         return m_playerSphere;
+
     }
 
+    /**
+     * returns the active enemy list
+     * @return the active enemy list
+     */
+    @Deprecated
     public ArrayList<GameEnemy> getActiveEnemys()
     {
         return m_activeEnemys;
     }
 
+    @Deprecated
+    /**
+     * returns the render groups directly(replaced with render queues)
+     * @return
+     */
     public ArrayList<ArrayList<float[]>> getRenderGroups()
     {
         return m_render_groups;

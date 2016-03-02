@@ -8,10 +8,13 @@ import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.egl.EGLDisplay;
 
 /**
- * Created by jeremy on 2/22/2016.
+ * A class that implements GLConfig that is intended to define the parameters for a EGL context
  */
 public class GLConfig implements GLSurfaceView.EGLConfigChooser {
     @Override
+    /**
+     * chooses the configuguration for GLES
+     */
     public EGLConfig chooseConfig(EGL10 egl, EGLDisplay display) {
         int attribs[] = { EGL10.EGL_RED_SIZE, 8, EGL10.EGL_GREEN_SIZE, 8,
                 EGL10.EGL_BLUE_SIZE, 8, EGL10.EGL_RENDERABLE_TYPE, 4,

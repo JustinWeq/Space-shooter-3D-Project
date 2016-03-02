@@ -6,7 +6,7 @@ import android.media.MediaPlayer;
 import jeremyred.spaceshooter3dproject.R;
 
 /**
- * Created by jeremy on 2/12/2016.
+ *
  */
 public class SoundManager {
    // private SoundPool m_sounds;
@@ -14,6 +14,10 @@ public class SoundManager {
     private static SoundManager m_manager;
     private MediaPlayer m_player;
 
+    /**
+     * overloaded constructor creates a new instance of SoundManager with overloaded parameters
+     * @param context the context to use for loading the sounds
+     */
    // private boolean m_loaded = false;
     private SoundManager(Context context) {
 //        //load all of the sounds defined
@@ -33,6 +37,11 @@ public class SoundManager {
         int test = 4;
     }
 
+    /**
+     * returns the sound manager
+     * @param context the context to use for sounds
+     * @return the sound manager
+     */
     public static SoundManager getSoundManager(Context context)
     {
         if(m_manager == null)
@@ -42,11 +51,18 @@ public class SoundManager {
         return m_manager;
     }
 
+    /**
+     * plays the sound
+     */
     public void play()
     {
 
     }
 
+    /**
+     * returns a boo, indicating that the sounds have loaded
+     * @return
+     */
     public boolean hasLoaded()
     {
         return false;

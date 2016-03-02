@@ -11,12 +11,28 @@ import android.widget.Button;
 import jeremyred.spaceshooter3dproject.R;
 
 /**
- * Created by jeremy on 2/9/2016.
+ * a fragment that shows options for the data
+ * @author jeremy red
+ * @version 3/1/2016
  */
 public class DataOptionsFragment extends Fragment {
 
+    /**
+     * the root view
+     */
     View m_root;
+    /**
+     * the number of reset clicks left
+     */
     int m_resetsLeft = 3;
+
+    /**
+     * the method that is used to create the view
+     * @param inflater the inflater to use for inflating the view
+     * @param container the container the view is in
+     * @param savedInstanceState the seved instance state of the last view
+     * @return the view to use for the fragment
+     */
     public View onCreateView(LayoutInflater inflater,ViewGroup container,
                              Bundle savedInstanceState)
     {
@@ -34,6 +50,9 @@ public class DataOptionsFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * called when the reset button is clicked
+     */
     public void resetButtonOnClick()
     {
        Button resetButton =(Button) m_root.findViewById(R.id.btnResetSave);

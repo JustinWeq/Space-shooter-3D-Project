@@ -12,17 +12,41 @@ import java.nio.FloatBuffer;
 import jeremyred.spaceshooter3dproject.MainMenuActivity;
 
 /**
- * Created by jeremy on 2/23/2016.
+ * a class that manages the simple shader
  */
 public class SimpleShader {
+    /**
+     * the program
+     */
     private int  m_program;
+    /**
+     * the vertex shader
+     */
     private int m_vertexShader;
+    /**
+     * the fragment shader
+     */
     private int m_fragmentShader;
+    /**
+     * the texture handle
+     */
     private int  m_uTextureHandle;
+    /**
+     * the tex coord handle
+     */
     private int m_aTexCoordHandle;
+    /**
+     * mvp matrix handle
+     */
     private int m_uMVPHandle;
+    /**
+     * the position attribute handle
+     */
     private int m_aPosition;
 
+    /**
+     * defualt constructor creates a new instance of SimpleShader with default parameters
+     */
     public SimpleShader()
     {
         //load the file
@@ -47,7 +71,7 @@ public class SimpleShader {
             is = MainMenuActivity.MANAGER.open("shaders/simpleFragmentShader");
             reader = new BufferedReader(new InputStreamReader(is));
 
-            line = null;
+            line = "";
             while((line = reader.readLine())!= null)
                 stringBuilder.append(line);
 
@@ -72,26 +96,46 @@ public class SimpleShader {
         }
     }
 
+    /**
+     * sets the positions attribute in the shader
+     * @param positionBuffer the positions buffer
+     */
     public void setPositions(FloatBuffer positionBuffer)
     {
         GLES20.glVertexAttrib4fv(m_aPosition,positionBuffer);
     }
 
+    /**
+     * sets the texture coords in the shader
+     * @param texCoordBuffer the tex coord buffer
+     */
     public void setTextureCoords(FloatBuffer texCoordBuffer)
     {
         GLES20.glVertexAttrib2fv(m_aTexCoordHandle, texCoordBuffer);
     }
 
+    /**
+     * sets the mvp matrix in the shader
+     * @param mvp the mvp matrix
+     */
     public void setMVP(float[] mvp)
     {
         GLES20.glUniformMatrix4fv(m_uMVPHandle, 16, false, mvp, 0);
     }
 
+    /**
+     * sets the texture in the shader
+     * @param texture the texture the shader will use
+     */
     public void setTexture(Bitmap texture)
     {
         GLUtils.texImage2D(0, 0, texture, 0);
     }
 
+    /**
+     * draws the prepared model in the shader
+     * @param vertexCount the models vertex count
+     */
     public void drawPreparedModel(int vertexCount)
     {
         GLES20.glUseProgram(m_program);

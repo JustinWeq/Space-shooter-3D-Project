@@ -25,7 +25,7 @@ public class GLShader {
      */
     private int m_fragmentShader;
     /**
-     * a handle to the vertex shader
+     * a handle to the vertex shader3
      */
     private int m_vertexShader;
     /**

@@ -31,37 +31,17 @@ public class GLRenderer implements GLSurfaceView.Renderer {
      */
     public static AssetManager Manager;
     /**
-     * the model fo
-     */
-    Model m_model;
-    /**
-     * the second model
-     */
-    Model m_model2;
-    /**
      * the defualt shader
      */
-    GLShader m_shader;
+    private GLShader m_shader;
     /**
      * the effect shader
      */
-    LaserShader m_effectShader;
-    /**
-     * the first place
-     */
-    Place place;
-    /**
-     * the seonc dplace
-     */
-    Place place2;
+    private LaserShader m_effectShader;
     /**
      * the player
      */
-    Player player;
-    /**
-     * the semaphore
-     */
-    public static Semaphore M_Semaphore = new Semaphore(1);
+    private Player player;
     /**
      * the joystick pos
      */
@@ -69,33 +49,15 @@ public class GLRenderer implements GLSurfaceView.Renderer {
     /**
      * the projection matrix
      */
-    float[] m_projection = new float[16];
-
+    private float[] m_projection = new float[16];
     /**
      * the screen width
      */
-    float m_screenWidth;
-    /**
-     * the test rotation angle
-     */
-    float m_angle;
+    private float m_screenWidth;
     /**
      * the screen height
      */
-    float m_screenHeight;
-
-    /**
-     * the maximum x coord
-     */
-    private final float MAX_X = 10;
-    /**
-     * the gamcontroller id
-     */
-    private int gameController;
-    /**
-     * the maximum y
-     */
-    private final float MAX_Y = 7;
+    private float m_screenHeight;
     /**
      * the text renderer
      */
@@ -111,18 +73,16 @@ public class GLRenderer implements GLSurfaceView.Renderer {
      * the method that is activated upon surface creation
      */
     public void onSurfaceCreated(GL10 gl, EGLConfig config) {
-        m_model = new Model("Models/ship.obj",Manager);
+
         m_shader = new GLShader("shaders/vertexShader.glsl","shaders/fragmentShader.glsl", LevelListActivity.Manager);
         //set the background frame color
         GLES20.glClearColor(0, 0, 0, 0);
-        m_angle = 0;
-        place = new Place();
-        place2 = new Place();
+
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
         player = new Player();
         m_effectShader = new LaserShader();
-        m_model2 = new Model("Models/laser.obj",Manager);
+
 
         //float[]
         //prepare the shader

@@ -13,15 +13,20 @@ public class Player {
     /**
      * the place for the player
      */
-    Place m_place;
+    private Place m_place;
     /**
      * the model for the player
      */
-    Model m_model;
+    private Model m_model;
     /**
      * the camera view for the player
      */
-    float[] m_cameraView = new float[16];
+    private float[] m_cameraView = new float[16];
+
+    /**
+     * the collision sphere for the player
+     */
+    private Sphere m_sphere;
 
     /**
      * default constructor-- creates a new instance of Player with default parameters
@@ -30,6 +35,8 @@ public class Player {
     {
         m_place = new Place();
         m_model = new Model("Models/ship.obj", LevelListActivity.Manager);
+        //load the sphere
+        m_sphere = new Sphere(m_model.getVertices());
     }
 
     /**
@@ -71,6 +78,15 @@ public class Player {
     public  Place getPlace()
     {
         return m_place;
+    }
+
+    /**
+     * returns the collision sphere
+     * @return the collision sphere
+     */
+    public Sphere getCollisionSphere()
+    {
+        return m_sphere;
     }
 
 }

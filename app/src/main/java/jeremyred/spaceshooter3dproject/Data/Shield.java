@@ -7,7 +7,7 @@ import jeremyred.spaceshooter3dproject.Activitys.LevelListActivity;
  * @author jeremy red
  * @version 2/25/2016
  */
-public class Sheild {
+public class Shield {
 
     /**
      * the model for the shield
@@ -26,7 +26,7 @@ public class Sheild {
      * overloaded constructor for the shield
      * @param color the color for the shield to be
      */
-    public Sheild(float[] color)
+    public Shield(float[] color)
     {
         m_color = color;
         if(model == null)

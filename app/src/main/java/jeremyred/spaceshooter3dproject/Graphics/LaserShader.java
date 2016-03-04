@@ -21,7 +21,6 @@ public class LaserShader {
     private int m_program;
     private int m_vertexShader;
     private int m_fragmentShader;
-    private int m_pixelShader;
     private int m_MVPHandle;
     private int m_vertexHandle;
     private int m_colorHandle;

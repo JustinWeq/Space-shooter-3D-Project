@@ -28,6 +28,8 @@
         ES 2.0
     </string>
     <string name="btnBackStr">Back</string>
+    <string name="btnReturnStr">Return to menu</string>
+    <string name="btnContinueStr">Continue</string>
     <string-array name="spnLevelsArr">
         <item>level1</item>
         <item>level2</item>

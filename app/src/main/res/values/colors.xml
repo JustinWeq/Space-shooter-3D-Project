@@ -6,5 +6,7 @@
     <color name="colorBackground">#436c4a</color>
     <color name="colorText">#427465</color>
     <color name="colorButton">#d4cd0d</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorYellow">#FFFF00</color>
 
 </resources>

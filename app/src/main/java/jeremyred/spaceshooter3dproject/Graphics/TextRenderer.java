@@ -61,7 +61,7 @@ public class TextRenderer {
     /**
      * generates the bitmap with the text
      */
-    public void generateBitmap()
+    private void generateBitmap()
     {
         m_bitmap.recycle();
         Bitmap.Config config = Bitmap.Config.ARGB_8888;

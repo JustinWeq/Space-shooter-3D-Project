@@ -16,7 +16,7 @@ import jeremyred.spaceshooter3dproject.Data.Level;
 import jeremyred.spaceshooter3dproject.Data.Place;
 import jeremyred.spaceshooter3dproject.Data.Player;
 import jeremyred.spaceshooter3dproject.Data.RenderQueueItem;
-import jeremyred.spaceshooter3dproject.Data.Sheild;
+import jeremyred.spaceshooter3dproject.Data.Shield;
 import jeremyred.spaceshooter3dproject.Data.Sphere;
 
 /**
@@ -30,14 +30,6 @@ public class GameManager implements Runnable {
      * the public game manager
      */
     private static GameManager Main_Game_Manager;
-    /**
-     * the sensor manager
-     */
-    private SensorManager m_sensorManager;
-    /**
-     * he sensor
-     */
-    private Sensor m_sensor;
     /**
      * a bool that indicates whether the game is paused or not
      */
@@ -77,7 +69,7 @@ public class GameManager implements Runnable {
     /**
      * the player sheild
      */
-    private Sheild m_playerSheild;
+    private Shield m_playerShield;
     /**
      * the player sphere
      */
@@ -103,17 +95,10 @@ public class GameManager implements Runnable {
      */
     private int m_enemyIndex;
     /**
-     * the player current level
-     */
-    private int m_currentLevel;
-    /**
      * the sound pool to use for SFX effects
      */
     private SoundPool soundPool;
-    /**
-     * the list of render groups
-     */
-    public ArrayList<ArrayList<float[]>> m_render_groups;
+
 
     /**
      * defualt constructor, creates a new instance of GameManager with default parameters
@@ -133,33 +118,26 @@ public class GameManager implements Runnable {
         m_floor.setY(-15);
 
         float[] sheildColor = {1,1,1,1};
-        m_playerSheild = new Sheild(sheildColor);
+        m_playerShield = new Shield(sheildColor);
 
-        //m_playerSheild.setPlace(m_player.getPlace());
+        //m_playerShield.setPlace(m_player.getPlace());
 
-        m_playerSheild.setPlace(new Place());
+        m_playerShield.setPlace(new Place());
 
         m_playerSphere = new Sphere(m_player.getModel().getVertices());
 
-        m_playerSheild.getPlace().setScaleX(0.3f);
+        m_playerShield.getPlace().setScaleX(0.3f);
 
-        m_playerSheild.getPlace().setScaleY(0.3f);
+        m_playerShield.getPlace().setScaleY(0.3f);
 
-        m_playerSheild.getPlace().setScaleZ(0.3f);
+        m_playerShield.getPlace().setScaleZ(0.3f);
 
         m_playerZ = 10;
 
         //create soundPool
         soundPool = new SoundPool(1, AudioManager.STREAM_MUSIC,0);
 
-        m_render_groups = new ArrayList<>();
 
-        //initalize render groups
-
-        for(int i = 0; i < ModelManager.getModeManager().getModelCount();i++)
-        {
-            m_render_groups.add( new ArrayList<float[]>());
-        }
 
     }
 
@@ -203,7 +181,7 @@ public class GameManager implements Runnable {
     /**
      * the main game loop
      */
-    public void GameLoop()
+    private void GameLoop()
     {
 
         //play the backgournd music
@@ -279,6 +257,31 @@ public class GameManager implements Runnable {
                         m_player.getPlace().getZ(), 0});
                 frame.setText("Test");
                 RenderQueue.getRenderQueue().addFrame(frame);
+
+                //detect collisions and delete colidding enemy ships
+                ArrayList<Integer> killList = new ArrayList<>();
+                for(int  i =0;i < m_activeEnemys.size();i++)
+                {
+                    if(Sphere.collides(ModelManager.getModeManager().getSphere(m_activeEnemys.get(i).getM_modelID())
+                            ,m_player.getCollisionSphere(),
+                            m_activeEnemys.get(i).getX(),
+                            m_activeEnemys.get(i).getY(),
+                            m_activeEnemys.get(i).getZ(),
+                            m_player.getPlace().getX(),
+                            m_player.getPlace().getY(),
+                            m_player.getPlace().getZ())) killList.add(i);
+
+                    if(m_activeEnemys.get(i).getZ() < 0)
+                    {
+                        killList.add(i);
+                    }
+                }
+
+                //delete enemys in the kill list
+                for(int i = 0;i < killList.size();i++)
+                {
+                    m_activeEnemys.remove(killList.size()-1-i);
+                }
             }
         }
         catch (Exception ex)
@@ -330,9 +333,9 @@ public class GameManager implements Runnable {
         }
 
         //move the sheild
-        m_playerSheild.getPlace().setX(m_player.getPlace().getX());
-        m_playerSheild.getPlace().setY(m_player.getPlace().getY());
-        m_playerSheild.getPlace().setZ(m_player.getPlace().getZ());
+        m_playerShield.getPlace().setX(m_player.getPlace().getX());
+        m_playerShield.getPlace().setY(m_player.getPlace().getY());
+        m_playerShield.getPlace().setZ(m_player.getPlace().getZ());
     }
 
     /**
@@ -433,9 +436,9 @@ public class GameManager implements Runnable {
      * returns the players sheild
      * @return the players sheild
      */
-    public Sheild getPlayerSheild()
+    public Shield getPlayerSheild()
     {
-        return m_playerSheild;
+        return m_playerShield;
     }
 
     /**
@@ -448,25 +451,7 @@ public class GameManager implements Runnable {
 
     }
 
-    /**
-     * returns the active enemy list
-     * @return the active enemy list
-     */
-    @Deprecated
-    public ArrayList<GameEnemy> getActiveEnemys()
-    {
-        return m_activeEnemys;
-    }
 
-    @Deprecated
-    /**
-     * returns the render groups directly(replaced with render queues)
-     * @return
-     */
-    public ArrayList<ArrayList<float[]>> getRenderGroups()
-    {
-        return m_render_groups;
-    }
 
 
 

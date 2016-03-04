@@ -9,6 +9,7 @@ import java.util.ArrayList;
 
 import jeremyred.spaceshooter3dproject.Activitys.LevelListActivity;
 import jeremyred.spaceshooter3dproject.Data.Model;
+import jeremyred.spaceshooter3dproject.Data.Sphere;
 
 /**
  * A class that handles the models
@@ -22,6 +23,10 @@ public class ModelManager {
      */
     private ArrayList<Model> m_models;
     /**
+     * the collision info
+     */
+    private ArrayList<Sphere> m_spheres;
+    /**
      * the public model manager
      */
     private static ModelManager m_manager;
@@ -32,6 +37,7 @@ public class ModelManager {
     private ModelManager()
     {
         m_models = new ArrayList<>();
+        m_spheres = new ArrayList<>();
 
         //load all of the models defined in metadata
         AssetManager manager = LevelListActivity.Manager;
@@ -44,8 +50,12 @@ public class ModelManager {
             while((line = br.readLine()) != null)
             {
                 Model model = new Model("Models/"+line,manager);
+                //load collision info
+                Sphere sphere = new Sphere(model.getVertices());
 
                 m_models.add(model);
+
+                m_spheres.add(sphere);
             }
         }
         catch (Exception ex)
@@ -73,6 +83,17 @@ public class ModelManager {
     {
         return m_models.get(index);
     }
+
+    /**
+     * returns the sphere at the passed in index
+     * @param index the model ID the sphere is at
+     * @return the collision sphere
+     */
+    public Sphere getSphere(int index)
+    {
+        return m_spheres.get(index);
+    }
+
 
     /**
      * returns the number of models

@@ -197,6 +197,13 @@ public class GameActivity extends Activity implements SensorEventListener {
         m_manager.unregisterListener(this);
     }
 
+    @Override
+    public void onBackPressed()
+    {
+
+        finish();
+    }
+
 
 
 }

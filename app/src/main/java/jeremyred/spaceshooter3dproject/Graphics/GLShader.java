@@ -85,68 +85,6 @@ public class GLShader {
      */
     private int m_uAddHandle;
     /**
-     * the draw type
-     */
-    private int m_uDrawType;
-    /**
-     * test bool
-     */
-    private boolean m_positionsInit = false;
-    /**
-     * test bool
-     */
-    private boolean m_normalsInit = false;
-    /**
-     * test bool
-     */
-    private boolean m_uvssInit = false;
-    /**
-     * test bool
-     */
-    private boolean m_modelInit = false;
-    /**
-     * test bool
-     */
-    private boolean m_viewInit = false;
-    /**
-     * test bool
-     */
-    private boolean m_projectionInit = false;
-    /**
-     * test bool
-     */
-    private boolean m_ambeintInit = false;
-    /**
-     * test bool
-     */
-    private boolean m_cameraInit = false;
-    /**
-     * test bool
-     */
-    private boolean m_lightDirInit = false;
-    /**
-     * test bool
-     */
-    private boolean m_specularColorInit = false;
-    /**
-     * test bool
-     */
-    private boolean m_specularPowerInit = false;
-    /**
-     * test bool
-     */
-    private boolean m_diffuseInit = false;
-    /**
-     * test bool
-     */
-    private boolean m_uAddInit = false;
-    /**
-     * test bool
-     */
-    private boolean m_textureInit = false;
-
-
-    /**
      * defualt constructor--creates a new instance of GLShader with defualt parmameters
      * @param vertexShaderAddress the address for the vertex shader
      * @param fragmentShaderAddress the address for the fragment shader
@@ -281,10 +219,6 @@ public class GLShader {
 
             GLES20.glEnable(m_uAddHandle);
 
-            //get a handle to the uDrawType data, this is used to determine the draw type in the shader
-            m_uDrawType = GLES20.glGetUniformLocation(m_program,"uDrawType");
-
-            GLES20.glEnable(m_uDrawType);
 
             GLES20.glEnable(GLES20.GL_DEPTH_TEST);
         }
@@ -304,7 +238,6 @@ public class GLShader {
     {
         GLES20.glVertexAttribPointer(m_normalHandle, Model.COORDS_PER_VERTEX, GLES20.GL_FLOAT, false,
                 Model.COORDS_PER_VERTEX * 4, normals);
-        m_normalsInit = true;
     }
 
     /**
@@ -314,7 +247,6 @@ public class GLShader {
     public void setTexture(Bitmap texture)
     {
         GLUtils.texImage2D(GLES20.GL_TEXTURE_2D, 0, texture, 0);
-        m_textureInit = true;
     }
 
     /**
@@ -324,7 +256,6 @@ public class GLShader {
     public void setTextureCoords(FloatBuffer texCoords)
     {
         GLES20.glVertexAttribPointer(m_uvHandle, 2, GLES20.GL_FLOAT, false, 2 * 4, texCoords);
-        m_uvssInit = true;
     }
 
     /**
@@ -335,7 +266,6 @@ public class GLShader {
     {
         GLES20.glVertexAttribPointer(m_positionHandle, Model.COORDS_PER_VERTEX, GLES20.GL_FLOAT,
                 false, Model.COORDS_PER_VERTEX * 4, positions);
-        m_positionsInit = true;
     }
 
 
@@ -346,7 +276,6 @@ public class GLShader {
     public void setModel(float[] model)
     {
         GLES20.glUniformMatrix4fv(m_modelHandle, 1, false, model, 0);
-        m_modelInit = true;
     }
 
     /**
@@ -356,7 +285,6 @@ public class GLShader {
     public void setView(float[] view)
     {
         GLES20.glUniformMatrix4fv(m_viewHandle,1,false,view,0);
-        m_viewInit = true;
     }
 
     /**
@@ -366,7 +294,6 @@ public class GLShader {
     public void setProjection(float[] projection)
     {
         GLES20.glUniformMatrix4fv(m_projectionHandle, 1, false, projection, 0);
-        m_projectionInit = true;
     }
 
     /**
@@ -376,7 +303,6 @@ public class GLShader {
     public void setAmbientColor(float[] ambientColor)
     {
         GLES20.glUniform4fv(m_ambientColorHandle, 1, ambientColor, 0);
-        m_ambeintInit = true;
     }
 
     /**
@@ -386,7 +312,6 @@ public class GLShader {
     public void setCameraPosition(float[] cameraPosition)
     {
         GLES20.glUniform3fv(m_cameraPosHandle, 1, cameraPosition, 0);
-        m_cameraInit = true;
     }
 
     /**
@@ -396,7 +321,6 @@ public class GLShader {
     public void setDiffuseColor(float[] diffuseColor)
     {
         GLES20.glUniform4fv(m_diffuseColor, 1, diffuseColor, 0);
-        m_diffuseInit = true;
     }
 
     /**
@@ -406,7 +330,6 @@ public class GLShader {
     public void setLightDirection(float[] lightDirection)
     {
         GLES20.glUniform3fv(m_lightDirectionHandle, 1, lightDirection, 0);
-        m_lightDirInit = true;
     }
 
     /**
@@ -416,7 +339,6 @@ public class GLShader {
     public void setSpecularPower(float specularPower)
     {
         GLES20.glUniform1f(m_specularPower, specularPower);
-        m_specularPowerInit = true;
     }
 
     /**
@@ -426,7 +348,6 @@ public class GLShader {
     public void setSpecularColor(float[] specularColor)
     {
         GLES20.glUniform4fv(m_specularColorHandle, 1, specularColor, 0);
-        m_specularColorInit = true;
     }
 
     /**
@@ -436,82 +357,7 @@ public class GLShader {
     public void setUAdd(float uAdd)
     {
         GLES20.glUniform1f(m_uAddHandle, uAdd);
-        m_uAddInit = true;
     }
-
-    /**
-     * draws the model
-     * @param modelMatrix the model matrix
-     * @param view the view matrix
-     * @param projection the projection matrix
-     * @param color the color
-     * @param model the model
-     * @param camerapos the camera position
-     * @param uAdd the uAdd value
-     */
-    public void drawModel(float[] modelMatrix,float[] view,float[] projection,float[] color,Model model,
-                          float[] camerapos,float uAdd)
-    {
-        //Add program to openGL ES enviroment
-        GLES20.glUseProgram(m_program);
-        //multiply wvp;
-        float[] MVP = new float[16];
-        Matrix.multiplyMM(MVP,0,projection,0,view,0);
-
-        Matrix.multiplyMM(MVP,0,MVP,0,modelMatrix,0);
-
-
-        //set positions
-        setPositions(model.getVertexBuffer());
-
-        //set normals
-        setNormals(model.getNormalsBuffer());
-
-        //set uvs
-        setTextureCoords(model.getUVsBuffer());
-
-        //set model matrix
-        setModel(modelMatrix);
-
-        //set view matrix
-        setView(view);
-
-        //set projection matrix
-        setProjection(projection);
-
-        //set camera position
-        setCameraPosition(camerapos);
-
-        //set the ambient color
-        float[] ac  = {0.2f,0.2f,0.2f,1f};
-        setAmbientColor(ac);
-
-        float[] dc =  {0.75f,0.75f,0.75f,1};
-        setDiffuseColor(dc);
-
-        //set light direction
-        float[] lightDir = {0,1,0};
-
-        setLightDirection(lightDir);
-
-        //set specular power
-        setSpecularPower(1);
-
-        //set specular color
-        float[] specularColor = {1,1,0,1};
-
-        setSpecularColor(specularColor);
-
-        //set uAdd
-        setUAdd(uAdd);
-
-        //set bitmap
-        setTexture(model.getBitmap());
-
-        //Draw the model
-        GLES20.glDrawArrays(GLES20.GL_TRIANGLES, 0, model.getVertexCount());
-    }
-
     /**
      * loads the shader
      * @param type the type of shader

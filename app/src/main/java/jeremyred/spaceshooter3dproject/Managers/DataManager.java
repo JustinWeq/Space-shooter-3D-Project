@@ -25,7 +25,7 @@ public class DataManager {
     /**
      * indicates the number of levelLists created
      */
-    private int nextListLevel;
+    private int m_nextListLevel;
 
     /**
      * defualt contructor creates a new instance of DataManager with overloaded
@@ -46,6 +46,7 @@ public class DataManager {
         {
             ex.printStackTrace();
         }
+        m_nextListLevel = 0;
 
     }
 
@@ -70,5 +71,21 @@ public class DataManager {
     public ArrayList<Level> getLevelList()
     {
         return  levelList;
+    }
+
+    /**
+     * returns the next level in the list of levels
+     * @return the next level in the list, if there is no next level available it returns null
+     */
+    public Level getNextLevel()
+    {
+        m_nextListLevel++;
+        if(m_nextListLevel+1 > levelList.size())
+        {
+            m_nextListLevel = 0;
+            return null;
+        }
+
+        return levelList.get(m_nextListLevel);
     }
 }

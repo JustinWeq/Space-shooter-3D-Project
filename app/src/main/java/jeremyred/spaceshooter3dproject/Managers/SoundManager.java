@@ -34,7 +34,6 @@ public class SoundManager {
         m_player.start();
         m_player.setLooping(true);
         m_player.setVolume(GameSettings.getGameSettings().getMusicVolume(),GameSettings.getGameSettings().getMusicVolume());
-        int test = 4;
     }
 
     /**

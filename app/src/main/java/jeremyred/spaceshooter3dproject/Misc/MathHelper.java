@@ -51,4 +51,26 @@ public  class MathHelper {
 
     }
 
+    /**
+     * used to convert a numerical value to a boolean
+     * @param value the value to convert to a bool
+     * @return the bool value
+     */
+    public static boolean BOOL(double value)
+    {
+        return (value > 0);
+    }
+
+    /**
+     * used to convert a boolean to a integer
+     * @param value the value to convert to a int
+     * @return the value as an integer
+     */
+    public static int INT(boolean value)
+    {
+        if(value)
+            return 1;
+        return 0;
+    }
+
 }

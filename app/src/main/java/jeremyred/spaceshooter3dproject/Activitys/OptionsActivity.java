@@ -6,18 +6,29 @@ import android.view.View;
 import jeremyred.spaceshooter3dproject.Fragments.ControlsOptionsFragment;
 import jeremyred.spaceshooter3dproject.Fragments.DataOptionsFragment;
 import jeremyred.spaceshooter3dproject.Fragments.GraphicsOptionsFragment;
+import jeremyred.spaceshooter3dproject.MainMenuActivity;
+import jeremyred.spaceshooter3dproject.Managers.DataBaseHelper;
 import jeremyred.spaceshooter3dproject.R;
 import jeremyred.spaceshooter3dproject.Fragments.SoundOptionsFragment;
 
 /**
- * Created by jeremy on 2/9/2016.
+ * The actvity that manages options
+ * @author jeremy red
+ * @version 3/4/2016
  */
 public class OptionsActivity extends FragmentActivity
 {
 
 
+    /**
+     * the selected tab
+     */
     private int m_tab = -1;
-    @Override
+
+    /**
+     * called upon creation
+     * @param savedInstanceState the last saved instance
+     */
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -42,7 +53,10 @@ public class OptionsActivity extends FragmentActivity
         m_tab = 0;
     }
 
-
+    /**
+     * called on the graphics button being clicked
+     * @param view the view
+     */
     public void onClickGraphics(View view) {
 
         if(m_tab != 0)
@@ -56,6 +70,10 @@ public class OptionsActivity extends FragmentActivity
 
     }
 
+    /**
+     * called on the sound button being clicked
+     * @param view the view
+     */
     public void onClickSound(View view) {
         if(m_tab != 1)
         {
@@ -67,6 +85,10 @@ public class OptionsActivity extends FragmentActivity
         }
     }
 
+    /**
+     * called on the input button being clicked
+     * @param view the view
+     */
     public void onClickInput(View view) {
         if(m_tab != 2)
         {
@@ -78,6 +100,10 @@ public class OptionsActivity extends FragmentActivity
         }
     }
 
+    /**
+     * called on the data button being clicked
+     * @param view the view
+     */
     public void onClickData(View view) {
         if(m_tab != 3)
         {
@@ -89,8 +115,13 @@ public class OptionsActivity extends FragmentActivity
         }
     }
 
+    /**
+     * called on the save button being clicked
+     * @param view the view
+     */
     public void onClickSave(View view) {
         //go back to parent
+        MainMenuActivity.DB.updateSave();
         finish();
     }
 

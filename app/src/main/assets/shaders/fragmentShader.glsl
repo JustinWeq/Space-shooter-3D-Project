@@ -1,16 +1,11 @@
 precision mediump float;
+uniform vec3 specularPower;
 uniform sampler2D uTexture;
 uniform vec4 ambientColor;
 uniform vec4 diffuseColor;
-uniform mat4 uMMatrix;
-uniform vec3 uCameraPosition;
 uniform vec3 lightDirection;
-uniform float specularPower;
-uniform vec4 specularColor;
-uniform float uAdd;
 varying vec4 vNormal;
 varying vec2 vTexCoord;
-varying vec4 viewDirection;
 void main() 
 {
 		vec4 textureColor;
@@ -18,7 +13,8 @@ void main()
 		vec3 lightDir;
 		float lightIntensity;
 		vec2 newTex = vTexCoord;
-		newTex.y = vTexCoord.y+uAdd;
+		newTex.x += specularPower.x;
+
 
 		textureColor = texture2D(uTexture,vTexCoord);
 

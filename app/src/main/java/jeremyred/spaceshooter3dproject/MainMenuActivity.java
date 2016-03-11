@@ -14,6 +14,7 @@ import jeremyred.spaceshooter3dproject.Activitys.ControlsActivity;
 import jeremyred.spaceshooter3dproject.Activitys.InfoActivity;
 import jeremyred.spaceshooter3dproject.Activitys.LevelListActivity;
 import jeremyred.spaceshooter3dproject.Activitys.OptionsActivity;
+import jeremyred.spaceshooter3dproject.Managers.DataBaseHelper;
 import jeremyred.spaceshooter3dproject.Managers.GameSettings;
 import jeremyred.spaceshooter3dproject.R;
 
@@ -24,6 +25,7 @@ public class MainMenuActivity extends Activity {
 
     public static AssetManager MANAGER;
     private static int m_screenWidth;
+    public static DataBaseHelper DB;
     private static int m_screenHeight;
     public void onCreate(Bundle savedInstanceID)
     {
@@ -38,6 +40,9 @@ public class MainMenuActivity extends Activity {
         getWindowManager().getDefaultDisplay().getSize(size);
         m_screenWidth = size.x;
         m_screenHeight = size.y;
+
+        //load the data base
+        DB = new DataBaseHelper(this);
 
     }
 

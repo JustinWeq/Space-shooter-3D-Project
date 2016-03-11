@@ -67,6 +67,12 @@
             android:theme="@style/AppTheme"
             android:parentActivityName=".MainMenuActivity"/>
 
+        <activity android:name=".Activitys.LevelFinishActivity"
+            android:label="Finish"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme"
+            android:parentActivityName=".MainMenuActivity"></activity>
+
     </application>
 
 </manifest>

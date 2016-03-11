@@ -11,7 +11,9 @@ import java.util.concurrent.Semaphore;
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import jeremyred.spaceshooter3dproject.Activitys.GameActivity;
 import jeremyred.spaceshooter3dproject.Activitys.LevelListActivity;
+import jeremyred.spaceshooter3dproject.Data.Level;
 import jeremyred.spaceshooter3dproject.Managers.GameManager;
 import jeremyred.spaceshooter3dproject.Managers.GameSettings;
 import jeremyred.spaceshooter3dproject.Data.Model;
@@ -67,6 +69,20 @@ public class GLRenderer implements GLSurfaceView.Renderer {
      */
     private FontShader m_fontShader;
 
+    /**
+     * the parent of the GLRenderer
+     */
+    private GameActivity m_parent;
+
+    /**
+     * overloaded contructor creates a new instance of GLRednerer with overloaded parameters
+     * @param parent the parent of the GLRenderer
+     */
+    public GLRenderer(GameActivity parent)
+    {
+        super();
+        m_parent = parent;
+    }
 
     @Override
     /**
@@ -80,7 +96,6 @@ public class GLRenderer implements GLSurfaceView.Renderer {
 
         GLES20.glEnable(GLES20.GL_DEPTH_TEST);
 
-        player = new Player();
         m_effectShader = new LaserShader();
 
 
@@ -194,40 +209,23 @@ public class GLRenderer implements GLSurfaceView.Renderer {
                 }
             }
 
-            //prepare to render the font
-            String text = frame.getText();
-            m_text.setText(frame.getText());
+            //draw the floor
+            m_shader.setModelAttributes(frame.getFloor().getModel());
 
-            float[] world = new float[16];
-            Matrix.setIdentityM(world,0);
-            Matrix.translateM(world,0,world,0,0,0,2);
+            m_shader.setTexture(frame.getFloor().getModel().getBitmap());
 
-            float[] ortho = new float[16];
+            m_shader.setModel(frame.getFloor().getMatrix());
 
-            //set up ortho graphic matrix
-            Matrix.orthoM(ortho, 0, -m_screenWidth / 2, m_screenWidth / 2, -m_screenHeight / 2
-                    , m_screenHeight / 2, 0, 10);
+            m_shader.setUAdd(frame.getFloor().getAdvanceX());
 
-            float[] mvp = new float[16];
-            Matrix.multiplyMM(mvp, 0, ortho, 0, view, 0);
+            m_shader.drawPreparedModel(frame.getFloor().getModel().getVertexCount());
 
-            Matrix.multiplyMM(mvp, 0, world, 0, mvp, 0);
+            //check level finish quit
+            if(frame.getShouldNext()) {
+                //finish the level
+                m_parent.next(frame.getGameOver());
 
-
-            //place the matrix in the shader
-           // m_fontShader.setMVP(mvp);
-
-            //set the texture
-            m_fontShader.setTexture(m_text.getBitmap());
-
-            //set positions
-            m_fontShader.setPositions(m_text.getVertexBuffer());
-
-            //set uvs
-            m_fontShader.setTextureCoords(m_text.getUVBuffer());
-
-            //render the text
-           // m_fontShader.drawPreparedModel(6);
+            }
 
         }
         catch (Exception ex)

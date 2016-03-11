@@ -215,9 +215,9 @@ public class GLShader {
             GLES20.glEnable(m_specularColorHandle);
 
             //get a handle to the uAdd value
-            m_uAddHandle = GLES20.glGetUniformLocation(m_program,"uAdd");
+            m_uAddHandle = GLES20.glGetUniformLocation(m_program,"add");
 
-            GLES20.glEnable(m_uAddHandle);
+            GLES20.glEnable(0);
 
 
             GLES20.glEnable(GLES20.GL_DEPTH_TEST);
@@ -356,7 +356,7 @@ public class GLShader {
      */
     public void setUAdd(float uAdd)
     {
-        GLES20.glUniform1f(m_uAddHandle, uAdd);
+        GLES20.glUniform1f(0, uAdd);
     }
     /**
      * loads the shader

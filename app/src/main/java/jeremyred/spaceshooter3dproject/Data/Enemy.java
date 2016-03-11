@@ -45,6 +45,11 @@ public class Enemy {
      */
     private float m_execution;
 
+    /**
+     * the speed of the enemy
+     */
+    private float m_speed;
+
     //contructors
 
     /**
@@ -55,6 +60,7 @@ public class Enemy {
         //set defualt values
         m_rateOfFire = m_damage = m_HP = m_x = m_y = m_z = m_modelID = 0;
         m_name = "enemy";
+        m_speed = 1;
     }
 
     /**
@@ -82,7 +88,23 @@ public class Enemy {
         //store
     }
 
-    //misc public method
+    /**
+     * copy constructor- creates a new instance of Enemy with copied parameters
+     * @param other the enemy to copy from
+     */
+    public Enemy(Enemy other)
+    {
+        m_damage = other.getDamage();
+        m_execution = other.getExection();
+        m_HP = other.getHP();
+        m_modelID =(short) other.getModelID();
+        m_name = other.getName();
+        m_damage = other.getRateOfFire();
+        m_x = other.getX();
+        m_y = other.getY();
+        m_z = other.getZ();
+        m_speed = other.getSpeed();
+    }
 
     /**
      * returns the hp of the enemy
@@ -321,5 +343,22 @@ public class Enemy {
         m_modelID =(short) modelID;
     }
 
+    /**
+     * sets the speed of the enemy
+     * @param speed the speed to set the enemy to
+     */
+    public void setSpeed(float speed)
+    {
+        m_speed = speed;
+    }
+
+    /**
+     * returns the speed of the enemy
+     * @return
+     */
+    public float getSpeed()
+    {
+        return m_speed;
+    }
 
 }

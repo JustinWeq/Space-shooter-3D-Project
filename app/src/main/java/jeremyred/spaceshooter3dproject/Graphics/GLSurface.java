@@ -8,8 +8,10 @@ import android.opengl.GLSurfaceView;
 import android.view.InputDevice;
 import android.view.MotionEvent;
 
+import jeremyred.spaceshooter3dproject.Activitys.GameActivity;
 import jeremyred.spaceshooter3dproject.Graphics.GLConfig;
 import jeremyred.spaceshooter3dproject.Graphics.GLRenderer;
+import jeremyred.spaceshooter3dproject.Managers.GameManager;
 
 /**
  * a class tha manges the games drawing
@@ -34,7 +36,7 @@ public class GLSurface extends GLSurfaceView{
      * overloaded constructor creates a new instance of GLSurface with overloaded parameters
      * @param context the context
      */
-    public GLSurface(Context context)
+    public GLSurface(GameActivity context)
     {
         super(context);
 
@@ -42,7 +44,7 @@ public class GLSurface extends GLSurfaceView{
         setEGLContextClientVersion(2);
         setEGLConfigChooser(configChooser =new GLConfig());
 
-        m_renderer = new GLRenderer();
+        m_renderer = new GLRenderer(context);
         //Set the renderer for drawing the surface view
         setRenderer(m_renderer);
         setRenderMode(GLSurfaceView.RENDERMODE_CONTINUOUSLY);

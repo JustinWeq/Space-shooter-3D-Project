@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Level finished"
-        android:id="@+id/textView"
+        android:id="@+id/lblFinish"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.04"
         android:textColor="@color/colorYellow"/>

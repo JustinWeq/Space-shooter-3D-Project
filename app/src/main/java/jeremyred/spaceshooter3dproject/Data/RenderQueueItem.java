@@ -35,6 +35,20 @@ public class RenderQueueItem {
     private String m_text;
 
     /**
+     * indicates whether the level should move on or not
+     */
+    private boolean m_shouldNext;
+
+    /**
+     * a boolean indicating whether the player passed or failed the level
+     */
+    private boolean m_gameOver;
+
+    /**
+     * the floor of the game
+     */
+    private Floor m_floor;
+    /**
      * default constructor-- creates a new instance of RenderQueueItem with default parameters
      */
     public RenderQueueItem()
@@ -44,6 +58,9 @@ public class RenderQueueItem {
         {
             m_renderGroups.add(new ArrayList<float[]>());
         }
+        //set the should next to the default(false)
+        m_shouldNext = false;
+        m_gameOver = false;
     }
 
     /**
@@ -149,6 +166,44 @@ public class RenderQueueItem {
     public String getText()
     {
         return m_text;
+    }
+
+    /**
+     * sets whether the game should go to the next level or not
+     * @param shouldNext the value indicating whether the game should go to the next level or not
+     */
+    public void setShouldNext(boolean  shouldNext)
+    {
+        this.m_shouldNext = shouldNext;
+    }
+
+    /**
+     * returns whether the game should go to the next level or not
+     * @return
+     */
+    public boolean getShouldNext()
+    {
+        return m_shouldNext;
+    }
+
+    public void setGameOver(boolean gameOver)
+    {
+        m_gameOver = gameOver;
+    }
+
+    public boolean getGameOver()
+    {
+        return m_gameOver;
+    }
+
+    public void setFloor(Floor floor)
+    {
+        m_floor = floor;
+    }
+
+    public Floor getFloor()
+    {
+        return m_floor;
     }
 
 

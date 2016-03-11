@@ -41,7 +41,7 @@ public class GameManager implements Runnable {
     /**
      * the regular frame rate
      */
-    private static final float regFrameRate = 1000f/60f;
+    private static final float regFrameRate = 1000f/65f;
     /**
      * the game time
      */
@@ -101,6 +101,12 @@ public class GameManager implements Runnable {
 
 
     /**
+     * a  boolean indicating whether the game manager is running or not on the thread
+     */
+    private boolean  m_isRunnning = false;
+
+
+    /**
      * defualt constructor, creates a new instance of GameManager with default parameters
      */
     public GameManager()
@@ -146,8 +152,7 @@ public class GameManager implements Runnable {
      * runs the game logic
      */
     public void run() {
-
-
+        m_isRunnning = true;
         //start playing the game music
         //m_render_groups = new ArrayList<>(Level.CurrentLevel.get);
 
@@ -155,6 +160,7 @@ public class GameManager implements Runnable {
         //run the GameLoop
         GameLoop();
 
+        m_isRunnning = false;
 
     }
 
@@ -164,17 +170,23 @@ public class GameManager implements Runnable {
      */
     public void setLevel(Level level)
     {
-
+        pause();
         //change the enemy list
         m_toBeEnemyList.clear();
         Level nlevel = level;
         for(int i = 0;i < nlevel.getListOfEnemys().size();i++)
         {
-            m_toBeEnemyList.add(nlevel.getListOfEnemys().get(i));
+            m_toBeEnemyList.add(new Enemy(nlevel.getListOfEnemys().get(i)));
         }
-
+        playerSpeed = level.getSpeed();
         m_activeEnemys.clear();
+        m_playerZ = 10;
 
+        //reset the players pos
+        m_player.getPlace().setX(0);
+        m_player.getPlace().setY(0);
+        m_enemyIndex = 0;
+        unPause();
     }
 
     int temp = 0;
@@ -226,6 +238,7 @@ public class GameManager implements Runnable {
                         nenemy.setY(tobeEnemy.getY());
                         nenemy.setZ(tobeEnemy.getZ());
                         nenemy.setRotX(180);
+                        nenemy.setSpeed(tobeEnemy.getSpeed());
                         nenemy.setModelID(tobeEnemy.getModelID());
                         m_activeEnemys.add(nenemy);
                         m_enemyIndex++;
@@ -234,7 +247,7 @@ public class GameManager implements Runnable {
 
 
                 for (int i = 0; i < m_activeEnemys.size(); i++) {
-                    m_activeEnemys.get(i).setZ(m_activeEnemys.get(i).getZ() - ((playerSpeed / 10) * m_gameTime));
+                    m_activeEnemys.get(i).setZ(m_activeEnemys.get(i).getZ() - (playerSpeed * m_gameTime*m_activeEnemys.get(i).getSpeed()));
                 }
 
                 //clear previous render groups
@@ -254,9 +267,9 @@ public class GameManager implements Runnable {
 
                 frame.copyPlayerMatrix(m_player.getPlace().getMatrix());
                 frame.setPlayerPos(new float[]{m_player.getPlace().getX(), m_player.getPlace().getY(),
-                        m_player.getPlace().getZ(), 0});
+                        m_player.getPlace().getZ(), m_playerZ});
                 frame.setText("Test");
-                RenderQueue.getRenderQueue().addFrame(frame);
+
 
                 //detect collisions and delete colidding enemy ships
                 ArrayList<Integer> killList = new ArrayList<>();
@@ -269,7 +282,12 @@ public class GameManager implements Runnable {
                             m_activeEnemys.get(i).getZ(),
                             m_player.getPlace().getX(),
                             m_player.getPlace().getY(),
-                            m_player.getPlace().getZ())) killList.add(i);
+                            m_player.getPlace().getZ()))
+                    {
+                        //killList.add(i);
+                        frame.setShouldNext(true);
+                        frame.setGameOver(true);
+                    }
 
                     if(m_activeEnemys.get(i).getZ() < 0)
                     {
@@ -282,6 +300,14 @@ public class GameManager implements Runnable {
                 {
                     m_activeEnemys.remove(killList.size()-1-i);
                 }
+
+                if(m_playerZ > Level.CurrentLevel.getEnd())
+                {
+                    frame.setShouldNext(true);
+                }
+
+                frame.setFloor(m_floor);
+                RenderQueue.getRenderQueue().addFrame(frame);
             }
         }
         catch (Exception ex)
@@ -296,9 +322,10 @@ public class GameManager implements Runnable {
     private void handlePlayerInput()
     {
         float dx,dy;
+        float sensitivity = 100/GameSettings.getGameSettings().getControllerSensitivity();
         if(GameSettings.getGameSettings().getControllerEnabled()) {
-            dx = GameActivity.X1;
-            dy = GameActivity.Y1;
+            dx = GameActivity.X1*sensitivity;
+            dy = GameActivity.Y1*sensitivity;
         }
         else {
             dx = GameActivity.AxisX;
@@ -449,6 +476,15 @@ public class GameManager implements Runnable {
     {
         return m_playerSphere;
 
+    }
+
+    /**
+     * returns a boolean that indicates whether the game is running or not
+     * @return is running bool
+     */
+    public boolean isRunning()
+    {
+        return m_isRunnning;
     }
 
 

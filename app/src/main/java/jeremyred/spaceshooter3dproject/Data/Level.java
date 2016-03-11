@@ -6,11 +6,12 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Random;
 
 import jeremyred.spaceshooter3dproject.Activitys.LevelListActivity;
 
 /**
- * a simple class that contains mehods and propertys for storing basic level data
+ * a simple class that contains methods and propertys for storing basic level data
  * @author jeremy red
  * @version 2/23/2016
  */
@@ -67,6 +68,16 @@ public class Level {
      * the current level the game is on
      */
     public static Level CurrentLevel;
+
+    /**
+     * the end of the level
+     */
+    private float m_end;
+
+    /**
+     * the speed of the player
+     */
+    private float m_playerSpeed;
 
     /**
      * overloaded constructor, creates a new instance of Level with overloaded parameters
@@ -164,9 +175,7 @@ public class Level {
                         {
                             enemy.setExectution(Float.parseFloat(args[1]));
                         }
-
                     }
-
                     //add the enemy to the list of enemys
                     m_enemys.add(enemy);
                 }
@@ -190,9 +199,113 @@ public class Level {
                         m_difficulty = LevelDifficulty.HARD;
                     }
                 }
+                else if(args[0].toUpperCase().equals("FINISH"))
+                {
+                    if(args[1].toUpperCase().equals("LAST_ENEMY"))
+                    {
+                        if(args.length > 2)
+                        {
+                            m_end = m_enemys.get(m_enemys.size()-1).getExection()+Integer.parseInt(args[2]);
+                        }
+                        else
+                        {
+                            m_end = m_enemys.get(m_enemys.size()-1).getExection();
+                        }
+                    }
+                    else
+                    m_end = Float.parseFloat(args[1]);
+                }
+                else if(args[0].toUpperCase().equals("PLAYER_SPEED"))
+                {
+                    m_playerSpeed = Float.parseFloat(args[1]);
+                }
+                else if(args[0].toUpperCase().equals("STREAM"))
+                {
+                    float exectuionTime=0;
+                    int streamCount = 0;
+                    int streamExecution = 0;
+                    int seed = 0;
+                    boolean random = false;
+                    ArrayList<Enemy> chanceEnemys = new ArrayList<>();
+                    while(!(line = br.readLine()).toUpperCase().equals("END"))
+                    {
+                        //split args
+                        args = line.split(" ");
+                        if(args[0].toUpperCase().equals("EXECUTION"))
+                        {
+                            exectuionTime = Float.parseFloat(args[1]);
+                        }
+                        else if(args[0].toUpperCase().equals("STREAM_COUNT"))
+                        {
+                            streamCount = Integer.parseInt(args[1]);
+                        }
+                        else if(args[0].toUpperCase().equals("STREAM_EXECUTION"))
+                        {
+                            streamExecution = Integer.parseInt(args[1]);
+                        }
+                        else if(args[0].toUpperCase().equals("CHANCE"))
+                        {
+                            Enemy nenemy = new Enemy();
+                            while(!(line = br.readLine()).toUpperCase().equals("END"))
+                            {
+                                args = line.split(" ");
+                                if(args[0].toUpperCase().equals("MODEL"))
+                                {
+                                    nenemy.setModelID(Integer.parseInt(args[1]));
+                                }
+                                else if(args[0].toUpperCase().equals("X"))
+                                {
+                                    nenemy.setX(Integer.parseInt(args[1]));
+                                }
+                                else if(args[0].toUpperCase().equals("Y"))
+                                {
+                                    nenemy.setY(Integer.parseInt(args[1]));
+                                }
+                                else if(args[0].toUpperCase().equals("Z"))
+                                {
+                                    nenemy.setZ(Integer.parseInt(args[1]));
+                                }
+                                else if(args[0].toUpperCase().equals("SPEED"))
+                                {
+                                    nenemy.setSpeed(Float.parseFloat(args[1]));
+                                }
+                            }
+                            chanceEnemys.add(nenemy);
+                        }
+                        else if(args[0].toUpperCase().equals("SEED"))
+                        {
+                            if(args[1].toUpperCase().equals("RANDOM"))
+                            {
+                                random = true;
+                            }
+                            else
+                            {
+                                seed = Integer.parseInt(args[1]);
+                            }
+                        }
+                    }
 
+                    //now all of the stream info is read in start generating
 
+                    for(int i = 0;i < streamCount;i++)
+                    {
+                        Random r;
+                        if(random)
+                        {
+                            r = new Random();
+                        }
+                        else
+                        {
+                            r = new Random(seed+(i*7));
+                        }
 
+                        int selection = r.nextInt(chanceEnemys.size());
+                        Enemy nenemy = new Enemy(chanceEnemys.get(selection));
+                        float exeTime = exectuionTime+(streamExecution*i);
+                        nenemy.setExectution(exeTime);
+                        m_enemys.add(nenemy);
+                    }
+                }
             }
         }
         catch (Exception ex)
@@ -323,6 +436,24 @@ public class Level {
      */
     public int getNumberOfModels(){
         return m_models.size();
+    }
+
+    /**
+     * returns the end of the level
+     * @return the end pf the level
+     */
+    public float getEnd()
+    {
+        return m_end;
+    }
+
+    /**
+     * returns the players speed for the level
+     * @return the players speed
+     */
+    public float getSpeed()
+    {
+        return m_playerSpeed;
     }
 
 

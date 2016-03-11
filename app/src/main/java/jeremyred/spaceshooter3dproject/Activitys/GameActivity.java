@@ -2,6 +2,7 @@ package jeremyred.spaceshooter3dproject.Activitys;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
@@ -23,6 +24,12 @@ import jeremyred.spaceshooter3dproject.Managers.SoundManager;
  * @version 3/1/2016
  */
 public class GameActivity extends Activity implements SensorEventListener {
+
+    /**
+     * the thread the game runs on, can be used to close the thread
+     */
+    private Thread m_gameThread;
+
     /**
      * the view surface that the game is rendererd too
      */
@@ -70,16 +77,16 @@ public class GameActivity extends Activity implements SensorEventListener {
         GameManager.getGameManager();
         GameManager.getGameManager().setLevel(Level.CurrentLevel);
 
-        Thread thread = new Thread(GameManager.getGameManager());
-        thread.start();
+        if(!GameManager.getGameManager().isRunning()) {
+            m_gameThread = new Thread(GameManager.getGameManager());
+            m_gameThread.start();
+        }
 
-        //handler.postAtFrontOfQueue(GameManager.getGameManager());
         m_manager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
         m_sensor = m_manager.getDefaultSensor(Sensor.TYPE_ROTATION_VECTOR);
         SoundManager.getSoundManager(this).play();
 
         MainGameActivity = this;
-
     }
 
     /**
@@ -180,7 +187,7 @@ public class GameActivity extends Activity implements SensorEventListener {
     }
 
     /**
-     * called upon resum of the game activity
+     * called upon resume of the game activity
      */
     protected void onResume()
     {
@@ -197,12 +204,26 @@ public class GameActivity extends Activity implements SensorEventListener {
         m_manager.unregisterListener(this);
     }
 
-    @Override
+    /**
+     * called upon the back button being pressed on the device
+     */
     public void onBackPressed()
     {
-
         finish();
     }
+
+    /**
+     * called to go to the finish activity
+     */
+    public void next(boolean gameover)
+    {
+        Intent intent = new Intent(this,LevelFinishActivity.class);
+        intent.putExtra(LevelFinishActivity.GAME_OVER,gameover);
+        startActivity(intent);
+
+    }
+
+
 
 
 
